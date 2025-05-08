@@ -1,0 +1,77 @@
+{
+  "dashbord": {
+    "icon": "<MdDashboard />",
+    "name": "Dashboard",
+    "link": "/dashboard",
+    "active": false
+  },
+
+  "users": {
+    "icon": "<FaUsers />",
+    "name": "Users",
+    "link": "",
+    "active": true,
+    "childLinks": [
+      {
+        "icon": "<IoDiamondSharp />",
+        "name": "All users",
+        "link": "/users",
+        "active": true
+      },
+      {
+        "icon": "<IoDiamondSharp />",
+        "name": "Landlords",
+        "link": "/landlords",
+        "active": false
+      },
+      {
+        "icon": "<IoDiamondSharp />",
+        "name": "Our staffs users",
+        "link": "/staffs",
+        "active": false
+      }
+    ]
+  },
+
+  "ourOffices": {
+    "icon": "<ImOffice />",
+    "name": "Our offices",
+    "link": "/offices",
+    "active": false
+  },
+
+  "settings": {
+    "icon": "<FaScrewdriverWrench />",
+    "name": "Settings",
+    "link": "/settings",
+    "active": false
+  },
+
+  "payments": {
+    "icon": "<MdPayment />",
+    "name": "Payments",
+    "link": "",
+    "active": false,
+    "childLinks": [
+      {
+        "icon": "<IoDiamondSharp />",
+        "name": "Subscription fees",
+        "link": "/subscription",
+        "active": false
+      },
+      {
+        "icon": "<IoDiamondSharp />",
+        "name": "Broker fees",
+        "link": "/broker",
+        "active": false
+      }
+    ]
+  },
+
+  "activityLogs": {
+    "icon": "<RxActivityLog />",
+    "name": "Activity Logs",
+    "link": "/logs",
+    "active": false
+  }
+}

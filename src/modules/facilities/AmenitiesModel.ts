@@ -1,0 +1,32 @@
+export interface AmenitiesModel {
+  facility?: { facilityId: number };
+  amenityId?: number;
+  parking?: string;
+  water?: string;
+  electricity?: string;
+  wifi?: string;
+  standByGenerator?: boolean;
+  elevator?: boolean;
+  surveillanceCameras?: boolean;
+  securityGuard?: boolean;
+  cabelInternet?: string;
+  washRoom?: string;
+  airportTransport?: string;
+  gym?: string;
+  breakFast?: string;
+  swimmingPool?: string;
+  hostelShuttle?: string;
+  conferenceSpace?: string;
+  canteen?: string;
+  clinic?: string;
+  studyRoom?: string;
+  communityRoom?: string;
+  meetingSpace?: string;
+  eventsSpace?: string;
+  restaurant?: string;
+  barAndLounge?: string;
+  dateCreated?: string;
+  lastUpdated?: string;
+  airConditioner?: boolean;
+  fenced?: boolean;
+}

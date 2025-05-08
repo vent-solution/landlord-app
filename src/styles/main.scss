@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./colors.scss";
+
+* {
+  font-size: 99%;
+  padding: 0%;
+  margin: 0;
+  font-family: "Poppins";
+}
+
+input,
+select {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 5px 10px;
+  color: black;
+}
+
+label > span {
+  color: red;
+}
+
+table {
+  tr {
+    td {
+      padding: 20px;
+      border: 1px solid #efefef;
+    }
+  }
+}
+
+.user {
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+Link.navLink {
+  display: none;
+  font-weight: 800;
+}
+
+.sideBar {
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgb(23 37 84 / var(--tw-bg-opacity));
+    border-radius: 20px;
+    padding: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+    border-radius: 20px;
+  }
+}
+
+tr {
+  td {
+    padding: 20px;
+    color: rgba($color: #000000, $alpha: 1);
+  }
+  td.actions {
+    $varbg: rgb(23 37 84);
+    background-color: rgba($color: $varbg, $alpha: 0.5);
+    color: white;
+    visibility: hidden;
+  }
+  &:hover {
+    td {
+      color: rgba($color: #000000, $alpha: 0.8);
+    }
+    td.actions {
+      // $varbg: rgb(23 37 84);
+      // background-color: rgba($color: $varbg, $alpha: 0.5);
+      color: white;
+      visibility: visible;
+    }
+  }
+}
+
+.login-form,
+.signup-form {
+  $varbg: rgb(23 37 84);
+  background-color: rgba($color: $varbg, $alpha: 0);
+
+  .login-form-inner {
+    $varbg: rgb(23 37 84);
+    background-color: rgba($color: $varbg, $alpha: 0.85);
+    // box-shadow: 0px 0px 60px 10px rgb(69 10 10);
+  }
+}
+
+.form-group {
+  label {
+    font-size: 11pt;
+  }
+
+  input {
+    border: 2px white solid;
+  }
+
+  small {
+    visibility: hidden;
+    font-size: 12px;
+  }
+
+  small.visible {
+    visibility: visible;
+  }
+}
+
+.form-group.required {
+  input,
+  textarea,
+  select {
+    border: 1px red solid;
+  }
+}
+
+.alert-overlay {
+  $varbg: rgb(23 37 84);
+  background-color: rgba($color: $varbg, $alpha: 0.2);
+}
+
+.filter-form-overlay {
+  $varbg: rgb(23 37 84);
+  background-color: rgba($color: $varbg, $alpha: 0.5);
+}
+
+ul {
+  li.active {
+    // border-bottom: red 5px solid;
+    background-color: #efefef;
+  }
+}
+
+.custom-tooltip {
+  box-shadow: 0 0 20px black;
+}
+
+/* Preloader.css */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff; /* Background color of the preloader */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Ensure it's on top of everything else */
+}
+
+.cube {
+  width: 50px;
+  height: 50px;
+  transform-style: preserve-3d;
+  animation: rotateCube 3.5s infinite linear;
+}
+
+.side {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgb(23 37 84);
+  border: 2px solid #fff;
+  box-sizing: border-box;
+}
+
+.side1 {
+  transform: rotateY(0deg) translateZ(25px);
+}
+.side2 {
+  transform: rotateY(90deg) translateZ(25px);
+}
+.side3 {
+  transform: rotateY(180deg) translateZ(25px);
+}
+.side4 {
+  transform: rotateY(-90deg) translateZ(25px);
+}
+.side5 {
+  transform: rotateX(90deg) translateZ(25px);
+}
+.side6 {
+  transform: rotateX(-90deg) translateZ(25px);
+}
+
+@keyframes rotateCube {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+// TESTING THE COUNTRY LIST
+/* src/CountryList.css */
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.country-card {
+  background: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.country-card:hover {
+  transform: scale(1.05);
+}
+
+.country-flag {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}

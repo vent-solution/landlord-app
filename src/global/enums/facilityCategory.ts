@@ -1,0 +1,16 @@
+export enum facilityCategory {
+  arcade = "arcade",
+  mall = "mall",
+  apartmentBuilding = "apartmentBuilding",
+  villa = "villa",
+  manssion = "manssion",
+  hotel = "hotel",
+  hostel = "hostel",
+  lodge = "lodge",
+  rentalBuilding = "rentalBuilding",
+  officeBuilding = "officeBuilding",
+  motel = "motel",
+  guestHouse = "guestHouse",
+  market = "market",
+  others = "others",
+}
