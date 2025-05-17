@@ -12,7 +12,7 @@ class WebSocketService {
   }[] = [];
 
   constructor() {
-    this.socketUrl = "http://localhost:1000/ws";
+    this.socketUrl = `${process.env.REACT_APP_SOCKET_URL}`;
 
     // Initialize STOMP Client
     this.stompClient = new Client({

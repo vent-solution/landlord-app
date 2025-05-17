@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Preloader from "../other/Preloader";
 import { LandlordCreationModel } from "./auth/landlordModel";
@@ -39,6 +39,8 @@ const LandingPage: React.FC<Props> = () => {
 
   const [isShowLandlordForm, setIsShowLandlordForm] = useState(false);
 
+  const navigate = useNavigate();
+
   // fetch current logged in user
   useEffect(() => {
     setLandlord((prev: any) => ({
@@ -51,7 +53,7 @@ const LandingPage: React.FC<Props> = () => {
         const result = await fetchData(`/fetch-current-user/${userId}`);
 
         if (!result) {
-          window.location.href = "http://localhost:3000";
+          window.location.href = "/";
           return;
         }
 
@@ -79,7 +81,7 @@ const LandingPage: React.FC<Props> = () => {
             setIsShowLandlordForm(true);
             return;
           } else {
-            window.location.href = `/dashboard`;
+            navigate(`/dashboard`);
           }
         }
       } catch (error) {

@@ -20,10 +20,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <Routes>
-          <Route path="/*" element={<App />} />
-        </Routes>
+      <Router basename="/landlord">
+        <App />
       </Router>
     </Provider>
   </React.StrictMode>
