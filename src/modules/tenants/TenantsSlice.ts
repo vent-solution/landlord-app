@@ -43,12 +43,17 @@ export const fetchLandlordTenants = createAsyncThunk(
         `/fetch-landlord-tenants/${facilityIDs}/${page}/${size}`
       );
 
+      if (!result) {
+        return initialState;
+      }
+
       if (
         (result.data.status && result.data.status !== "OK") ||
         result.status !== 200
       ) {
         return initialState;
       }
+
       return result.data;
     } catch (error) {
       if (axios.isCancel(error)) {
