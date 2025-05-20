@@ -392,7 +392,7 @@ const Details: React.FC<Props> = ({ facility }) => {
                 );
               }}
             >
-              Update maps
+              Update map
             </button>
 
             <button
