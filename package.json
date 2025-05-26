@@ -67,5 +67,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/sockjs-client": "^1.5.4",
     "cross-env": "^7.0.3"
-  }
+  },
+  "proxy": "https://api.ventestate.com"
 }

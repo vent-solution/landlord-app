@@ -47,7 +47,7 @@ const ReceiptDetails: React.FC<Props> = ({
     if (receipt) {
       try {
         const result = await axios.get(
-          `http://localhost:1000/api/download-receipt/${Number(
+          `${process.env.REACT_APP_API_URL}/download-receipt/${Number(
             receipt.receiptId
           )}/${Number(currentUser.userId)}`,
           { responseType: "arraybuffer" }
