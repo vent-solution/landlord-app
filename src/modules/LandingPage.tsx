@@ -52,8 +52,8 @@ const LandingPage: React.FC<Props> = () => {
       try {
         const result = await fetchData(`/fetch-current-user/${userId}`);
 
-        if (!result) {
-          window.location.href = "/";
+        if (!result || (result.data.status && result.data.status !== "OK")) {
+          window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
           return;
         }
 

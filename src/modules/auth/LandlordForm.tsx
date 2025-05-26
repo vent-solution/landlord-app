@@ -11,6 +11,8 @@ import {
 } from "../../global/PreDefinedData/PreDefinedData";
 import { LandlordCreationModel } from "./landlordModel";
 import AlertMessage from "../../other/alertMessage";
+import countryList from "../../global/data/countriesList.json";
+import checkRequiredFormFields from "../../global/validation/checkRequiredFormFields";
 
 interface Props {
   landlord: LandlordCreationModel;
@@ -39,7 +41,33 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
 
   // save user details
   const handleSaveLandlord = async () => {
-    // check if all the required fiels are filled
+    const idType = document.getElementById("idType") as HTMLInputElement;
+    const nationalId = document.getElementById(
+      "nationalId"
+    ) as HTMLInputElement;
+    const addressType = document.getElementById(
+      "addressType"
+    ) as HTMLInputElement;
+    const country = document.getElementById("country") as HTMLInputElement;
+    const city = document.getElementById("city") as HTMLInputElement;
+
+    // check if all the required form fields are filled
+    if (
+      !landlord.idType ||
+      landlord.idType.trim().length < 1 ||
+      !landlord.nationalId ||
+      landlord.nationalId.trim().length < 1 ||
+      !landlord.addressType ||
+      landlord.addressType.trim().length < 1 ||
+      !landlord.address?.country ||
+      landlord.address?.country.trim().length < 1 ||
+      !landlord.address?.city ||
+      landlord.address?.city.trim().length < 1
+    ) {
+      checkRequiredFormFields([idType, nationalId, addressType, country, city]);
+    }
+
+    // check if required landlord data values are provided
     if (!canSaveLandlord) {
       dispatch(
         setAlert({
@@ -76,16 +104,16 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
 
   return (
     <div className="w-full bg-blue-950 flex flex-wrap px-2 lg:px-20">
-      <div className="text-white w-full lg:w-1/2 p-3 lg:p-5  flex flex-wrap justify-center items-center h-fit lg:sticky top-32">
+      <div className="text-white w-full lg:w-1/3 p-3 lg:p-5  flex flex-wrap justify-center items-center h-fit lg:sticky top-32">
         <div className="w-full flex justify-start items-end">
           <img
-            className="w-20 h-20"
-            src="/images/logo-no-background.png"
+            className="w-14 lg:w-20 h-14 lg:h-20"
+            src="/landlord/images/logo-no-background.png"
             alt=""
           />
-          <h1 className=" text-5xl font-extrabold">ENT</h1>
+          <h1 className="text-3xl lg:text-5xl font-extrabold">ENT</h1>
         </div>
-        <div className="text-gray-400 h-3/4 flex flex-wrap items-center justify-center w-full text-start py-20 text-3xl">
+        <div className="text-gray-400 h-3/4 flex flex-wrap items-center justify-center w-full text-start py-10 lg:py-20 text-3xl">
           <div className="h-fit capitalize font-extralight">
             <p className="w-full">welcome to vent.</p>
             <p className="w-full">
@@ -97,7 +125,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
       </div>
 
       <form
-        className="py-5 text-lg lg:text-sm  w-full lg:w-1/2 m-auto text-white bg-white bg-opacity-10"
+        className="p-5 text-lg lg:text-sm  w-full lg:w-2/3 m-auto text-white bg-white bg-opacity-10"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
       >
         <h1 className="w-full text-2xl font-bold p-10">
@@ -136,7 +164,9 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
                 }))
               }
             />
-            <small className="w-full"></small>
+            <small className="w-full text-red-200">
+              ID number is required!
+            </small>
           </div>
 
           {/* next of kin national ID type form input field */}
@@ -162,7 +192,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
                 </option>
               ))}
             </select>
-            <small className="w-full"></small>
+            <small className="w-full text-red-200">ID type is required</small>
           </div>
 
           {/* tenant's next of kin address */}
@@ -191,7 +221,9 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
                 </option>
               ))}
             </select>
-            <small className="w-full"></small>
+            <small className="w-full text-red-200">
+              Address type is required!
+            </small>
           </div>
 
           {/* next of kin country form input field */}
@@ -199,10 +231,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
             <label htmlFor="country" className="w-full font-bold">
               Country <span className="text-red-600">*</span>
             </label>
-            <input
-              type="text"
+
+            <select
+              name="country"
               id="country"
-              placeholder="Enter next of kin country"
               className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
               onChange={(e) =>
                 setLandlord((prev) => ({
@@ -213,8 +245,13 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
                   },
                 }))
               }
-            />
-            <small className="w-full"></small>
+            >
+              <option value="">SELECT COUNTRY</option>
+              {countryList.map((country) => (
+                <option value={country.value}>{country.label}</option>
+              ))}
+            </select>
+            <small className="w-full text-red-200"> Country is required!</small>
           </div>
 
           {/* next of kin state form input field */}
@@ -260,7 +297,9 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
                 }))
               }
             />
-            <small className="w-full"></small>
+            <small className="w-full text-red-200">
+              City/district/municipality is required!
+            </small>
           </div>
 
           {/* next of kin county form input field */}
