@@ -107,6 +107,8 @@ let MonthlyEarnings: React.FC<Props> = ({ settings }) => {
           `/fetch-total-landlord-monthly-rent/${year}/${allFacilityIds}`
         );
 
+        console.log("MONTHLY:", result.data);
+
         if (!result) {
           return;
         }

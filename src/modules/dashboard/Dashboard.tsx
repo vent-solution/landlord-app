@@ -13,8 +13,8 @@ import TotalEarnings from "./TotalEarnings";
 import MonthlyEarnings from "./MonthlyEarnings";
 import AnnualEarnings from "./AnnualEarnings";
 import DailyEarnings from "./DailyEarnings";
-import NumberOfUsers from "./NumberOfFacilities";
 import { FaBusinessTime } from "react-icons/fa";
+import NumberOfFacilities from "./NumberOfFacilities";
 
 interface Props {}
 
@@ -115,8 +115,8 @@ const Dashboard: React.FC<Props> = () => {
           {/* daily earnings */}
           <DailyEarnings settings={settingsState.settings[0]} />
 
-          {/* number of users in categories */}
-          <NumberOfUsers />
+          {/* number of facilities in different categories */}
+          <NumberOfFacilities />
         </div>
       </div>
     </div>

@@ -37,9 +37,9 @@ let NumberOfFacilities: React.FC<Props> = () => {
   return (
     <div className="w-full flex flex-wrap justify-between items-center text-center  uppercase my-10">
       <div className="mt-2 w-1/2 lg:w-1/6 px-2">
-        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-100 via-blue-200 to-blue-300">
-          <h4 className="text-sm font-light text-gray-600">All Facilities</h4>
-          <h1 className="text-3xl text-black font-light">{totalElements}</h1>
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">All Facilities</h4>
+          <h1 className="text-xl text-white font-light">{totalElements}</h1>
         </div>
       </div>
 
