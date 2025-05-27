@@ -176,7 +176,7 @@ let TotalEarnings: React.FC<Props> = ({ settings }) => {
 
   return (
     <div className="w-full bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950 text-white text-center flex flex-wrap justify-center items-center lg:sticky lg:top-0 lg:z-20">
-      <div className="w-full text-orange-300 lg:w-1/5 py-10">
+      <div className="w-full text-orange-300 lg:w-1/5 py-3 lg:py-10">
         <h1 className="text-2xl font-light font-mono">
           {FormatMoney(totalEarning, 2, settings.preferedCurrency)}
         </h1>
