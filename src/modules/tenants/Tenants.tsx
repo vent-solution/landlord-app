@@ -121,7 +121,7 @@ const TenantsList: React.FC<Props> = ({
             <div className="w-full lg:w-2/3 flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
                   <span className="px-2">

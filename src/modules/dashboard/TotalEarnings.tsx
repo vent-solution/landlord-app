@@ -181,7 +181,7 @@ let TotalEarnings: React.FC<Props> = ({ settings }) => {
           {FormatMoney(totalEarning, 2, settings.preferedCurrency)}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">
           {new Date().getFullYear()}
         </h4>
@@ -189,7 +189,7 @@ let TotalEarnings: React.FC<Props> = ({ settings }) => {
           {FormatMoney(curentYearTotalEarning, 2, settings.preferedCurrency)}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">
           {monthFullNames[new Date().getMonth()]}
         </h4>
@@ -197,13 +197,13 @@ let TotalEarnings: React.FC<Props> = ({ settings }) => {
           {FormatMoney(curentMonthTotalEarning, 2, settings.preferedCurrency)}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">this week</h4>
         <h1 className="font-light text-sm">
           {FormatMoney(currentWeekTotalEarning, 2, settings.preferedCurrency)}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">today</h4>
         <h1 className="font-light text-sm">
           {FormatMoney(todayTotalEarning, 2, settings.preferedCurrency)}
