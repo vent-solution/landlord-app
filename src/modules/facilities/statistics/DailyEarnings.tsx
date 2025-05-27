@@ -120,7 +120,7 @@ let DailyEarnings: React.FC<Props> = ({ currency, facilityId }) => {
           name=""
           id="year-month"
           value={yearMonth}
-          className="text-sm text-center py-2 px-3 w-fit outline-none border-none rounded-lg bg-blue-900 hover:bg-blue-950"
+          className="text-sm text-center py-2 px-3 w-fit outline-none border-none rounded-lg bg-blue-900 hover:bg-blue-950 text-white"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setIsMonthChanged(true);
             setYearMonth(e.target.value);

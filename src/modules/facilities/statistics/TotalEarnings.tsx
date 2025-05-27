@@ -158,12 +158,12 @@ let TotalEarnings: React.FC<Props> = ({ currency }) => {
 
   return (
     <div className="w-full bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950 text-white text-center flex flex-wrap justify-center items-center lg:sticky lg:top-0 lg:z-20">
-      <div className="w-full text-orange-300 lg:w-1/5 py-10">
+      <div className="w-full text-orange-300 lg:w-1/5 py-3 lg:py-10">
         <h1 className="text-2xl font-light font-mono">
           {FormatMoney(totalEarning, 2, String(currency))}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">
           {new Date().getFullYear()}
         </h4>
@@ -171,7 +171,7 @@ let TotalEarnings: React.FC<Props> = ({ currency }) => {
           {FormatMoney(curentYearTotalEarning, 2, String(currency))}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">
           {monthFullNames[new Date().getMonth()]}
         </h4>
@@ -179,13 +179,13 @@ let TotalEarnings: React.FC<Props> = ({ currency }) => {
           {FormatMoney(curentMonthTotalEarning, 2, String(currency))}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">this week</h4>
         <h1 className="font-light text-sm">
           {FormatMoney(currentWeekTotalEarning, 2, String(currency))}
         </h1>
       </div>
-      <div className="w-1/2 lg:w-1/6 py-10">
+      <div className="w-1/2 lg:w-1/6 py-3 lg:py-10">
         <h4 className="text-xs text-gray-400 font-extrabold">today</h4>
         <h1 className="font-light text-sm">
           {FormatMoney(todayTotalEarning, 2, String(currency))}
