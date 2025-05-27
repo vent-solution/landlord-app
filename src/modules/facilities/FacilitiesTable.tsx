@@ -79,7 +79,7 @@ const FacilitiesTable: React.FC<Props> = ({
       ) : (
         <div className="w-ull h-5/6 flex justify-center items-center">
           <div
-            className="w-80 h-80"
+            className="w-14 lg:w-20 h-14 lg:sh-20"
             style={{
               background: "URL('/images/Ghost.gif')",
               backgroundSize: "cover",

@@ -149,7 +149,7 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-accommodations/${Number(
+        `${process.env.REACT_APP_API_URL}/download-accommodations/${Number(
           currentUser.userId
         )}/${Number(facility.facilityId)}`,
         "_blank"
@@ -353,7 +353,7 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
             ) : (
               <div className="w-ull h-full flex justify-center items-center">
                 <div
-                  className="w-80 h-80"
+                  className="w-14 lg:w-20 h-14 lg:h-20"
                   style={{
                     background: "URL('/images/Ghost.gif')",
                     backgroundSize: "cover",
