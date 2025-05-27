@@ -113,7 +113,7 @@ let LogsFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-logs/${Number(
+        `${process.env.REACT_APP_BACKEND_URL}/download-logs/${Number(
           currentUser.userId
         )}/${filters.startDate}/${filters.endDate}/${filters.limit}/${Number(
           ownerId
