@@ -56,8 +56,6 @@ let AnnualEarnings: React.FC<Props> = ({ settings }) => {
           `/fetch-annual-landlord-rent-amount/${year}/${allFacilityIds}`
         );
 
-        console.log("ANNUAL", result.data);
-
         if (!result) {
           return;
         }

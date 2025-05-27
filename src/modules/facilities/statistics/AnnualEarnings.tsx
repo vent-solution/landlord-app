@@ -19,14 +19,19 @@ let AnnualEarnings: React.FC<Props> = ({ currency, facilityId }) => {
 
   // update annual earnings
   const updateEarningsForYear = useCallback(
-    ({ year, rentAmount }: { year: number; rentAmount: number }) => {
-      setAnnualData((prevData) =>
-        prevData.map((data) => {
-          return data.year === year
-            ? { ...data, rentAmount: rentAmount + data.rentAmount }
-            : data;
-        })
-      );
+    (yearlyUpdates: { year: number; rentAmount: number }[]) => {
+      setAnnualData((prevData) => {
+        return prevData.map((entry) => {
+          const match = yearlyUpdates.find((u) => u.year === entry.year);
+          if (match) {
+            return {
+              ...entry,
+              rentAmount: entry.rentAmount + match.rentAmount,
+            };
+          }
+          return entry;
+        });
+      });
     },
     []
   );
@@ -39,14 +44,13 @@ let AnnualEarnings: React.FC<Props> = ({ currency, facilityId }) => {
           `/fetch-annual-facility-rent-amount/${year}/${Number(facilityId)}`
         );
 
+        console.log("FACILITY ANNUAL RENT: ", result.data);
+
         if (result.status !== 200) {
           console.log("ANNUAL BID AMOUNT", result.data);
           return;
         }
-        updateEarningsForYear({
-          rentAmount: result.data[0].rentAmount,
-          year: new Date(result.data[0].year).getFullYear(),
-        });
+        updateEarningsForYear(result.data);
       } catch (error) {
         if (axios.isCancel(error)) {
           console.log("FETCH ANNUAL BID AMOUNT CANCELLED: ", error.message);
