@@ -117,9 +117,9 @@ const TenantsList: React.FC<Props> = ({
     <div className="users-list flex w-full h-svh lg:h-dvh mt-20 lg:mt-0 z-0 relative">
       <div className="list w-full relative bg-gray-200">
         <div className="bg-white w-full shadow-lg mb-5">
-          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3">
-            <div className="w-full lg:w-2/3 flex flex-wrap justify-between items-center">
-              <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
+          <div className="w-full h-1/3 flex flex-wrap justify-around items-center px-10 py-3">
+            <div className="w-full flex flex-wrap justify-between items-center">
+              <div className="w-full lg:w-2/3 flex justify-between lg:justify-around items-center">
                 <button
                   className="transition-all ease-in-out delay-100 py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
@@ -127,14 +127,15 @@ const TenantsList: React.FC<Props> = ({
                   <span className="px-2">
                     <FaDownload />
                   </span>
-                  <span>Tenants report</span>
+                  <span>Report</span>
                 </button>
-                <h1 className="text-lg">
+                <h1 className="text-xl text-blue-900">Tenants</h1>
+                <h1 className="text-sm font-bold">
                   {filteredTenants.length + "/" + totalElements}
                 </h1>
               </div>
               <div
-                className={` rounded-full  bg-white flex justify-between border-blue-900 border-2 w-full lg:w-2/4 h-3/4 mt-5 lg:mt-0`}
+                className={` rounded-full  bg-white flex justify-between border-blue-900 border-2 w-full lg:w-1/3 h-3/4 mt-5 lg:mt-0`}
               >
                 <input
                   type="text"

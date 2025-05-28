@@ -471,7 +471,7 @@ const Dashboard: React.FC<Props> = () => {
                             }));
                           }} // Change handler
                           options={countriesList} // Array of country options
-                          placeholder="Select a country"
+                          placeholder="COUNTRY"
                           isSearchable={true}
                         />
                       </div>

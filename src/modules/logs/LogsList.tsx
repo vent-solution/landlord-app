@@ -127,7 +127,7 @@ let LogsList: React.FC<Props> = () => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-20 lg:mt-0 z-0 bg-gray-200 relative">
       <div className="list w-full relative">
         <div className="bg-white w-full mb-5">
-          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3 bg-white shadow-lg">
+          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3 bg-white shadow-lg">
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex flex-wrap justify-between lg:justify-around items-center">
                 <h1

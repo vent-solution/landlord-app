@@ -149,7 +149,7 @@ const ReceiptsList: React.FC<Props> = () => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-24 lg:mt-0 z-0 relative">
       <div className="h-[calc(100vh-0px)] w-full relative bg-gray-200">
         <div className="bg-white w-full mb-3 shadow-lg">
-          <div className="w-full h-1/3 flex flex-wrap justify-between items-center px-10 py-3">
+          <div className="w-full h-1/3 flex flex-wrap justify-between items-center px-2 lg:px-10 py-3">
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex flex-wrap justify-between lg:justify-around items-center">
                 <h1
