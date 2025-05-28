@@ -184,7 +184,7 @@ const OfficesList: React.FC<Props> = () => {
 
                 <h1 className="text-xl text-blue-900">Our offices</h1>
 
-                <h1 className="font-bold">
+                <h1 className="font-bold mr-2 lg:mr-0">
                   {filteredOffices.length + "/" + totalElements}
                 </h1>
               </div>
