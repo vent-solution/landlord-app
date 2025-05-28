@@ -77,7 +77,7 @@ let ExpenseFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-expenses/${Number(
+        `${process.env.REACT_APP_API_URL}/download-expenses/${Number(
           currentUser.userId
         )}/${startDate}/${endDate}/${Number(filters.limit)}/${Number(
           facilityId

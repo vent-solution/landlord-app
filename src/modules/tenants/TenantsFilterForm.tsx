@@ -89,7 +89,7 @@ let TenantsFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-tenants/${Number(
+        `${process.env.REACT_APP_API_URL}/download-tenants/${Number(
           currentUser.userId
         )}/${startDate}/${endDate}/${Number(facilityId)}`,
         "_blank"

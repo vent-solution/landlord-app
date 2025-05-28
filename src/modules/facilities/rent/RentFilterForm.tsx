@@ -84,7 +84,7 @@ let RentFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-payments/${Number(
+        `${process.env.REACT_APP_API_URL}/download-payments/${Number(
           currentUser.userId
         )}/${startDate}/${endDate}/${Number(filters.limit)}/${Number(
           facilityId

@@ -113,7 +113,7 @@ let SubscriptionFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-subscriptions/${Number(
+        `${process.env.REACT_APP_API_URL}/download-subscriptions/${Number(
           currentUser.userId
         )}/${startDate}/${endDate}/${limit}/${Number(ownerId)}`,
         "_blank"

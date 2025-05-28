@@ -80,7 +80,7 @@ let BookingFilterForm: React.FC<Props> = ({
         return;
       }
       window.open(
-        `http://localhost:1000/api/download-booking/${Number(
+        `${process.env.REACT_APP_API_URL}/download-booking/${Number(
           currentUser.userId
         )}/${startDate}/${endDate}/${Number(limit)}/${Number(
           facilityId
