@@ -173,10 +173,10 @@ const OfficesList: React.FC<Props> = () => {
                 </h1> */}
 
                 <button
-                  className="transition-all ease-in-out delay-100 py-1 px-2 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 py-1 pr-1 lg:px-2 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => toggleShowOfficeForm()}
                 >
-                  <span className="px-2">
+                  <span className="px-1">
                     <FaPlus />
                   </span>
                   <span>Add office</span>

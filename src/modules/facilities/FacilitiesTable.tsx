@@ -48,52 +48,54 @@ const FacilitiesTable: React.FC<Props> = ({
   }, [dispatch]);
 
   return (
-    <div className="lg:px-5 mb-12 overflow-auto pb-5 mt-2 h-[calc(100vh-150px)]">
-      {filteredFacilities && filteredFacilities.length > 0 ? (
-        <table className="border-2 w-full bg-white text-center shadow-lg">
-          <thead className="bg-blue-900 text-white sticky top-0">
-            <tr className="text-sm">
-              <th className="px-2 font-bold py-2">#</th>
-              <th className="px-2 font-bold">No.</th>
-              <th className="px-2 font-bold">Business</th>
-              <th className="px-2 font-bold">Category</th>
-              <th className="px-2 font-bold">Name</th>
-              <th className="px-2 font-bold">Location</th>
-              <th className="px-2 font-bold">Status</th>
-              {/* <th className="px-2 font-bold">Price</th> */}
-              <th className="px-2 font-bold">Monthly Bid</th>
-              <th className="px-2 font-bold">Registered</th>
-              {/* <th className="px-2 font-bold">View</th> */}
-            </tr>
-          </thead>
-          <tbody className="font-light">
-            {filteredFacilities.map((facility, index) => (
-              <FacilityRow
-                key={index}
-                facilityIndex={index}
-                facility={facility}
-              />
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <div className="w-ull h-5/6 flex justify-center items-center">
-          <div
-            className="w-14 lg:w-20 h-14 lg:sh-20"
-            style={{
-              background: "URL('/images/Ghost.gif')",
-              backgroundSize: "cover",
-            }}
-          ></div>
-        </div>
-      )}
+    <>
+      <div className="lg:px-5 mb-12 overflow-auto pb-5 mt-2 h-[calc(100vh-150px)]">
+        {filteredFacilities && filteredFacilities.length > 0 ? (
+          <table className="border-2 w-full bg-white text-center shadow-lg">
+            <thead className="bg-blue-900 text-white sticky top-0">
+              <tr className="text-sm">
+                <th className="px-2 font-bold py-2">#</th>
+                <th className="px-2 font-bold">No.</th>
+                <th className="px-2 font-bold">Business</th>
+                <th className="px-2 font-bold">Category</th>
+                <th className="px-2 font-bold">Name</th>
+                <th className="px-2 font-bold">Location</th>
+                <th className="px-2 font-bold">Status</th>
+                {/* <th className="px-2 font-bold">Price</th> */}
+                <th className="px-2 font-bold">Monthly Bid</th>
+                <th className="px-2 font-bold">Registered</th>
+                {/* <th className="px-2 font-bold">View</th> */}
+              </tr>
+            </thead>
+            <tbody className="font-light">
+              {filteredFacilities.map((facility, index) => (
+                <FacilityRow
+                  key={index}
+                  facilityIndex={index}
+                  facility={facility}
+                />
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="w-ull h-5/6 flex justify-center items-center">
+            <div
+              className="w-14 lg:w-20 h-14 lg:sh-20"
+              style={{
+                background: "URL('/images/Ghost.gif')",
+                backgroundSize: "cover",
+              }}
+            ></div>
+          </div>
+        )}
+      </div>
       <PaginationButtons
         page={page}
         totalPages={totalPages}
         handleFetchNextPage={handleFetchNextPage}
         handleFetchPreviousPage={handleFetchPreviousPage}
       />
-    </div>
+    </>
   );
 };
 
