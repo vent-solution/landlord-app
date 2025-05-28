@@ -14,7 +14,7 @@ const PaginationButtons: React.FC<Props> = ({
   handleFetchPreviousPage,
 }) => {
   return (
-    <div className="py-8 w-full flex justify-center items-center lg:absolute lg:bottom-0 lg:left-0">
+    <div className="py-3 lg:py-8 w-full flex justify-center items-center lg:absolute lg:bottom-0 lg:left-0">
       <div className="w-full lg:w-fit px-10  flex justify-around items-center font-bold">
         <button
           disabled={page === 0}

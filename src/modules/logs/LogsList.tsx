@@ -140,7 +140,7 @@ let LogsList: React.FC<Props> = () => {
                   <span>Report</span>
                 </h1>
                 <h1 className="text-xl text-blue-900">Activities</h1>
-                <h1 className="font-bold">
+                <h1 className="font-bold mr-2 lg:mr-0">
                   {filteredLogs.length + "/" + totalElements}
                 </h1>
               </div>
