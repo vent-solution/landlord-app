@@ -46,8 +46,8 @@ let Office: React.FC<Props> = ({ office, officeIndex }) => {
       className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100"
       onClick={() => navigate(`${office.officeId}`)}
     >
-      <td className="px-2 py-5">{officeIndex + 1}</td>
-      <td className="px-2">{"OFF-" + office.officeId}</td>
+      {/* <td className="px-2 py-5">{officeIndex + 1}</td> */}
+      <td className="px-2 pt-2">{"OFF-" + office.officeId}</td>
       <td className="px-2">{office.officeLocation.country}</td>
       <td className="px-2">{office.officeLocation.city}</td>
       <td className="px-2">{office.officeLocation.street}</td>

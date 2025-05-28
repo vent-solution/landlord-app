@@ -159,7 +159,7 @@ const OfficesList: React.FC<Props> = () => {
       </div>
       <div className="list w-full relative bg-gray-100">
         <div className="bg-white w-full mb-5 shadow-lg">
-          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3 bg-white">
+          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3 bg-white">
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
                 {/* <h1
@@ -173,7 +173,7 @@ const OfficesList: React.FC<Props> = () => {
                 </h1> */}
 
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 py-1 px-2 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => toggleShowOfficeForm()}
                 >
                   <span className="px-2">
@@ -182,7 +182,9 @@ const OfficesList: React.FC<Props> = () => {
                   <span>Add office</span>
                 </button>
 
-                <h1 className="text-lg">
+                <h1 className="text-xl text-blue-900">Our offices</h1>
+
+                <h1 className="font-bold">
                   {filteredOffices.length + "/" + totalElements}
                 </h1>
               </div>
@@ -212,18 +214,18 @@ const OfficesList: React.FC<Props> = () => {
         >
           {filteredOffices.length > 0 ? (
             <table className="border-2 w-full bg-white shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
-                  <th className="px-2">#</th>
-                  <th className="px-2">Office number</th>
-                  <th className="px-2">Country</th>
-                  <th className="px-2">City</th>
-                  <th className="px-2">Street</th>
-                  <th className="px-2">Email</th>
-                  <th className="px-2">Telephone</th>
-                  <th className="px-2">Telephone 2</th>
-                  <th className="px-2">Date added</th>
-                  <th className="px-2">Last updated</th>
+                  {/* <th className="text-start px-2">#</th> */}
+                  <th className="text-start px-2">Office number</th>
+                  <th className="text-start px-2">Country</th>
+                  <th className="text-start px-2">City</th>
+                  <th className="text-start px-2">Street</th>
+                  <th className="text-start px-2">Email</th>
+                  <th className="text-start px-2">Telephone</th>
+                  <th className="text-start px-2">Telephone 2</th>
+                  <th className="text-start px-2">Date added</th>
+                  <th className="text-start px-2">Last updated</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">
