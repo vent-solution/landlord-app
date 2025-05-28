@@ -3,7 +3,8 @@
 @tailwind utilities;
 * {
   font-size: 99%;
-  padding: 0%;
+  font-weight: 300;
+  padding: 0;
   margin: 0;
   font-family: "Poppins";
 }
@@ -21,8 +22,10 @@ label > span {
 }
 
 table tr td {
-  padding: 20px;
-  border: 1px solid #efefef;
+  padding: 10px;
+}
+table tr th {
+  border-left: 1px solid #ffffff;
 }
 
 .user {

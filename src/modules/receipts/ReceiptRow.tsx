@@ -32,7 +32,7 @@ let ReceiptRow: React.FC<Props> = ({ receipt, onClick }) => {
       onClick={() => onClick()}
     >
       {/* <td className="px-2 py-5">{"RCT-" + receipt.receiptId}</td> */}
-      <td className="px-2 py-5">{receipt.receiptNumber}</td>
+      <td className="px-2 pt-5">{receipt.receiptNumber}</td>
       <td className="px-2">{receipt.transaction}</td>
       <td className="px-2 font-mono font-bold">
         {FormatMoney(Number(receipt.amount), 2, receipt.currency)}
@@ -44,7 +44,7 @@ let ReceiptRow: React.FC<Props> = ({ receipt, onClick }) => {
         }
       </td>
       <td className="px-2">{new Date(receipt.paymentDate).toDateString()}</td>
-      <td className="px-2 w-72 py-5">{receipt.description}</td>
+      <td className="px-2 w-72 pt-5">{receipt.description}</td>
       <td className="px-2">{created}</td>
     </tr>
   );

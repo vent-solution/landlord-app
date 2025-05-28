@@ -26,8 +26,8 @@ const PaginationButtons: React.FC<Props> = ({
           <FaBackward />
         </button>
 
-        <h1 className="text-lg font-bold px-3">
-          {`PAGE ${totalPages === 0 ? 0 : page + 1} / ${totalPages}`}
+        <h1 className="px-3">
+          {`PAGE ${totalPages === 0 ? 0 : page + 1} of ${totalPages}`}
         </h1>
 
         <button

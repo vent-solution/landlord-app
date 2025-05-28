@@ -131,15 +131,16 @@ let LogsList: React.FC<Props> = () => {
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex flex-wrap justify-between lg:justify-around items-center">
                 <h1
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
                   <span className="px-2">
                     <FaDownload />
                   </span>
-                  <span>Logs report</span>
+                  <span>Report</span>
                 </h1>
-                <h1 className="text-lg font-bold">
+                <h1 className="text-xl text-blue-900">Activities</h1>
+                <h1 className="font-bold">
                   {filteredLogs.length + "/" + totalElements}
                 </h1>
               </div>
@@ -166,16 +167,16 @@ let LogsList: React.FC<Props> = () => {
         <div className="lg:px-5 mb-12 overflow-auto pb-5 h-[calc(100svh-170px)] relative">
           {filteredLogs.length > 0 ? (
             <table className="border-2 w-full bg-white  shadow-xl">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
-                  <th className="px-2">#</th>
-                  <th className="px-2">User number</th>
-                  <th className="px-2">User full name</th>
-                  <th className="px-2">User role</th>
-                  <th className="px-2">Activity</th>
-                  <th className="px-2">Description</th>
-                  <th className="px-2">Status</th>
-                  <th className="px-2">Log date</th>
+                  {/* <th className="text-start px-2">#</th> */}
+                  <th className="text-start px-2">User number</th>
+                  <th className="text-start px-2">User full name</th>
+                  <th className="text-start px-2">User role</th>
+                  <th className="text-start px-2">Activity</th>
+                  <th className="text-start px-2">Description</th>
+                  <th className="text-start px-2">Status</th>
+                  <th className="text-start px-2">Log date</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

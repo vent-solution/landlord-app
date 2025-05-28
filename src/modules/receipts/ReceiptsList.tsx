@@ -150,19 +150,22 @@ const ReceiptsList: React.FC<Props> = () => {
       <div className="h-[calc(100vh-0px)] w-full relative bg-gray-200">
         <div className="bg-white w-full mb-3 shadow-lg">
           <div className="w-full h-1/3 flex flex-wrap justify-between items-center px-10 py-3">
-            <div className="w-full lg:w-1/4"></div>
-
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex flex-wrap justify-between lg:justify-around items-center">
                 <h1
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
                   <span className="px-2">
                     <FaDownload />
                   </span>
-                  <span>Receipts report</span>
+                  <span>Report</span>
                 </h1>
+
+                <h1 className="text-xl font-bold text-blue-900 tracking-wider">
+                  Receipts
+                </h1>
+
                 <h1 className="text-lg font-bold">
                   {filteredReceipts.length + "/" + totalElements}
                 </h1>
@@ -174,7 +177,7 @@ const ReceiptsList: React.FC<Props> = () => {
                   type="text"
                   name=""
                   id="search-subscription"
-                  placeholder="Search for history..."
+                  placeholder="Search for receipt..."
                   className={`rounded-full w-full p-2 py-0 outline-none transition-all ease-in-out delay-150`}
                   onChange={handleSearchFacilityHistory}
                 />
@@ -193,16 +196,16 @@ const ReceiptsList: React.FC<Props> = () => {
         >
           {filteredReceipts.length > 0 ? (
             <table className="border-2 w-full bg-white mt-2 lg:mt-0 shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-white">
+              <thead className="sticky top-0 text-start bg-blue-900 text-white">
                 <tr>
                   {/* <th>#ID</th> */}
-                  <th>Receipt Number</th>
-                  <th>Transaction</th>
-                  <th>Amount</th>
-                  <th>Payment method</th>
-                  <th>Transaction date</th>
-                  <th>Description</th>
-                  <th>Date created</th>
+                  <th className="text-start px-3">Receipt Number</th>
+                  <th className="text-start px-3">Transaction</th>
+                  <th className="text-start px-3">Amount</th>
+                  <th className="text-start px-3">Payment method</th>
+                  <th className="text-start px-3">Transaction date</th>
+                  <th className="text-start px-3">Description</th>
+                  <th className="text-start px-3">Date created</th>
                 </tr>
               </thead>
               <tbody>
