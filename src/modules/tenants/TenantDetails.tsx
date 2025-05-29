@@ -556,10 +556,10 @@ const TenantDetails: React.FC<Props> = ({
 
           {/* tenant's rent records */}
           <div className="w-full lg:w-2/3 p-0 lg:py-5 relative border">
-            <div className="w-full flex flex-wrap justify-around items-center p-5">
+            <div className="w-full flex flex-wrap justify-between items-center p-5">
               <h2 className="text-center font-bold text-xl">Rent records</h2>
               <h2
-                className="py-1 px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
+                className="py-1 px-2 lg:px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
                 onClick={() => setShowRentForm(true)}
               >
                 Add a payment
