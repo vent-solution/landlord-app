@@ -153,21 +153,21 @@ const FacilityHistoryList: React.FC<Props> = ({ facility }) => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 ">
       <div className="h-[calc(100vh-140px)] w-full relative bg-gray-200">
         <div className="w-full mb-3">
-          <div className="w-full h-1/3 flex flex-wrap justify-between items-center px-10 py-3">
+          <div className="w-full h-1/3 flex flex-wrap justify-between items-center px-2 lg:px-10 py-3">
             <div className="w-full lg:w-1/4"></div>
 
             <div className="w-full lg:w-2/3 flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 text-lg py-1 px-2 lg:px-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
-                  <span className="px-2">
+                  <span className="pr-2">
                     <FaDownload />
                   </span>
-                  <span>History report</span>
+                  <span>Report</span>
                 </button>
-                <h1 className="text-lg font-bold">
+                <h1 className="text-lg font-bold mr-2">
                   {filteredFacilityHistory.length + "/" + totalElements}
                 </h1>
               </div>
@@ -194,16 +194,16 @@ const FacilityHistoryList: React.FC<Props> = ({ facility }) => {
         <div className="lg:px-5 mb-12 overflow-auto pb-5  h-[calc(100vh-300px)] ">
           {filteredFacilityHistory.length > 0 ? (
             <table className="border-2 w-full bg-white mt-2 lg:mt-0 shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
-                  <th>Unit</th>
-                  <th>Floor</th>
-                  <th>Tenant</th>
-                  <th>Name</th>
-                  <th>Tel</th>
-                  <th>Email</th>
-                  <th>CheckIn</th>
-                  <th>CheckOut</th>
+                  <th className="p-2 text-start font-bold">Unit Number</th>
+                  <th className="p-2 text-start font-bold">Floor</th>
+                  <th className="p-2 text-start font-bold">Tenant Number</th>
+                  <th className="p-2 text-start font-bold">Tenant Name</th>
+                  <th className="p-2 text-start font-bold">Tenant Telephone</th>
+                  <th className="p-2 text-start font-bold">Tenant Email</th>
+                  <th className="p-2 text-start font-bold">CheckIn</th>
+                  <th className="p-2 text-start font-bold">CheckOut</th>
                 </tr>
               </thead>
               <tbody>

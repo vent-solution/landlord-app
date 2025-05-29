@@ -370,7 +370,7 @@ const SingleFacilityPage: React.FC = () => {
               <span className="w-full text-center">Service Fees</span>
             </li> */}
 
-            {facility.businessType !== businessTypeEnum.sale && (
+            {/* {facility.businessType !== businessTypeEnum.sale && (
               <li
                 id="Staff"
                 className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
@@ -381,7 +381,7 @@ const SingleFacilityPage: React.FC = () => {
                 <GiSkullStaff className="text-xl" />
                 <span className="w-full text-center"> Staff</span>
               </li>
-            )}
+            )} */}
 
             {facility.businessType !== businessTypeEnum.sale &&
               facility.businessType !== businessTypeEnum.rentWhole && (

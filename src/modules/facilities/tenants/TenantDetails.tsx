@@ -406,7 +406,7 @@ const TenantDetails: React.FC<Props> = ({
                     <span>{tenant && tenant.nextOfKin?.nokTelephone}</span>
                   </span>
                   <span className="w-full">
-                    <b>National ID: </b>
+                    <b>ID: </b>
                     <span>{tenant && tenant.nextOfKin?.nokNationalId}</span>
                   </span>
                   <span className="w-full">

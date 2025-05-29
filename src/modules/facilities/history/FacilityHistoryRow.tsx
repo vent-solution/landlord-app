@@ -36,8 +36,8 @@ const FacilityHistoryRow: React.FC<Props> = ({ history }) => {
     : "";
 
   return (
-    <tr className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100">
-      <td className="px-2 py-5">{history.accommodation.accommodationNumber}</td>
+    <tr className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100">
+      <td className="px-2 pt-5">{history.accommodation.accommodationNumber}</td>
       <td className="px-2">{history.accommodation.floor}</td>
       <td className="px-2">{"TNT-" + history.tenant.tenantId}</td>
       <td className="px-2">

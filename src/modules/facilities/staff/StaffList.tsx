@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { UserModel } from "../../users/models/userModel";
 import StaffRow from "./StaffRow";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   manager: UserModel;
@@ -100,15 +101,7 @@ const StaffList: React.FC<Props> = ({ manager }) => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="staff" />
           )}
           {/* <PaginationButtons
             page={page}

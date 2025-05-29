@@ -31,8 +31,9 @@ let FacilityBookingRow: React.FC<Props> = ({ booking }) => {
     : "";
 
   return (
-    <tr className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100">
-      <td className="px-2 py-5">{"BKG-" + booking.bookingId}</td>
+    <tr className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100">
+      {/* <td className="px-2 py-5">{"BKG-" + booking.bookingId}</td> */}
+      <td>{booking.accommodation.accommodationNumber}</td>
       <td className="px-2">
         {
           ACCOMMODATION_TYPE_DATA.find(
@@ -56,7 +57,6 @@ let FacilityBookingRow: React.FC<Props> = ({ booking }) => {
             </span>
           )}
       </td>
-      <td>{booking.accommodation.accommodationNumber}</td>
       <td className="px-2">{"TNT-" + booking.tenant.tenantId}</td>
       <td className="px-2">
         {booking.tenant.user.firstName + " " + booking.tenant.user.lastName}

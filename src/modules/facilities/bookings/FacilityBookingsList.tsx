@@ -168,29 +168,29 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 bg-gray-200">
       <div className="list w-full h-[calc(100vh-140px)] relative ">
         <div className="w-full mb-5 ">
-          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3">
+          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3">
             <div className="w-full lg:w-full flex flex-wrap justify-between items-center">
-              <div className="w-1/2 lg:w-1/2 flex justify-between lg:justify-around items-center">
+              <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 text-lg py-1 px-2 lg:px-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
-                  <span className="px-2">
+                  <span className="pr-2">
                     <FaDownload />
                   </span>
-                  <span>Booking report</span>
+                  <span>Report</span>
                 </button>
 
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 text-lg py-1 px-2 lg:px-5 border-2 border-blue-600 text-blue-600 lg:hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowBookingForm(true)}
                 >
-                  <span className="px-2">
+                  <span className="pr-2">
                     <FaPlus />
                   </span>
-                  <span>Add booking</span>
+                  <span>Add</span>
                 </button>
-                <h1 className="text-lg">
+                <h1 className="text-lg font-bold mr-2">
                   {facilityBookings.length + "/" + totalElements}
                 </h1>
               </div>
@@ -217,19 +217,19 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
         <div className="lg:px-5  overflow-auto h-[calc(100vh-310px)]">
           {filteredBookings.length > 0 ? (
             <table className="border-2 w-full bg-white text-center">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
-                  <th className="px-2">No.</th>
-                  <th className="px-2">Accommodation</th>
-                  <th className="px-2">Unit No.</th>
-                  <th className="px-2">Tenant</th>
-                  <th className="px-2">Name</th>
-                  <th className="px-2">Tel</th>
-                  <th className="px-2">Email</th>
-                  <th className="px-2">Amount</th>
-                  <th className="px-2">Payment type</th>
-                  <th className="px-2">Checkin</th>
-                  <th className="px-2">Date</th>
+                  {/* <th className="px-2">No.</th> */}
+                  <th className="p-2 text-start font-bold">Unit Number</th>
+                  <th className="p-2 text-start font-bold">Unit type</th>
+                  <th className="p-2 text-start font-bold">Tenant number</th>
+                  <th className="p-2 text-start font-bold">Tenant name</th>
+                  <th className="p-2 text-start font-bold">Tenant Telephone</th>
+                  <th className="p-2 text-start font-bold">Tenant Email</th>
+                  <th className="p-2 text-start font-bold">Amount</th>
+                  <th className="p-2 text-start font-bold">Payment type</th>
+                  <th className="p-2 text-start font-bold">Check In</th>
+                  <th className="p-2 text-start font-bold">Date Added</th>
                 </tr>
               </thead>
               <tbody>

@@ -10,6 +10,7 @@ import { fetchData } from "../../global/api";
 import { AppDispatch } from "../../app/store";
 import { getFacilities } from "../facilities/FacilitiesSlice";
 import TenantsFilterForm from "./TenantsFilterForm";
+import EmptyList from "../../global/EnptyList";
 
 interface Props {
   // facility: FacilitiesModel;
@@ -189,15 +190,7 @@ const TenantsList: React.FC<Props> = ({
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="tenant" />
           )}
         </div>
         <PaginationButtons
