@@ -195,12 +195,12 @@ const TenantDetails: React.FC<Props> = ({
     );
 
   return (
-    <div className="w-full py-2 px-5">
+    <div className="w-full py-2 px-1 lg:px-5">
       <div className="w-full m-auto h-full overflow-auto border">
-        <div className="w-full p-2 flex justify-between items-center sticky top-0 border   z-10 bg-white">
+        <div className="relative w-full p-2 flex flex-wrap justify-between items-center lg:sticky top-0 border z-10 bg-white pt-10">
           {tenantRent.length > 0 ? (
             <h1
-              className={`text-sm text-${calculateRentExpiry(
+              className={`text-sm py-3 lg:py-0 text-${calculateRentExpiry(
                 tenantRent[0].balance,
                 new Date(String(checkIn)),
                 String(currentAccommodation?.paymentPartten),
@@ -256,7 +256,7 @@ const TenantDetails: React.FC<Props> = ({
           </div>
           <RxCross2
             title="close"
-            className="p-1 hover:bg-gray-200 text-3xl rounded-sm cursor-pointer"
+            className="p-1 hover:bg-gray-200 text-3xl rounded-sm cursor-pointer absolute top-0 right-0 "
             onClick={() => toggleShowTenantDetails()}
           />
         </div>
@@ -265,22 +265,24 @@ const TenantDetails: React.FC<Props> = ({
             {/* accommodation details*/}
             <div className="p-4 w-full">
               <h2 className="text-xl font-bold">Unit details</h2>
-              <div className="p-2 flex justify-start items-center w-full">
+              <div className="p-0 flex justify-start items-center w-full">
                 <p className="text-sm flex flex-wrap  px-3">
-                  <span className="w-full">
+                  {/* <span className="w-full">
                     <b>ID: </b>
                     <span>
                       {"ACC-" + currentAccommodation?.accommodationId}
                     </span>
-                  </span>
+                  </span> */}
                   <span className="w-full">
                     <b>Number: </b>
                     <span>{currentAccommodation?.accommodationNumber}</span>
                   </span>
-                  <span className="w-full">
-                    <b>Floor: </b>
-                    <span>{currentAccommodation?.floor}</span>
-                  </span>
+                  {currentAccommodation?.floor && (
+                    <span className="w-full">
+                      <b>Floor: </b>
+                      <span>{currentAccommodation?.floor}</span>
+                    </span>
+                  )}
                   <span className="w-full">
                     <b>Type: </b>
                     <span>
@@ -338,7 +340,7 @@ const TenantDetails: React.FC<Props> = ({
             {/* tenant details*/}
             <div className="p-4 w-full">
               <h2 className="text-xl flex justify-between items-center font-bold">
-                <span>Tenant</span>
+                <span className="font-bold">Tenant</span>
                 <span className="px-2 py-1 text-gray-500 bg-gray-100 text-sm rounded-full font-light ">
                   {new Date(String(checkIn)).toDateString()}
                 </span>
@@ -431,9 +433,16 @@ const TenantDetails: React.FC<Props> = ({
           </div>
           {/* tenant's rent records */}
           <div className="w-full lg:w-2/3 p-0 relative  lg:h-[calc(100vh-200px)] border ">
-            <div className="w-full flex justify-around items-center p-5 ">
+            <div className="w-full flex flex-wrap justify-between lg:justify-around items-center py-5 px-2 lg:px-5 ">
+              <h2 className="text-center font-bold text-xl">Rent records</h2>
+              <h2
+                className="py-1 px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
+                onClick={() => setShowRentForm(true)}
+              >
+                Add a payment
+              </h2>
               {tenantRent.length > 0 ? (
-                <h1 className="text-sm font-light">
+                <h1 className="text-sm font-light pt-5 lg:pt-0">
                   Balance for{" "}
                   {calculateBalanceDate(
                     // tenantRent[0].balance,
@@ -451,15 +460,8 @@ const TenantDetails: React.FC<Props> = ({
               ) : (
                 <h1>.</h1>
               )}
-              <h2 className="text-center font-bold text-xl">Rent records</h2>
-              <h2
-                className="py-1 px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
-                onClick={() => setShowRentForm(true)}
-              >
-                Add a payment
-              </h2>
             </div>
-            <div className="flex w-full items-center justify-end px-10 py-2">
+            <div className="flex w-full items-center justify-end px-2 lg:px-10 py-2">
               <h3 className="px-10 text-sm font-bold">
                 {filteredAccommodationRent.length + "/" + totalElements}
               </h3>
@@ -486,7 +488,7 @@ const TenantDetails: React.FC<Props> = ({
               <table className="w-full px-1 text-center text-sm bg-cyan-50">
                 <thead className="bg-blue-900 text-white sticky top-0">
                   <tr className="border-y-blue-500">
-                    <th className="text-white">Tenant</th>
+                    {/* <th className="text-white">Tenant</th> */}
                     <th>Unit</th>
                     <th>Amount</th>
                     <th>Payment</th>

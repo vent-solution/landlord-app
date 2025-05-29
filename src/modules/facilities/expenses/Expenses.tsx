@@ -14,6 +14,7 @@ import { ExpenseModel } from "./expenseModel";
 import Expense from "./Expense";
 import ExpensesFilterForm from "./ExpensesFilterForm";
 import ExpenseForm from "./ExpenseForm";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   facilityId: number;
@@ -132,25 +133,25 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 bg-gray-200">
       <div className="list w-full h-[calc(100vh-130px)] relative">
         <div className="w-full mb-5">
-          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3">
+          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3">
             <div className="w-full lg:w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex flex-wrap justify-between lg:justify-around items-center">
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                  className="transition-all ease-in-out delay-100 text-lg py-1 px-2 lg:px-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
-                  <span className="px-2">
+                  <span className="pr-2">
                     <FaDownload />
                   </span>
-                  <span>Expenses report</span>
+                  <span>Report</span>
                 </button>
                 <button
-                  className="transition-all ease-in-out delay-100 text-lg py-1 p-5 bg-blue-500  text-white cursor-pointer lg:hover:bg-blue-400 rounded-lg active:scale-95 flex justify-around items-center  lg:m-0"
+                  className="transition-all ease-in-out delay-100 text-lg py-1 px-2 bg-blue-500  text-white cursor-pointer lg:hover:bg-blue-400 rounded-lg active:scale-95 flex justify-around items-center  lg:m-0"
                   onClick={toggleShowAndHideExpenseForm}
                 >
-                  <span>Add expense</span>
+                  <span> + Add expense</span>
                 </button>
-                <h1 className="text-lg">
+                <h1 className="text-lg font-bold mr-2 lg:mr-0">
                   {filteredExpenses.length + " / " + Number(totalElements)}
                 </h1>
               </div>
@@ -181,13 +182,13 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
             <table className="border-2 w-full bg-white bordered text-center shadow-lg">
               <thead className="bg-blue-900 text-white sticky top-0">
                 <tr className="text-sm">
-                  <th className="px-2 font-bold py-1">#</th>
-                  <th className="px-2 font-bold">Added by.</th>
-                  <th className="px-2 font-bold">Name</th>
-                  <th className="px-2 font-bold">Transaction date</th>
-                  <th className="px-2 font-bold">Description</th>
-                  <th className="px-2 font-bold">Amount</th>
-                  <th className="px-2 font-bold">Added</th>
+                  {/* <th className="p-2 font-bold">#</th> */}
+                  <th className="p-2 font-bold text-start">Added by.</th>
+                  <th className="p-2 font-bold text-start">Name</th>
+                  <th className="p-2 font-bold text-start">Transaction date</th>
+                  <th className="p-2 font-bold text-start">Description</th>
+                  <th className="p-2 font-bold text-start">Amount</th>
+                  <th className="p-2 font-bold text-start">Added</th>
                 </tr>
               </thead>
               <tbody className="font-light">
@@ -201,15 +202,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-5/6 flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName={"expense"} />
           )}
         </div>
         <PaginationButtons

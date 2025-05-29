@@ -38,15 +38,15 @@ const Tenant: React.FC<Props> = ({
 
   return (
     <tr
-      className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100"
+      className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100"
       onClick={() => {
         setTenantId(Number(tenant.tenantId));
         setAccommodationId(Number(accommodation.accommodationId));
         toggleShowTenantDetails();
       }}
     >
-      <td className="py-5">{tenantIndex + 1}</td>
-      <td>{"FAC-" + accommodation.facility.facilityId}</td>
+      {/* <td className="py-5">{tenantIndex + 1}</td> */}
+      {/* <td>{"FAC-" + accommodation.facility.facilityId}</td> */}
       <td>{accommodation.accommodationNumber}</td>
       <td>{accommodation.floor}</td>
       <td>

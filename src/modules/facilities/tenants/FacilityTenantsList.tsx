@@ -11,6 +11,7 @@ import { fetchData } from "../../../global/api";
 import { setAlert } from "../../../other/alertSlice";
 import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
 import PaginationButtons from "../../../global/PaginationButtons";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -138,15 +139,15 @@ const TenantsList: React.FC<Props> = ({
     <div className="users-list flex w-full py-2 mt-0 lg:mt-0 z-0">
       <div className="list w-full bg-gray-200 lg:h-[calc(100vh-150px)] relative">
         <div className=" w-full mb-5">
-          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3">
+          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3">
             <div className="w-full lg:w-2/3 flex flex-wrap justify-between items-center">
-              <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
-                <h1 className="text-lg">
+              <div className="w-1/4 lg:w-1/2 flex justify-between lg:justify-around items-center">
+                <h1 className="text-lg font-bold">
                   {filteredTenants.length}/{totalElements}
                 </h1>
               </div>
               <div
-                className={` rounded-full  bg-white flex justify-between border-blue-900 border-2 w-full lg:w-2/4 h-3/4 mt-5 lg:mt-0`}
+                className={` rounded-full  bg-white flex justify-between border-blue-900 border-2 w-3/4 lg:w-2/4 h-3/4 mt-5 lg:mt-0`}
               >
                 <input
                   type="text"
@@ -168,18 +169,18 @@ const TenantsList: React.FC<Props> = ({
         <div className="lg:px-5 mb-12 overflow-auto pb-5 h-[calc(100vh-330px)]">
           {filteredTenants.length > 0 ? (
             <table className="border-2 w-full bg-white text-center shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
-                  <th className="px-2">#</th>
-                  <th className="px-2">Facility</th>
-                  <th className="px-2">Unit</th>
-                  <th className="px-2">Floor</th>
-                  <th className="px-2">Category</th>
-                  <th className="px-2">Tenant</th>
-                  <th className="px-2">Name</th>
-                  <th className="px-2">Telephone</th>
-                  <th className="px-2">Email</th>
-                  <th className="px-2">CheckIn</th>
+                  {/* <th className="p-2 text-start fond-bold">#</th> */}
+                  {/* <th className="p-2 text-start fond-bold">Facility</th> */}
+                  <th className="p-2 text-start fond-bold">Unit</th>
+                  <th className="p-2 text-start fond-bold">Floor</th>
+                  <th className="p-2 text-start fond-bold">Category</th>
+                  <th className="p-2 text-start fond-bold">Tenant</th>
+                  <th className="p-2 text-start fond-bold">Name</th>
+                  <th className="p-2 text-start fond-bold">Telephone</th>
+                  <th className="p-2 text-start fond-bold">Email</th>
+                  <th className="p-2 text-start fond-bold">CheckIn</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">
@@ -196,15 +197,7 @@ const TenantsList: React.FC<Props> = ({
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName={"tenant"} />
           )}
         </div>
         <PaginationButtons

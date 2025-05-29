@@ -333,7 +333,7 @@ const Details: React.FC<Props> = ({ facility }) => {
         )}
 
         {/* facility name  */}
-        <h1 className="w-full pt-5 text-5xl font-semi-bold">
+        <h1 className="w-full pt-5 text-3xl font-semi-bold">
           <span>{facility.facilityName}</span>
         </h1>
         <h3 className="pb-3 text-xl uppercase italic">

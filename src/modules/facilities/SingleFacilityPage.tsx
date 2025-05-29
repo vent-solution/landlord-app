@@ -261,7 +261,7 @@ const SingleFacilityPage: React.FC = () => {
       <div className="left lg:w-1/5 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
         <SideBar navLinks={navLinks} />
       </div>
-      <div className="right lg:w-4/5 w-full z-0 mt-20 lg:mt-0 px-0 lg:px-0">
+      <div className="right lg:w-4/5 w-full z-0 mt-20 lg:mt-0 px-0">
         <div className="w-full px-3 flex py-0 flex-wrap justify-center items-start bg-white shadow-lg">
           {/* <div className="w-full px-3 flex py-0 flex-wrap justify-center items-start bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 "> */}
           <div className="w-full lg:w-full py-2 lg:pb-0 flex justify-between lg:px-10 ">
@@ -279,10 +279,10 @@ const SingleFacilityPage: React.FC = () => {
               </h2>
             )}
           </div>
-          <ul className="w-full flex flex-wrap justify-start lg:justify-end items-center text-sm lg:text-sm text-gray-700 p-0 pt-2">
+          <ul className="w-full flex flex-wrap justify-center lg:justify-end items-center text-sm lg:text-sm text-gray-700 p-0 pt-2">
             <li
               id="Details"
-              className="active w-fit p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+              className="active w-fit py-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
               onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                 selectSection(e.currentTarget)
               }
@@ -295,7 +295,7 @@ const SingleFacilityPage: React.FC = () => {
               facility.businessType !== businessTypeEnum.rentWhole && (
                 <li
                   id="Accommodations"
-                  className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer  flex flex-wrap justify-center items-center"
+                  className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer  flex flex-wrap justify-center items-center"
                   onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                     selectSection(e.currentTarget)
                   }
@@ -310,7 +310,7 @@ const SingleFacilityPage: React.FC = () => {
               facility.businessType !== businessTypeEnum.hospitality && (
                 <li
                   id="Rent"
-                  className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center "
+                  className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center "
                   onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                     selectSection(e.currentTarget)
                   }
@@ -325,7 +325,7 @@ const SingleFacilityPage: React.FC = () => {
               (facility.businessType === businessTypeEnum.hospitality && (
                 <li
                   id="Rent"
-                  className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                  className="p-2  px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
                   onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                     selectSection(e.currentTarget)
                   }
@@ -338,7 +338,7 @@ const SingleFacilityPage: React.FC = () => {
             {facility.businessType !== businessTypeEnum.sale && (
               <li
                 id="Tenants"
-                className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
                 onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                   selectSection(e.currentTarget)
                 }
@@ -373,7 +373,7 @@ const SingleFacilityPage: React.FC = () => {
             {facility.businessType !== businessTypeEnum.sale && (
               <li
                 id="Staff"
-                className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
                 onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                   selectSection(e.currentTarget)
                 }
@@ -387,7 +387,7 @@ const SingleFacilityPage: React.FC = () => {
               facility.businessType !== businessTypeEnum.rentWhole && (
                 <li
                   id="Bookings"
-                  className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                  className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
                   onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                     selectSection(e.currentTarget)
                   }
@@ -399,7 +399,7 @@ const SingleFacilityPage: React.FC = () => {
 
             <li
               id="Histories"
-              className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+              className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
               onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                 selectSection(e.currentTarget)
               }
@@ -410,7 +410,7 @@ const SingleFacilityPage: React.FC = () => {
 
             <li
               id="Expenses"
-              className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+              className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
               onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                 selectSection(e.currentTarget)
               }
@@ -432,7 +432,7 @@ const SingleFacilityPage: React.FC = () => {
             {facility.businessType !== businessTypeEnum.sale && (
               <li
                 id="Statistics"
-                className="p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
                 onClick={(e: React.MouseEvent<HTMLLIElement>) =>
                   selectSection(e.currentTarget)
                 }

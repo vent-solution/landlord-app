@@ -27,12 +27,12 @@ let Expense: React.FC<Props> = ({ expense, expenseIndex }) => {
       "";
 
   return (
-    <tr className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100 bg-white">
-      <td className="py-5">{expenseIndex}</td>
-      <td>{"USR-" + expense.addedBy.userId}</td>
+    <tr className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100 bg-white">
+      {/* <td className="py-5">{expenseIndex}</td> */}
+      <td className="pt-5">{"USR-" + expense.addedBy.userId}</td>
       <td>{expense.addedBy.firstName + " " + expense.addedBy.lastName}</td>
       <td>{new Date(expense.transactionDate).toDateString()}</td>
-      <td className="py-5">{expense.description}</td>
+      <td className="pt-5">{expense.description}</td>
       <td className="font-bold font-mono">
         {FormatMoney(expense.amount, 2, expense.currency)}
       </td>
