@@ -257,7 +257,7 @@ const SingleFacilityPage: React.FC = () => {
   }
 
   return (
-    <div className="main max-h-screen lg:overflow-hidden flex relative w-full">
+    <div className="main max-h-screen overflow-auto lg:overflow-hidden flex relative w-full">
       <div className="left lg:w-1/5 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
         <SideBar navLinks={navLinks} />
       </div>
@@ -279,7 +279,7 @@ const SingleFacilityPage: React.FC = () => {
               </h2>
             )}
           </div>
-          <ul className="w-full flex flex-wrap justify-between lg:justify-end items-center text-sm lg:text-sm text-gray-700 p-0 pt-2">
+          <ul className="w-full flex flex-wrap justify-start lg:justify-end items-center text-sm lg:text-sm text-gray-700 p-0 pt-2">
             <li
               id="Details"
               className="active w-fit p-2 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"

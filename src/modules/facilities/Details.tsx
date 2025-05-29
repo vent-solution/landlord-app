@@ -302,8 +302,8 @@ const Details: React.FC<Props> = ({ facility }) => {
   };
 
   return (
-    <div className="h-[calc(100vh-160px)] overflow-auto bg-gray-100">
-      <div className="py-5 h-3/4">
+    <div className="h-[calc(100vh-160px)] lg:overflow-auto bg-gray-100">
+      <div className="py-5 h-3/4 px-3">
         <Suspense fallback={<div>Loading...</div>}>
           <ImageCarousel
             setIsShowImageForm={setIsShowImageForm}
@@ -317,7 +317,7 @@ const Details: React.FC<Props> = ({ facility }) => {
         </Suspense>
       </div>
 
-      <div className="p-1 lg:p-y lg:pt-0 max-w-4xl mx-auto">
+      <div className="p-1 lg:p-y lg:pt-0 max-w-4xl mx-auto px-3">
         {/* facility rating  */}
         {facility.facilityRating && (
           <h3 className="pb-1 text-xl uppercase italic">
@@ -367,18 +367,18 @@ const Details: React.FC<Props> = ({ facility }) => {
         )}
         <>
           {/* facility action button  */}
-          <div className="w-full text-lg flex">
+          <div className="w-full text-lg flex justify-start items-center">
             <button
               type="submit"
-              className="py-1 px-5 bg-blue-700 lg:hover:bg-blue-400 text-white mx-3"
+              className="py-1 px-2 lg:px-5 bg-blue-700 lg:hover:bg-blue-400 text-white mx-3"
               onClick={toggleShowFacilityForm}
             >
-              Update details
+              Edit details
             </button>
 
             <button
               type="submit"
-              className="py-1 px-5 border-2 border-blue-500 text-blue-500 lg:hover:bg-blue-400 lg:hover:text-white mx-3 rounded-lg"
+              className="py-1 px-2 lg:px-5 border-2 border-blue-500 text-blue-500 lg:hover:bg-blue-400 lg:hover:text-white mx-3 rounded-lg"
               onClick={() => {
                 dispatch(
                   setUserAction({ userAction: handleSetFacilityLocation })
@@ -397,10 +397,10 @@ const Details: React.FC<Props> = ({ facility }) => {
 
             <button
               type="submit"
-              className="py-1 px-5 border-2 border-green-500 text-green-500 lg:hover:bg-green-400 lg:hover:text-white mx-3  rounded-lg"
+              className="py-1 px-2 lg:px-5 border-2 border-green-500 text-green-500 lg:hover:bg-green-400 lg:hover:text-white mx-3  rounded-lg"
               onClick={toggleOpenAndCloseMap}
             >
-              Show on map
+              View map
             </button>
             {/* <button
             type="submit"
@@ -752,7 +752,7 @@ const Details: React.FC<Props> = ({ facility }) => {
                 )}
                 {facility.facilityAmenities && (
                   <Amenity
-                    name="cabel Internet"
+                    name="cable Internet"
                     availability={
                       !facility.facilityAmenities.cabelInternet
                         ? false
