@@ -9,6 +9,8 @@ import isValidEmail from "../../global/validation/emailValidation";
 import { addOffice } from "./OfficesSlice";
 import axios from "axios";
 import { postData } from "../../global/api";
+import checkRequiredFormFields from "../../global/validation/checkRequiredFormFields";
+import markRequiredFormField from "../../global/validation/markRequiredFormField";
 
 interface Props {
   toggleShowOfficeForm: () => void;
@@ -61,6 +63,8 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
         [id]: value,
       },
     }));
+
+    markRequiredFormField(e.target);
   };
 
   /*
@@ -88,8 +92,15 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
    * handle save office
    */
   const handleSaveOffice = async () => {
+    const country = document.getElementById("country") as HTMLInputElement;
+    const city = document.getElementById("city") as HTMLInputElement;
+    const telephone1 = document.getElementById(
+      "telephone1"
+    ) as HTMLInputElement;
+    const email = document.getElementById("email") as HTMLInputElement;
     // check if all the required fields are filled
     if (!allRequiredFilled) {
+      checkRequiredFormFields([country, city, telephone1, email]);
       dispatch(
         setAlert({
           message: "Please fill all the required fields marked by (*)",
@@ -236,7 +247,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             className="w-full bg-slate-700 text-white outline-none border-b-2 border-gray-200 rounded-lg focus:border-blue-400"
             onChange={handleChange}
           />
-          <small></small>
+          <small className="text-red-400">Country is required!</small>
         </div>
 
         {/* City form field*/}
@@ -268,7 +279,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             className="w-full bg-slate-700 text-white outline-none border-b-2 border-gray-200 rounded-lg focus:border-blue-400"
             onChange={handleChange}
           />
-          <small></small>
+          <small className="text-red-400">City is required!</small>
         </div>
 
         {/* State form field */}
@@ -485,7 +496,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             className="w-full bg-slate-700 text-white outline-none border-b-2 border-gray-200 rounded-lg focus:border-blue-400"
             onChange={handleChange}
           />
-          <small></small>
+          <small className="text-red-400">Telephone is requied</small>
         </div>
 
         {/*Telephone2 form field*/}
@@ -540,7 +551,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             className="w-full bg-slate-700 text-white outline-none border-b-2 border-gray-200 rounded-lg focus:border-blue-400"
             onChange={handleChange}
           />
-          <small></small>
+          <small className="text-red-400">Email is required!</small>
         </div>
 
         {/* Fax form field */}
@@ -578,7 +589,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
           </button>
           <button
             className="bg-gray-950 hover:bg-gray-800 text-lg px-3 py-1"
-            onClick={toggleShowOfficeForm}
+            onClick={() => {
+              toggleShowOfficeForm();
+              handleClearForm();
+            }}
           >
             Cancel
           </button>

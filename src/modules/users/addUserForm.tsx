@@ -155,26 +155,13 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
   }, [userId, selectedUser]);
 
   // handle change of form field values
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { id, value } = e.target;
     setUser({ ...user, [id]: value });
 
-    const parent = e.target.parentElement;
-    const label = parent?.querySelector("label");
-    const span = label?.querySelector("span");
-
-    if (value.trim().length < 1) {
-      markRequiredFormField(e.target);
-      label?.classList.remove("text-black");
-      label?.classList.add("text-black");
-      span?.classList.remove("text-red-600");
-      span?.classList.add("text-black");
-    } else {
-      label?.classList.add("text-black");
-      label?.classList.remove("text-black");
-      span?.classList.add("text-red-600");
-      span?.classList.remove("text-black");
-    }
+    markRequiredFormField(e.target);
   };
 
   // CLEAR USER FORM
@@ -396,26 +383,23 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
             >
               User role <span className={"text-red"}>*</span>
             </label>
-            <input
-              autoFocus
-              ref={firstNameRef}
-              type="text"
-              id="userRole"
+            <select
               name="userRole"
-              list="userRoleList"
-              value={user.userRole || ""}
-              placeholder="Enter user role"
+              id="userRole"
+              className="w-full py-1 px-3 rounded-md outline-none text-gray-900  border focus:border-blue-400"
               onChange={(e) => {
                 markRequiredFormField(e.target);
                 handleChange(e);
               }}
-              className="w-full py-1 px-3 rounded-md outline-none text-gray-900  border focus:border-blue-400"
-            />
-            <datalist id="userRoleList" className="w-full">
+            >
+              <option value="">SELECT USER ROLE</option>
               {userRole.map((role, index) => (
-                <option key={index} value={role.value} />
+                <option key={index} value={role.value}>
+                  {role.label}
+                </option>
               ))}
-            </datalist>
+            </select>
+
             <small className="w-full text-red-600">User role is required</small>
           </div>
         )}
@@ -499,25 +483,24 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
             Gender
             <span className={"text-red"}>*</span>
           </label>
-          <input
-            type="text"
-            id="gender"
+          <select
             name="gender"
-            list="genderList"
-            value={user.gender || ""}
-            placeholder="Enter gender"
+            id="gender"
+            className="w-full py-1 px-3 rounded-md outline-none text-gray-900  border-b-2 focus:border-blue-400"
             onChange={(e) => {
               markRequiredFormField(e.target);
               handleChange(e);
             }}
-            className="w-full py-1 px-3 rounded-md outline-none text-gray-900  border-b-2 focus:border-blue-400"
-          />
-          <datalist id="genderList" className="w-full">
+          >
+            <option value="">SELECT GENDER</option>
             {GenderValues.map((gender, index) => (
-              <option key={index} value={gender} />
+              <option key={index} value={gender}>
+                {gender}
+              </option>
             ))}
-          </datalist>
-          <small className="w-full text-red-600">Gender is required</small>
+          </select>
+
+          <small className="w-full text-red-600">Gender is required!</small>
         </div>
 
         {/* TELEPHONE FORM FIELD */}
@@ -526,7 +509,7 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
             htmlFor="userTelephone"
             className={`w-full text-sm font-bold text-slate-700`}
           >
-            Telephone
+            Telephone (include country code +23...)
             <span className={"text-red"}>*</span>
           </label>
           <input
@@ -537,7 +520,7 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
               markRequiredFormField(e.target);
               handleChange(e);
             }}
-            placeholder="Enter telephone"
+            placeholder="Enter telephone Eg. +24589093344"
             autoComplete="true"
             className="w-full py-1 px-3 rounded-md outline-none text-gray-900  border-b-2 focus:border-blue-400"
           />
