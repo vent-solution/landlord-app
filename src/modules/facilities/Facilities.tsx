@@ -134,24 +134,27 @@ const Facilities: React.FC<Props> = () => {
   }, [dispatch, page, size]);
 
   return (
-    <div className="users-list flex w-full h-svh  mt-20 lg:mt-0 z-0 ">
-      <div className="list w-full relative bg-gray-200">
-        <div className=" w-full">
-          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3 bg-white sticky top-0 shadow-lg">
+    <div className="users-list flex w-full h-svh lg:h-dvh mt-20 lg:mt-0 z-0 bg-gray-200 relative">
+      <div className="list w-full relative">
+        <div className="bg-white w-full mb-5">
+          <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3 bg-white shadow-lg">
             {!isAddFacility && (
               <div className="w-full flex flex-wrap justify-end items-center">
-                <div className="w-full lg:w-1/3 px-10 flex flex-wrap justify-start lg:justify-between items-center">
+                <div className="w-full lg:w-2/3 lx-3 lg:px-10 flex flex-wrap justify-between lg:justify-between items-center">
                   <h1
                     className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-blue-600 text-blue-600 hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                     onClick={toggelIsAddFacility}
                   >
-                    <span className="px-2">
+                    <span className="pr-2">
                       <FaPlus />
                     </span>
                     <span>Add Facility</span>
                   </h1>
+                  <h1 className="text-xl font-bold text-blue-900 tracking-wider">
+                    Facilities
+                  </h1>
 
-                  <h1 className="text-lg font-bold  m-2 lg:m-0">
+                  <h1 className="font-bold text-lg  m-2 lg:m-0">
                     {filteredFacilities.length + "/" + totalElements}
                   </h1>
                 </div>

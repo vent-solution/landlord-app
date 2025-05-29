@@ -94,10 +94,9 @@ const FacilityRow: React.FC<Props> = ({ facilityIndex, facility }) => {
 
   return (
     <tr
-      className="cursor-pointer text-sm text-center border-y-2  hover:bg-gray-100 "
+      className="cursor-pointer text-sm text-start border-y-2  hover:bg-gray-100 "
       onClick={() => navigate(`/facilities/${facility.facilityId}`)}
     >
-      <td className="py-5">{facilityIndex + 1}</td>
       <td>{"FAC-" + facility.facilityId}</td>
 
       <td>{businessType?.label}</td>

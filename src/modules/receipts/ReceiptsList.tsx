@@ -199,13 +199,25 @@ const ReceiptsList: React.FC<Props> = () => {
               <thead className="sticky top-0 text-start bg-blue-900 text-white">
                 <tr>
                   {/* <th>#ID</th> */}
-                  <th className="text-start px-3">Receipt Number</th>
-                  <th className="text-start px-3">Transaction</th>
-                  <th className="text-start px-3">Amount</th>
-                  <th className="text-start px-3">Payment method</th>
-                  <th className="text-start px-3">Transaction date</th>
-                  <th className="text-start px-3">Description</th>
-                  <th className="text-start px-3">Date created</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Receipt Number
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Transaction
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">Amount</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Payment method
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Transaction date
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Description
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Date created
+                  </th>
                 </tr>
               </thead>
               <tbody>

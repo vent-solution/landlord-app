@@ -45,7 +45,7 @@ const User: React.FC<Props> = ({ user, userIndex }) => {
       className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100"
       onClick={() => navigate(`/users/${user.userId}`)}
     >
-      <td className={` py-5 flex justify-center items-center`}>
+      {/* <td className={` py-5 flex justify-center items-center`}>
         <span
           className={` p-2 py-1  text-white rounded-full text-xs flex items-center justify-center ${
             user.userStatus === UserStatusEnum.disabled
@@ -63,7 +63,7 @@ const User: React.FC<Props> = ({ user, userIndex }) => {
         >
           {userIndex + 1}
         </span>
-      </td>
+      </td> */}
       <td className="px-2">USR-{user.userId}</td>
       <td className="px-2">{user.firstName}</td>
       <td className="px-2">{user.lastName}</td>

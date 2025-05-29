@@ -139,8 +139,10 @@ let LogsList: React.FC<Props> = () => {
                   </span>
                   <span>Report</span>
                 </h1>
-                <h1 className="text-xl text-blue-900">Activities</h1>
-                <h1 className="font-bold mr-2 lg:mr-0">
+                <h1 className="text-xl font-bold text-blue-900 tracking-wider">
+                  Activities
+                </h1>
+                <h1 className="font-bold mr-2 text-lg lg:mr-0">
                   {filteredLogs.length + "/" + totalElements}
                 </h1>
               </div>
@@ -170,13 +172,19 @@ let LogsList: React.FC<Props> = () => {
               <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
                   {/* <th className="text-start px-2">#</th> */}
-                  <th className="text-start px-2">User number</th>
-                  <th className="text-start px-2">User full name</th>
-                  <th className="text-start px-2">User role</th>
-                  <th className="text-start px-2">Activity</th>
-                  <th className="text-start px-2">Description</th>
-                  <th className="text-start px-2">Status</th>
-                  <th className="text-start px-2">Log date</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    User number
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">
+                    User full name
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">User role</th>
+                  <th className="text-start px-2 font-bold py-2">Activity</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Description
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">Status</th>
+                  <th className="text-start px-2 font-bold py-2">Log date</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

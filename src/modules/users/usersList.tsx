@@ -15,6 +15,7 @@ import { AlertTypeEnum } from "../../global/enums/alertTypeEnum";
 import PaginationButtons from "../../global/PaginationButtons";
 import AddUserForm from "./addUserForm";
 import { FaPlus } from "react-icons/fa6";
+import EmptyList from "../../global/EnptyList";
 
 interface Props {
   currentUser: UserModel | null;
@@ -242,16 +243,19 @@ const UserList: React.FC<Props> = ({ currentUser }) => {
             <table className="border-2 w-full bg-white shadow-lg">
               <thead className="sticky top-0 bg-blue-900 text-base text-white">
                 <tr className="rounded-full">
-                  <th className="px-2">#</th>
-                  <th className="px-2">User number</th>
-                  <th className="px-2">FirstName</th>
-                  <th className="px-2">LastName</th>
-                  <th className="px-2">Gender</th>
-                  <th className="px-2">Role</th>
-                  <th className="px-2">Telephone</th>
-                  <th className="px-2">Email</th>
-                  <th className="px-2">Joined</th>
-                  <th className="px-2">Last updated</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    User number
+                  </th>
+                  <th className="text-start px-2 font-bold py-2">FirstName</th>
+                  <th className="text-start px-2 font-bold py-2">LastName</th>
+                  <th className="text-start px-2 font-bold py-2">Gender</th>
+                  <th className="text-start px-2 font-bold py-2">Role</th>
+                  <th className="text-start px-2 font-bold py-2">Telephone</th>
+                  <th className="text-start px-2 font-bold py-2">Email</th>
+                  <th className="text-start px-2 font-bold py-2">Joined</th>
+                  <th className="text-start px-2 font-bold py-2">
+                    Last updated
+                  </th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">
@@ -261,15 +265,7 @@ const UserList: React.FC<Props> = ({ currentUser }) => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-80 h-80"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="user" />
           )}
         </div>
         <PaginationButtons

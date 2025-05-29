@@ -13,6 +13,8 @@ import axios from "axios";
 import { fetchData } from "../../global/api";
 import PaginationButtons from "../../global/PaginationButtons";
 import { FaDownload, FaPlus } from "react-icons/fa6";
+import { CgDanger } from "react-icons/cg";
+import EmptyList from "../../global/EnptyList";
 
 interface Props {}
 const OfficesList: React.FC<Props> = () => {
@@ -235,15 +237,7 @@ const OfficesList: React.FC<Props> = () => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="Office" />
           )}
         </div>
         <PaginationButtons

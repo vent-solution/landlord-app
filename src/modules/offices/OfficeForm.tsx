@@ -569,7 +569,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
       </div>
 
       <div className="w-full flex justify-center py-10">
-        <div className="w-full lg:w-1/4 flex flex-wrap justify-around items-center">
+        <div className="w-full lg:w-1/2 flex flex-wrap justify-around items-center">
           <button
             className="bg-blue-950 hover:bg-blue-800 text-lg px-3 py-1"
             onClick={handleSaveOffice}
