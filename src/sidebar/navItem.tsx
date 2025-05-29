@@ -1,12 +1,59 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { NavLinkModel } from "../modules/users/models/navLinkModel";
 import { IoChevronForward } from "react-icons/io5";
 
 interface Props {
   navLink: NavLinkModel;
+  icon: JSX.Element;
+
+  navLinks: (
+    | {
+        icon: string;
+        name: string;
+        link: string;
+        active: boolean;
+        " active"?: undefined;
+      }
+    | {
+        icon: string;
+        name: string;
+        link: string;
+        " active": boolean;
+        active?: undefined;
+      }
+  )[];
+
+  setNavLinks: React.Dispatch<
+    React.SetStateAction<
+      | {
+          icon: string;
+          name: string;
+          link: string;
+          active: boolean;
+          // " active"?: undefined;
+        }[]
+      // | {
+      //     icon: string;
+      //     name: string;
+      //     link: string;
+      //     " active": boolean;
+      //     active?: undefined;
+      //   }
+    >
+  >;
 }
-const NavItem: React.FC<Props> = ({ navLink }) => {
+const NavItem: React.FC<Props> = ({ navLink, icon, navLinks, setNavLinks }) => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const updatedLinks = navLinks.map((link) => ({
+      ...link,
+      active: link.link === location.pathname,
+    }));
+    setNavLinks(updatedLinks);
+  }, [location.pathname]);
+
   return (
     <>
       {navLink.link && (
@@ -16,11 +63,9 @@ const NavItem: React.FC<Props> = ({ navLink }) => {
             navLink.active ? "bg-blue-900 text-white" : ""
           }`}
         >
-          <span className="text-xl px-4 flex justify-between">
-            {navLink.icon}
-          </span>
+          <span className="text-xl pr-4 flex justify-between">{icon}</span>
 
-          <span className="flex justify-between items-center w-3/4 tracking-widest text-sm">
+          <span className="flex justify-between items-center w-5/6 tracking-widest text-sm">
             {navLink.name} <IoChevronForward />
           </span>
         </Link>

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { NavLinkModel } from "../modules/users/models/navLinkModel";
 import NavItem from "./navItem";
-import { MdNotifications } from "react-icons/md";
+import { MdDashboard, MdNotifications } from "react-icons/md";
 import { FaBars } from "react-icons/fa";
-import { RxCross1 } from "react-icons/rx";
-import { ImProfile } from "react-icons/im";
+import { RxActivityLog, RxCross1 } from "react-icons/rx";
+import { ImOffice, ImProfile } from "react-icons/im";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import AlertMessage from "../other/alertMessage";
 import ConfirmMessage from "../other/ConfirmMessage";
@@ -15,13 +15,19 @@ import { setUserAction } from "../global/actions/actionSlice";
 import { UserModel } from "../modules/users/models/userModel";
 import { useNavigate } from "react-router-dom";
 import { logOutAction } from "../global/actions/logOut";
-interface Props {
-  navLinks: NavLinkModel[];
-}
+import { PiBuildingsFill } from "react-icons/pi";
+import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
+import { IoDiamondSharp } from "react-icons/io5";
+
+import navItems from "../global/navItems.json";
+
+interface Props {}
 
 const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
 
-let SideBar: React.FC<Props> = ({ navLinks }) => {
+let SideBar: React.FC<Props> = ({}) => {
+  const [navLinks, setNavLinks] = useState<NavLinkModel[]>(navItems);
+
   const [showProfileButtons, setShowProfileButtons] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
@@ -31,6 +37,21 @@ let SideBar: React.FC<Props> = ({ navLinks }) => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const iconMap: Record<string, JSX.Element> = {
+    MdDashboard: <MdDashboard />,
+    PiBuildingsFill: <PiBuildingsFill />,
+    FaUsers: <FaUsers />,
+    IoDiamondSharp: <IoDiamondSharp />,
+    ImOffice: <ImOffice />,
+    FaBusinessTime: <FaBusinessTime />,
+    FaReceipt: <FaReceipt />,
+    RxActivityLog: <RxActivityLog />,
+  };
+
+  function IconRenderer({ iconName }: { iconName: string }) {
+    return iconMap[iconName] || null;
+  }
 
   // handle log out function
   const handelLogOut = async () => {
@@ -123,11 +144,17 @@ let SideBar: React.FC<Props> = ({ navLinks }) => {
       <div
         className={`links bg-blue-950 lg:flex w-full ${
           !showLinks ? "hidden" : ""
-        } h-3/4 flex-wrap   overflow-auto text-gray-400 text-lg pl-5`}
+        } h-3/4 flex-wrap   overflow-auto text-gray-400 text-lg`}
       >
         <div className="py-2 w-full">
           {navLinks.map((navLink, index) => (
-            <NavItem key={index} navLink={navLink} />
+            <NavItem
+              key={index}
+              navLink={navLink}
+              icon={<IconRenderer iconName={navLink.icon} />}
+              setNavLinks={setNavLinks}
+              navLinks={navLinks}
+            />
           ))}
         </div>
       </div>

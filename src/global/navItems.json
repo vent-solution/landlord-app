@@ -1,0 +1,56 @@
+[
+  {
+    "icon": "MdDashboard",
+    "name": "Dashboard",
+    "link": "/dashboard",
+    "active": false
+  },
+
+  {
+    "icon": "PiBuildingsFill",
+    "name": "Facilities",
+    "link": "/facilities",
+    "active": false
+  },
+  {
+    "icon": "FaUsers",
+    "name": "Users",
+    "link": "/users",
+    "active": false
+  },
+
+  {
+    "icon": "IoDiamondSharp",
+    "name": "Tenants",
+    "link": "/tenants",
+    "active": false
+  },
+
+  {
+    "icon": "ImOffice",
+    "name": "Our offices",
+    "link": "/offices",
+    "active": false
+  },
+
+  {
+    "icon": "FaBusinessTime",
+    "name": "Market place",
+    "link": "/market",
+    "active": false
+  },
+
+  {
+    "icon": "FaReceipt",
+    "name": "Receipts",
+    "link": "/receipts",
+    "active": false
+  },
+
+  {
+    "icon": "RxActivityLog",
+    "name": "Activity Logs",
+    "link": "/logs",
+    "active": false
+  }
+]

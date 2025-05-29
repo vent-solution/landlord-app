@@ -18,75 +18,75 @@ import TenantDetails from "./TenantDetails";
 interface Props {}
 const TenantsPage: React.FC<Props> = () => {
   // LOCAL STATES
-  const [navLinks] = useState<NavLinkModel[]>([
-    {
-      icon: <MdDashboard />,
-      name: "Dashboard",
-      link: "/dashboard",
-      active: false,
-    },
+  // const [navLinks] = useState<NavLinkModel[]>([
+  //   {
+  //     icon: <MdDashboard />,
+  //     name: "Dashboard",
+  //     link: "/dashboard",
+  //     active: false,
+  //   },
 
-    {
-      icon: <PiBuildingsFill />,
-      name: "Facilties",
-      link: "/facilities",
-      active: false,
-    },
+  //   {
+  //     icon: <PiBuildingsFill />,
+  //     name: "Facilties",
+  //     link: "/facilities",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaUsers />,
-      name: "Users",
-      link: "/users",
-      active: false,
-    },
+  //   {
+  //     icon: <FaUsers />,
+  //     name: "Users",
+  //     link: "/users",
+  //     active: false,
+  //   },
 
-    {
-      icon: <IoDiamondSharp />,
-      name: "Tenants",
-      link: "/tenants",
-      active: true,
-    },
+  //   {
+  //     icon: <IoDiamondSharp />,
+  //     name: "Tenants",
+  //     link: "/tenants",
+  //     active: true,
+  //   },
 
-    {
-      icon: <ImOffice />,
-      name: "Our offices",
-      link: "/offices",
-      active: false,
-    },
-    // {
-    //   icon: <MdPayment />,
-    //   name: "Subscription fees",
-    //   link: "/subscription",
-    //   active: false,
-    // },
-    // {
-    //   icon: <IoDiamondSharp />,
-    //   name: "Bids",
-    //   link: "/bids",
-    //   active: false,
-    // },
+  //   {
+  //     icon: <ImOffice />,
+  //     name: "Our offices",
+  //     link: "/offices",
+  //     active: false,
+  //   },
+  //   // {
+  //   //   icon: <MdPayment />,
+  //   //   name: "Subscription fees",
+  //   //   link: "/subscription",
+  //   //   active: false,
+  //   // },
+  //   // {
+  //   //   icon: <IoDiamondSharp />,
+  //   //   name: "Bids",
+  //   //   link: "/bids",
+  //   //   active: false,
+  //   // },
 
-    {
-      icon: <FaBusinessTime />,
-      name: "Market place",
-      link: "/market",
-      active: false,
-    },
+  //   {
+  //     icon: <FaBusinessTime />,
+  //     name: "Market place",
+  //     link: "/market",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaReceipt />,
-      name: "Receipts",
-      link: "/receipts",
-      active: false,
-    },
+  //   {
+  //     icon: <FaReceipt />,
+  //     name: "Receipts",
+  //     link: "/receipts",
+  //     active: false,
+  //   },
 
-    {
-      icon: <RxActivityLog />,
-      name: "Activity Logs",
-      link: "/logs",
-      active: false,
-    },
-  ]);
+  //   {
+  //     icon: <RxActivityLog />,
+  //     name: "Activity Logs",
+  //     link: "/logs",
+  //     active: false,
+  //   },
+  // ]);
 
   const [showTenantDetails, setShowTenantDetails] = useState<boolean>(false);
   const [tenantId, setTenantId] = useState<number>(0);
@@ -148,7 +148,7 @@ const TenantsPage: React.FC<Props> = () => {
   return (
     <div className="main flex relative w-full">
       <div className="left lg:w-1/5 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
-        <SideBar navLinks={navLinks} />
+        <SideBar />
       </div>
       <div className="right h-svh overflow-auto lg:w-4/5 w-full z-0">
         {!showTenantDetails && (

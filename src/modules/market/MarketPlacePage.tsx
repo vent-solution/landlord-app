@@ -38,76 +38,76 @@ interface Props {}
 const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
 
 const Dashboard: React.FC<Props> = () => {
-  const navLinks: NavLinkModel[] = [
-    {
-      icon: <MdDashboard />,
-      name: "Dashboard",
-      link: "/dashboard",
-      active: false,
-    },
+  // const navLinks: NavLinkModel[] = [
+  //   {
+  //     icon: <MdDashboard />,
+  //     name: "Dashboard",
+  //     link: "/dashboard",
+  //     active: false,
+  //   },
 
-    {
-      icon: <PiBuildingsFill />,
-      name: "Facilities",
-      link: "/facilities",
-      active: false,
-    },
+  //   {
+  //     icon: <PiBuildingsFill />,
+  //     name: "Facilities",
+  //     link: "/facilities",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaUsers />,
-      name: "Users",
-      link: "/users",
-      active: false,
-    },
+  //   {
+  //     icon: <FaUsers />,
+  //     name: "Users",
+  //     link: "/users",
+  //     active: false,
+  //   },
 
-    {
-      icon: <IoDiamondSharp />,
-      name: "Tenants",
-      link: "/tenants",
-      active: false,
-    },
+  //   {
+  //     icon: <IoDiamondSharp />,
+  //     name: "Tenants",
+  //     link: "/tenants",
+  //     active: false,
+  //   },
 
-    {
-      icon: <ImOffice />,
-      name: "Our offices",
-      link: "/offices",
-      active: false,
-    },
-    // {
-    //   icon: <MdPayment />,
-    //   name: "Subscription fees",
-    //   link: "/subscription",
-    //   active: false,
-    // },
+  //   {
+  //     icon: <ImOffice />,
+  //     name: "Our offices",
+  //     link: "/offices",
+  //     active: false,
+  //   },
+  //   // {
+  //   //   icon: <MdPayment />,
+  //   //   name: "Subscription fees",
+  //   //   link: "/subscription",
+  //   //   active: false,
+  //   // },
 
-    // {
-    //   icon: <SiCoinmarketcap />,
-    //   name: "Bids",
-    //   link: "/bids",
-    //   active: false,
-    // },
+  //   // {
+  //   //   icon: <SiCoinmarketcap />,
+  //   //   name: "Bids",
+  //   //   link: "/bids",
+  //   //   active: false,
+  //   // },
 
-    {
-      icon: <FaBusinessTime />,
-      name: "Market place",
-      link: "/market",
-      active: true,
-    },
+  //   {
+  //     icon: <FaBusinessTime />,
+  //     name: "Market place",
+  //     link: "/market",
+  //     active: true,
+  //   },
 
-    {
-      icon: <FaReceipt />,
-      name: "Receipts",
-      link: "/receipts",
-      active: false,
-    },
+  //   {
+  //     icon: <FaReceipt />,
+  //     name: "Receipts",
+  //     link: "/receipts",
+  //     active: false,
+  //   },
 
-    {
-      icon: <RxActivityLog />,
-      name: "Activity Logs",
-      link: "/logs",
-      active: false,
-    },
-  ];
+  //   {
+  //     icon: <RxActivityLog />,
+  //     name: "Activity Logs",
+  //     link: "/logs",
+  //     active: false,
+  //   },
+  // ];
 
   const [filteredFacilities, setFilteredFacilities] = useState<
     FacilitiesModel[]
@@ -418,7 +418,7 @@ const Dashboard: React.FC<Props> = () => {
   return (
     <div className="main flex relative w-full">
       <div className="left lg:w-1/4 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
-        <SideBar navLinks={navLinks} />
+        <SideBar />
       </div>
       <div
         className="right lg:w-full w-full h-svh px-0 lg:px-0 py-0 overflow-y-auto  mt-0 lg:mt-0"
@@ -492,10 +492,6 @@ const Dashboard: React.FC<Props> = () => {
                           }
                         />
                       </div>
-
-                      {/* <button className="bg-blue-800 hover:bg-blue-600 text-white p-2 rounded-full text-xl text-center border ">
-                      {<FaSearch />}
-                    </button> */}
                     </div>
                   </div>
                 </div>
@@ -518,7 +514,7 @@ const Dashboard: React.FC<Props> = () => {
                   {/* our facilities */}
                   <div className="w-1/2 p-2 lg:px-5 border">
                     {filteredFacilities.map((facility, index) => (
-                      <div className="w-full p-5 m-auto text-center lg:hover:bg-blue-100">
+                      <div className="w-full p-2 lg:p-5 m-auto text-start lg:text-center lg:hover:bg-blue-100">
                         <div key={index} className="py-5 w-full overflow-auto">
                           <span className="font-bold text-sm px-3 py-1 bg-gray-500 text-white rounded-full">
                             {index + 1}
@@ -577,7 +573,7 @@ const Dashboard: React.FC<Props> = () => {
                         key={index}
                         className="py-5 w-full overflow-auto lg:hover:bg-blue-100"
                       >
-                        <div className="w-fit m-auto text-center">
+                        <div className="w-fit m-auto text-start lg:text-center">
                           <span className="font-bold text-xs px-3 py-1 bg-gray-400 text-white rounded-full w-10 h-10">
                             {index + 1}
                           </span>

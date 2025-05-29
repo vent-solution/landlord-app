@@ -14,76 +14,76 @@ import { UserModel } from "./models/userModel";
 interface Props {}
 const UsersPage: React.FC<Props> = () => {
   // LOCAL STATES
-  const [navLinks] = useState<NavLinkModel[]>([
-    {
-      icon: <MdDashboard />,
-      name: "Dashboard",
-      link: "/dashboard",
-      active: false,
-    },
+  // const [navLinks] = useState<NavLinkModel[]>([
+  //   {
+  //     icon: <MdDashboard />,
+  //     name: "Dashboard",
+  //     link: "/dashboard",
+  //     active: false,
+  //   },
 
-    {
-      icon: <PiBuildingsFill />,
-      name: "Facilties",
-      link: "/facilities",
-      active: false,
-    },
+  //   {
+  //     icon: <PiBuildingsFill />,
+  //     name: "Facilties",
+  //     link: "/facilities",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaUsers />,
-      name: "Users",
-      link: "/users",
-      active: true,
-    },
+  //   {
+  //     icon: <FaUsers />,
+  //     name: "Users",
+  //     link: "/users",
+  //     active: true,
+  //   },
 
-    {
-      icon: <IoDiamondSharp />,
-      name: "Tenants",
-      link: "/tenants",
-      active: false,
-    },
+  //   {
+  //     icon: <IoDiamondSharp />,
+  //     name: "Tenants",
+  //     link: "/tenants",
+  //     active: false,
+  //   },
 
-    {
-      icon: <ImOffice />,
-      name: "Our offices",
-      link: "/offices",
-      active: false,
-    },
-    // {
-    //   icon: <MdPayment />,
-    //   name: "Subscription fees",
-    //   link: "/subscription",
-    //   active: false,
-    // },
+  //   {
+  //     icon: <ImOffice />,
+  //     name: "Our offices",
+  //     link: "/offices",
+  //     active: false,
+  //   },
+  //   // {
+  //   //   icon: <MdPayment />,
+  //   //   name: "Subscription fees",
+  //   //   link: "/subscription",
+  //   //   active: false,
+  //   // },
 
-    // {
-    //   icon: <IoDiamondSharp />,
-    //   name: "Bids",
-    //   link: "/bids",
-    //   active: false,
-    // },
+  //   // {
+  //   //   icon: <IoDiamondSharp />,
+  //   //   name: "Bids",
+  //   //   link: "/bids",
+  //   //   active: false,
+  //   // },
 
-    {
-      icon: <FaBusinessTime />,
-      name: "Market place",
-      link: "/market",
-      active: false,
-    },
+  //   {
+  //     icon: <FaBusinessTime />,
+  //     name: "Market place",
+  //     link: "/market",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaReceipt />,
-      name: "Receipts",
-      link: "/receipts",
-      active: false,
-    },
+  //   {
+  //     icon: <FaReceipt />,
+  //     name: "Receipts",
+  //     link: "/receipts",
+  //     active: false,
+  //   },
 
-    {
-      icon: <RxActivityLog />,
-      name: "Activity Logs",
-      link: "/logs",
-      active: false,
-    },
-  ]);
+  //   {
+  //     icon: <RxActivityLog />,
+  //     name: "Activity Logs",
+  //     link: "/logs",
+  //     active: false,
+  //   },
+  // ]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState<UserModel | null>(null);
@@ -118,7 +118,7 @@ const UsersPage: React.FC<Props> = () => {
   return (
     <div className="main flex relative w-full">
       <div className="left lg:w-1/5 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
-        <SideBar navLinks={navLinks} />
+        <SideBar />
       </div>
       <div className="right lg:w-4/5 w-full z-0">
         <UserList currentUser={currentUser} />

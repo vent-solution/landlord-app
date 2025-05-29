@@ -21,63 +21,63 @@ import { FaHistory } from "react-icons/fa";
 interface Props {}
 const UsersPage: React.FC<Props> = () => {
   // LOCAL STATES
-  const [navLinks] = useState<NavLinkModel[]>([
-    {
-      icon: <MdDashboard />,
-      name: "Home",
-      link: "/home",
-      active: true,
-    },
+  // const [navLinks] = useState<NavLinkModel[]>([
+  //   {
+  //     icon: <MdDashboard />,
+  //     name: "Home",
+  //     link: "/home",
+  //     active: true,
+  //   },
 
-    {
-      icon: <PiBuildingsFill />,
-      name: "Facilities for sale",
-      link: "/facilitiesForSale",
-      active: false,
-    },
+  //   {
+  //     icon: <PiBuildingsFill />,
+  //     name: "Facilities for sale",
+  //     link: "/facilitiesForSale",
+  //     active: false,
+  //   },
 
-    {
-      icon: <PiBuildingsFill />,
-      name: "My Accommodations",
-      link: "/accommodations",
-      active: false,
-    },
+  //   {
+  //     icon: <PiBuildingsFill />,
+  //     name: "My Accommodations",
+  //     link: "/accommodations",
+  //     active: false,
+  //   },
 
-    {
-      icon: <TbBrandBooking />,
-      name: "Bookings",
-      link: "/bookings",
-      active: false,
-    },
+  //   {
+  //     icon: <TbBrandBooking />,
+  //     name: "Bookings",
+  //     link: "/bookings",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaHistory />,
-      name: "History",
-      link: "/history",
-      active: false,
-    },
+  //   {
+  //     icon: <FaHistory />,
+  //     name: "History",
+  //     link: "/history",
+  //     active: false,
+  //   },
 
-    {
-      icon: <IoDiamondSharp />,
-      name: "Broker fees",
-      link: "/brokerFees",
-      active: false,
-    },
+  //   {
+  //     icon: <IoDiamondSharp />,
+  //     name: "Broker fees",
+  //     link: "/brokerFees",
+  //     active: false,
+  //   },
 
-    {
-      icon: <FaReceipt />,
-      name: "Receipts",
-      link: "/receipts",
-      active: false,
-    },
+  //   {
+  //     icon: <FaReceipt />,
+  //     name: "Receipts",
+  //     link: "/receipts",
+  //     active: false,
+  //   },
 
-    {
-      icon: <RxActivityLog />,
-      name: "Activity Logs",
-      link: "/logs",
-      active: false,
-    },
-  ]);
+  //   {
+  //     icon: <RxActivityLog />,
+  //     name: "Activity Logs",
+  //     link: "/logs",
+  //     active: false,
+  //   },
+  // ]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -138,7 +138,7 @@ const UsersPage: React.FC<Props> = () => {
   return (
     <div className="main max-h-screen lg:overflow-hidden flex relative w-full">
       <div className="left lg:w-1/5 w-full md:w-full left-0 right-0 fixed lg:relative text-white z-50">
-        <SideBar navLinks={navLinks} />
+        <SideBar />
       </div>
       <div className="right lg:w-4/5 w-full z-0 mt-20 lg:mt-0">
         <div className="w-full flex py-0 flex-wrap justify-center items-start bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 px-2">

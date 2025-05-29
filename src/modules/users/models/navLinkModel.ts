@@ -1,9 +1,7 @@
-import { ReactElement } from "react";
-
 export interface NavLinkModel {
-  icon?: ReactElement;
-  name?: string;
-  link?: string;
-  active?: boolean;
+  icon: string;
+  name: string;
+  link: string;
+  active: boolean;
   childLinks?: NavLinkModel[];
 }
