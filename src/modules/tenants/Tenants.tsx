@@ -117,20 +117,22 @@ const TenantsList: React.FC<Props> = ({
     <div className="users-list flex w-full h-svh lg:h-dvh mt-20 lg:mt-0 z-0 relative">
       <div className="list w-full relative bg-gray-200">
         <div className="bg-white w-full shadow-lg mb-5">
-          <div className="w-full h-1/3 flex flex-wrap justify-around items-center px-10 py-3">
+          <div className="w-full h-1/3 flex flex-wrap justify-around items-center px-2 lg:px-10 py-3">
             <div className="w-full flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-2/3 flex justify-between lg:justify-around items-center">
                 <button
                   className="transition-all ease-in-out delay-100 py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                   onClick={() => setIsShowReportFilterForm(true)}
                 >
-                  <span className="px-2">
+                  <span className="pr-2">
                     <FaDownload />
                   </span>
                   <span>Report</span>
                 </button>
-                <h1 className="text-xl text-blue-900">Tenants</h1>
-                <h1 className="text-sm font-bold">
+                <h1 className="text-xl text-blue-900 tracking-wide font-bold">
+                  Tenants
+                </h1>
+                <h1 className="text-lg font-bold mr-2 lg:mr-0">
                   {filteredTenants.length + "/" + totalElements}
                 </h1>
               </div>
@@ -162,15 +164,15 @@ const TenantsList: React.FC<Props> = ({
             <table className="border-2 w-full bg-white text-center shadow-lg">
               <thead className="sticky top-0 bg-blue-900 text-base text-white">
                 <tr>
-                  <th className="px-2">#</th>
-                  <th className="px-2">Facility</th>
-                  <th className="px-2">Unit</th>
-                  <th className="px-2">Floor</th>
-                  <th className="px-2">Category</th>
-                  <th className="px-2">Tenant</th>
-                  <th className="px-2">Name</th>
-                  <th className="px-2">Telephone</th>
-                  <th className="px-2">Email</th>
+                  {/* <th className="text-start px-2 font-bold">#</th> */}
+                  <th className="text-start p-2 font-bold">Facility</th>
+                  <th className="text-start p-2 font-bold">Unit</th>
+                  <th className="text-start p-2 font-bold">Floor</th>
+                  <th className="text-start p-2 font-bold">Category</th>
+                  <th className="text-start p-2 font-bold">Tenant</th>
+                  <th className="text-start p-2 font-bold">Name</th>
+                  <th className="text-start p-2 font-bold">Telephone</th>
+                  <th className="text-start p-2 font-bold">Email</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

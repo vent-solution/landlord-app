@@ -215,7 +215,7 @@ const TenantDetails: React.FC<Props> = ({
   return (
     <div className="w-full py-24 lg:py-2 px-5">
       <div className="w-full m-auto h-fit border">
-        <div className="w-full p-2 flex flex-wrap justify-between items-center sticky top-0  z-10 bg-white border">
+        <div className="w-full p-2 flex flex-wrap justify-between items-center sticky top-0 lg:pt-10  z-10 bg-white border">
           {tenantRent.length > 0 ? (
             <h1
               className={`w-full py-5 lg:py-0 lg:w-fit text-sm font-bold text-${calculateRentExpiry(
@@ -274,7 +274,7 @@ const TenantDetails: React.FC<Props> = ({
           </div>
           <RxCross1
             title="close"
-            className="p-1 lg:hover:bg-red-600 lg:hover:text-white text-3xl rounded-sm cursor-pointer"
+            className="p-1 lg:hover:bg-red-600 lg:hover:text-white text-3xl rounded-sm cursor-pointer absolute top-0 right-0"
             onClick={() => toggleShowTenantDetails()}
           />
         </div>
@@ -284,7 +284,7 @@ const TenantDetails: React.FC<Props> = ({
             <div className="p-4 w-full">
               <h2 className="text-xl font-bold">Unit details</h2>
               <div className="p-2 flex justify-start items-center w-full">
-                <p className="text-sm flex flex-wrap px-3">
+                <p className="text-sm flex flex-wrap">
                   <span className="w-full py-1">
                     <b>Facility number: </b>
                     <span>{"FAC-" + accommodation?.facility.facilityId}</span>
@@ -308,10 +308,12 @@ const TenantDetails: React.FC<Props> = ({
                     <b>Unit number: </b>
                     <span>{accommodation?.accommodationNumber}</span>
                   </span>
-                  <span className="w-full py-1">
-                    <b>Floor: </b>
-                    <span>{accommodation?.floor}</span>
-                  </span>
+                  {accommodation?.floor && (
+                    <span className="w-full py-1">
+                      <b>Floor: </b>
+                      <span>{accommodation?.floor}</span>
+                    </span>
+                  )}
                   <span className="w-full py-1">
                     <b>Type: </b>
                     <span>
@@ -366,7 +368,7 @@ const TenantDetails: React.FC<Props> = ({
             {/* tenant details*/}
             <div className="p-4 w-full">
               <h2 className="text-xl flex justify-between items-center font-bold">
-                <span>Tenant</span>
+                <span className="font-bold">Tenant</span>
                 <span className="px-2 py-1 text-gray-500 bg-gray-100 text-sm rounded-full ">
                   {new Date(String(tenantHistory?.checkIn)).toDateString()}
                 </span>
@@ -554,9 +556,16 @@ const TenantDetails: React.FC<Props> = ({
 
           {/* tenant's rent records */}
           <div className="w-full lg:w-2/3 p-0 lg:py-5 relative border">
-            <div className="w-full flex justify-around items-center p-5">
+            <div className="w-full flex flex-wrap justify-around items-center p-5">
+              <h2 className="text-center font-bold text-xl">Rent records</h2>
+              <h2
+                className="py-1 px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
+                onClick={() => setShowRentForm(true)}
+              >
+                Add a payment
+              </h2>
               {tenantRent.length > 0 ? (
-                <h2 className="text-sm font-light">
+                <h2 className="text-sm font-light py-2">
                   Balance for{" "}
                   {new Date(
                     String(
@@ -577,16 +586,9 @@ const TenantDetails: React.FC<Props> = ({
               ) : (
                 <h2>.</h2>
               )}
-              <h2 className="text-center font-bold text-xl">Rent records</h2>
-              <h2
-                className="py-1 px-5 bg-blue-600 lg:hover:bg-blue-400 text-white cursor-pointer text-sm"
-                onClick={() => setShowRentForm(true)}
-              >
-                Add a payment
-              </h2>
             </div>
-            <div className="flex w-full items-center justify-end px-10 py-10 lg:py-2">
-              <h3 className="px-10 text-sm font-bold">
+            <div className="flex w-full items-center justify-between lg:justify-end px-2 lg:px-10 py-5 lg:py-2">
+              <h3 className="px-2 lg:px-10 text-sm font-bold">
                 {filteredAccommodationRent.length + "/" + totalElements}
               </h3>
               <div
@@ -612,7 +614,7 @@ const TenantDetails: React.FC<Props> = ({
               <table className="w-full px-1 text-center text-sm bg-cyan-50">
                 <thead className="bg-blue-900 text-white">
                   <tr className="border-y-blue-500">
-                    <th className="text-white">Tenant</th>
+                    {/* <th className="text-white">Tenant</th> */}
                     <th>Unit</th>
                     <th>Amount</th>
                     <th>Payment type</th>

@@ -27,14 +27,14 @@ const TenantRentRow: React.FC<Props> = ({ rent }) => {
 
   return (
     <tr className="border-y-blue-500 border-2 hover:bg-blue-100">
-      <td>{"TNT-" + rent.tenant.tenantId}</td>
+      {/* <td>{"TNT-" + rent.tenant.tenantId}</td> */}
       <td>{rent.accommodation.accommodationNumber}</td>
       <td className="font-bold font-mono">
         {FormatMoney(
           convertRent(
             Number(rent.facilityCurrencyRate),
             rent.dollarRate,
-            rent.amount
+            Number(rent.amount)
           ),
           // rent.amount,
           2,

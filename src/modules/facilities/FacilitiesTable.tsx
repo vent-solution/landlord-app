@@ -55,14 +55,14 @@ const FacilitiesTable: React.FC<Props> = ({
           <table className="border-2 w-full bg-white text-center shadow-lg">
             <thead className="bg-blue-900 text-white sticky top-0">
               <tr className="text-sm">
-                <th className="text-start px-2 font-bold py-2">No.</th>
-                <th className="text-start px-2 font-bold py-2">Business</th>
-                <th className="text-start px-2 font-bold py-2">Category</th>
-                <th className="text-start px-2 font-bold py-2">Name</th>
-                <th className="text-start px-2 font-bold py-2">Location</th>
-                <th className="text-start px-2 font-bold py-2">Status</th>
-                <th className="text-start px-2 font-bold py-2">Monthly Bid</th>
-                <th className="text-start px-2 font-bold py-2">Registered</th>
+                <th className="text-start font-bold p-2">No.</th>
+                <th className="text-start font-bold p-2">Business</th>
+                <th className="text-start font-bold p-2">Category</th>
+                <th className="text-start font-bold p-2">Name</th>
+                <th className="text-start font-bold p-2">Location</th>
+                <th className="text-start font-bold p-2">Status</th>
+                <th className="text-start font-bold p-2">Monthly Bid</th>
+                <th className="text-start font-bold p-2">Registered</th>
               </tr>
             </thead>
             <tbody className="font-light">

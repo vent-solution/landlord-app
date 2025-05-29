@@ -184,9 +184,11 @@ const OfficesList: React.FC<Props> = () => {
                   <span>Add office</span>
                 </button>
 
-                <h1 className="text-xl text-blue-900">Our offices</h1>
+                <h1 className="text-xl font-bold tracking-wide text-blue-900">
+                  Our offices
+                </h1>
 
-                <h1 className="font-bold mr-2 lg:mr-0">
+                <h1 className="font-bold text-lg mr-2 lg:mr-0">
                   {filteredOffices.length + "/" + totalElements}
                 </h1>
               </div>
@@ -219,15 +221,15 @@ const OfficesList: React.FC<Props> = () => {
               <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
                   {/* <th className="text-start px-2">#</th> */}
-                  <th className="text-start px-2">Office number</th>
-                  <th className="text-start px-2">Country</th>
-                  <th className="text-start px-2">City</th>
-                  <th className="text-start px-2">Street</th>
-                  <th className="text-start px-2">Email</th>
-                  <th className="text-start px-2">Telephone</th>
-                  <th className="text-start px-2">Telephone 2</th>
-                  <th className="text-start px-2">Date added</th>
-                  <th className="text-start px-2">Last updated</th>
+                  <th className="text-start p-2 font-bold">Office number</th>
+                  <th className="text-start p-2 font-bold">Country</th>
+                  <th className="text-start p-2 font-bold">City</th>
+                  <th className="text-start p-2 font-bold">Street</th>
+                  <th className="text-start p-2 font-bold">Email</th>
+                  <th className="text-start p-2 font-bold">Telephone</th>
+                  <th className="text-start p-2 font-bold">Telephone 2</th>
+                  <th className="text-start p-2 font-bold">Date added</th>
+                  <th className="text-start p-2 font-bold">Last updated</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

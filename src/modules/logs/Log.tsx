@@ -28,7 +28,7 @@ let Log: React.FC<Props> = ({ log, logIndex }) => {
       {/* <td className="px-2 pt-8">{logIndex + 1}</td> */}
       {/* <td className="px-2">{"LOG-" + log.logId}</td> */}
 
-      <td className="px-2 pt-1">
+      <td className="px-2 pt-3">
         {log.user?.userId && "USR-" + log.user?.userId}
       </td>
 
@@ -37,7 +37,7 @@ let Log: React.FC<Props> = ({ log, logIndex }) => {
       </td>
       <td className="px-2">{log.user?.userRole && log.user?.userRole}</td>
       <td className="px-2">{log.activity}</td>
-      <td className="px-2 w-80 pt-2">{log.description}</td>
+      <td className="px-2 w-80 pt-3">{log.description}</td>
       <td
         className={`px-2 text-sm ${
           log.status === "failed" ? "text-red-500" : "text-green-600"

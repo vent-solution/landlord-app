@@ -48,14 +48,14 @@ let Office: React.FC<Props> = ({ office, officeIndex }) => {
     >
       {/* <td className="px-2 py-5">{officeIndex + 1}</td> */}
       <td className="px-2 pt-2">{"OFF-" + office.officeId}</td>
-      <td className="px-2">{office.officeLocation.country}</td>
-      <td className="px-2">{office.officeLocation.city}</td>
-      <td className="px-2">{office.officeLocation.street}</td>
-      <td className="px-2">{office.officeContact.email}</td>
-      <td className="px-2">{office.officeContact.telephone1}</td>
-      <td className="px-2">{office.officeContact.telephone2}</td>
-      <td className="px-2">{created}</td>
-      <td className="px-2">{updated}</td>
+      <td className="px-2 pt-2">{office.officeLocation.country}</td>
+      <td className="px-2 pt-2">{office.officeLocation.city}</td>
+      <td className="px-2 pt-2">{office.officeLocation.street}</td>
+      <td className="px-2 pt-2">{office.officeContact.email}</td>
+      <td className="px-2 pt-2">{office.officeContact.telephone1}</td>
+      <td className="px-2 pt-2">{office.officeContact.telephone2}</td>
+      <td className="px-2 pt-2">{created}</td>
+      <td className="px-2 pt-2">{updated}</td>
     </tr>
   );
 };

@@ -97,16 +97,16 @@ const FacilityRow: React.FC<Props> = ({ facilityIndex, facility }) => {
       className="cursor-pointer text-sm text-start border-y-2  hover:bg-gray-100 "
       onClick={() => navigate(`/facilities/${facility.facilityId}`)}
     >
-      <td>{"FAC-" + facility.facilityId}</td>
+      <td className="px-2 pt-3">{"FAC-" + facility.facilityId}</td>
 
-      <td>{businessType?.label}</td>
-      <td>{facilityCategory?.label}</td>
-      <td>{facility.facilityName}</td>
-      <td>
+      <td className="px-2 pt-3">{businessType?.label}</td>
+      <td className="px-2 pt-3">{facilityCategory?.label}</td>
+      <td className="px-2 pt-3">{facility.facilityName}</td>
+      <td className="px-2 pt-3">
         {facility.facilityLocation.city && facility.facilityLocation.city}{" "}
         {facility.facilityLocation.country}
       </td>
-      <td>
+      <td className="px-2 pt-3">
         {
           FACILITY_STATUS.find(
             (status) => status.value === facility.facilityStatus
@@ -114,14 +114,14 @@ const FacilityRow: React.FC<Props> = ({ facilityIndex, facility }) => {
         }
       </td>
 
-      <td className="font-bold font-mono">
+      <td className="px-2 pt-3 font-bold font-mono">
         {FormatMoney(
           facility.bidAmount ? facility.bidAmount : 0,
           2,
           settings[0].preferedCurrency
         )}
       </td>
-      <td>{registered}</td>
+      <td className="px-2 pt-3">{registered}</td>
     </tr>
   );
 };
