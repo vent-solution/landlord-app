@@ -22,6 +22,7 @@ import { setAlert } from "../../../other/alertSlice";
 import { UserModel } from "../../users/models/userModel";
 import { setUserAction } from "../../../global/actions/actionSlice";
 import { setConfirm } from "../../../other/ConfirmSlice";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -252,11 +253,11 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
       {!showAccommodationDetails && (
         <div className="w-full bg-gray-200 relative h-[calc(100vh-110px)]">
           <div className="w-full">
-            <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3 mb-5">
+            <div className="w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3 mb-5">
               <div className="w-full lg:w-3/4 flex flex-wrap justify-between items-center">
-                <div className="w-full lg:w-2/3 flex justify-between lg:justify-around items-center font-bold">
+                <div className="w-full lg:w-2/3 flex flex-wrap justify-between lg:justify-around items-center font-bold">
                   <h1
-                    className="transition-all ease-in-out delay-100 text-lg py-1 p-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
+                    className="transition-all ease-in-out delay-100 text-sm lg:text-lg py-1 px-2 lg:px-5 border-2 border-green-600 text-green-600 lg:hover:text-white cursor-pointer lg:hover:bg-green-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
                     onClick={() => {
                       dispatch(
                         setConfirm({
@@ -271,12 +272,12 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                     <span className="px-2">
                       <FaDownload />
                     </span>
-                    <span>Units report</span>
+                    <span>Report</span>
                   </h1>
                   <select
                     name="addAccommodation"
                     id="addAccommodation"
-                    className="bg-blue-500 rounded-lg px-2 lg:px-5 text-white text-sm outline-none border-none lg:hover:bg-blue-400 cursor-pointer"
+                    className="bg-blue-500 rounded-lg px-2 lg:px-5 text-white text-sm outline-none border-none lg:hover:bg-blue-400 cursor-pointer w-28 lg:w-fit"
                     onChange={handleSelectAccommodationType}
                   >
                     <option value="">ADD UNIT</option>
@@ -285,7 +286,7 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                     ))}
                   </select>
 
-                  <h1 className="text-lg">
+                  <h1 className="text-lg mr-2">
                     {filteredFacilityAccommodations.length +
                       "/" +
                       totalElements}
@@ -319,17 +320,17 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
               <table className="border-2 w-full bg-white shadow-lg">
                 <thead className="sticky top-0 bg-blue-900 text-base text-white">
                   <tr>
-                    <th className="px-2">#</th>
-                    <th className="px-2">ID</th>
-                    <th className="px-2">Number</th>
-                    <th className="px-2">Floor</th>
-                    <th className="px-2">Type</th>
-                    <th className="px-2">Capacity</th>
-                    <th className="px-2">Price</th>
-                    <th className="px-2">Status</th>
-                    {/* <th className="px-2">Tenants</th> */}
-                    <th className="px-2">Created</th>
-                    <th className="px-2">Updated</th>
+                    {/* <th className="px-2">#</th> */}
+                    {/* <th className="px-2">ID</th> */}
+                    <th className="p-2 font-bold text-start">Number</th>
+                    <th className="p-2 font-bold text-start">Floor</th>
+                    <th className="p-2 font-bold text-start">Type</th>
+                    <th className="p-2 font-bold text-start">Capacity</th>
+                    <th className="p-2 font-bold text-start">Price</th>
+                    <th className="p-2 font-bold text-start">Status</th>
+                    {/* <th className="p-2 font-bold text-start">Tenants</th> */}
+                    <th className="p-2 font-bold text-start">Created</th>
+                    <th className="p-2 font-bold text-start">Updated</th>
                   </tr>
                 </thead>
                 <tbody className="text-black font-light">
@@ -351,15 +352,7 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                 </tbody>
               </table>
             ) : (
-              <div className="w-ull h-full flex justify-center items-center">
-                <div
-                  className="w-14 lg:w-20 h-14 lg:h-20"
-                  style={{
-                    background: "URL('/images/Ghost.gif')",
-                    backgroundSize: "cover",
-                  }}
-                ></div>
-              </div>
+              <EmptyList itemName="Accommodation" />
             )}
           </div>
           <PaginationButtons

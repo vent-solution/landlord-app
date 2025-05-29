@@ -11,8 +11,8 @@ interface Props {
 
 const FacilityRentRow: React.FC<Props> = ({ rent, rentIndex }) => {
   return (
-    <tr className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100 bg-white">
-      <td className="py-5">{rentIndex}</td>
+    <tr className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100 bg-white">
+      {/* <td className="py-5">{rentIndex}</td> */}
       <td>{"TNT-" + rent.tenant.tenantId}</td>
       {!rent.tenant.companyName && (
         <td>{rent.tenant.user.firstName + " " + rent.tenant.user.lastName}</td>

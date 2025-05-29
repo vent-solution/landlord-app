@@ -15,6 +15,7 @@ import axios from "axios";
 import { fetchData } from "../../../global/api";
 import { FaDownload } from "react-icons/fa6";
 import RentFilterForm from "./RentFilterForm";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   facilityId: number;
@@ -131,7 +132,7 @@ const FacilityRentList: React.FC<Props> = ({ facilityId }) => {
     <div className="users-list flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 bg-gray-200">
       <div className="list w-full h-[calc(100vh-130px)] relative">
         <div className="w-full mb-5">
-          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-10 py-3">
+          <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3">
             <div className="w-full lg:w-2/3 flex flex-wrap justify-between items-center">
               <div className="w-full lg:w-1/2 flex justify-between lg:justify-around items-center">
                 <button
@@ -141,9 +142,9 @@ const FacilityRentList: React.FC<Props> = ({ facilityId }) => {
                   <span className="px-2">
                     <FaDownload />
                   </span>
-                  <span>Payments report</span>
+                  <span>Report</span>
                 </button>
-                <h1 className="text-lg">
+                <h1 className="text-lg mr-2 lg:mr-0">
                   {filteredRent.length + "/" + totalElements}
                 </h1>
               </div>
@@ -174,14 +175,14 @@ const FacilityRentList: React.FC<Props> = ({ facilityId }) => {
             <table className="border-2 w-full bg-white bordered text-center shadow-lg">
               <thead className="bg-blue-900 text-white sticky top-0">
                 <tr className="text-sm">
-                  <th className="px-2 font-bold py-1">#</th>
-                  <th className="px-2 font-bold">Tenant No.</th>
-                  <th className="px-2 font-bold">Tenant Name</th>
-                  <th className="px-2 font-bold">Accommodation</th>
-                  <th className="px-2 font-bold">Floor</th>
-                  <th className="px-2 font-bold">Payment Type</th>
-                  <th className="px-2 font-bold">Amount</th>
-                  <th className="px-2 font-bold">Paid</th>
+                  {/* <th className="px-2 font-bold py-1">#</th> */}
+                  <th className="p-2 font-bold text-start">Tenant No.</th>
+                  <th className="p-2 font-bold text-start">Tenant Name</th>
+                  <th className="p-2 font-bold text-start">Accommodation</th>
+                  <th className="p-2 font-bold text-start">Floor</th>
+                  <th className="p-2 font-bold text-start">Payment Type</th>
+                  <th className="p-2 font-bold text-start">Amount</th>
+                  <th className="p-2 font-bold text-start">Paid</th>
                 </tr>
               </thead>
               <tbody className="font-light">
@@ -195,15 +196,7 @@ const FacilityRentList: React.FC<Props> = ({ facilityId }) => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-5/6 flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="rent" />
           )}
         </div>
         <PaginationButtons

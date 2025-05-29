@@ -60,14 +60,14 @@ const Accommodattion: React.FC<Props> = ({
 
   return (
     <tr
-      className="cursor-pointer text-sm text-center border-y-2 hover:bg-gray-100"
+      className="cursor-pointer text-sm text-start border-y-2 hover:bg-gray-100"
       onClick={() => {
         onClick();
         navigate(`?unit_id=${accommodation.accommodationId}`);
       }}
     >
-      <td className="py-5">{accommodationIndex + 1}</td>
-      <td>{"ACC-" + accommodation.accommodationId}</td>
+      {/* <td className="py-5">{accommodationIndex + 1}</td> */}
+      {/* <td>{"ACC-" + accommodation.accommodationId}</td> */}
       <td>{accommodation.accommodationNumber}</td>
       <td>{accommodation.floor}</td>
       <td>
