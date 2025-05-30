@@ -1,96 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { MdDashboard, MdPayment } from "react-icons/md";
-import { RxActivityLog } from "react-icons/rx";
-import Preloader from "../../other/Preloader";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
-import { PiBuildingsFill } from "react-icons/pi";
-import { FaBusinessTime } from "react-icons/fa";
-import { IoDiamondSharp } from "react-icons/io5";
 import { AppDispatch } from "../../app/store";
 import { useDispatch } from "react-redux";
 import { fetchReceipts } from "./receiptsSlice";
 import { UserModel } from "../users/models/userModel";
-import { FaReceipt, FaUsers } from "react-icons/fa6";
 import ReceiptsList from "./ReceiptsList";
-import { SiCoinmarketcap } from "react-icons/si";
-import { ImOffice } from "react-icons/im";
 
 interface Props {}
 
 const ReceiptsPage: React.FC<Props> = () => {
   // LOCAL STATES
-  // const [navLinks] = useState<NavLinkModel[]>([
-  //   {
-  //     icon: <MdDashboard />,
-  //     name: "Dashboard",
-  //     link: "/dashboard",
-  //     active: false,
-  //   },
 
-  //   {
-  //     icon: <PiBuildingsFill />,
-  //     name: "Facilities",
-  //     link: "/facilities",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaUsers />,
-  //     name: "Users",
-  //     link: "/users",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Tenants",
-  //     link: "/tenants",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <ImOffice />,
-  //     name: "Our offices",
-  //     link: "/offices",
-  //     active: false,
-  //   },
-  //   // {
-  //   //   icon: <MdPayment />,
-  //   //   name: "Subscription fees",
-  //   //   link: "/subscription",
-  //   //   active: false,
-  //   // },
-
-  //   // {
-  //   //   icon: <SiCoinmarketcap />,
-  //   //   name: "Bids",
-  //   //   link: "/bids",
-  //   //   active: false,
-  //   // },
-
-  //   {
-  //     icon: <FaBusinessTime />,
-  //     name: "Market place",
-  //     link: "/market",
-  //     active: false,
-  //   },
-  //   {
-  //     icon: <FaReceipt />,
-  //     name: "Receipts",
-  //     link: "/receipts",
-  //     active: true,
-  //   },
-
-  //   {
-  //     icon: <RxActivityLog />,
-  //     name: "Activity Logs",
-  //     link: "/logs",
-  //     active: false,
-  //   },
-  // ]);
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [, setIsAuthenticated] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -103,7 +24,7 @@ const ReceiptsPage: React.FC<Props> = () => {
     if (currentUser) {
       setIsAuthenticated(true);
     } else {
-      window.location.href = "/";
+      window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
     }
   }, []);
 
@@ -117,11 +38,6 @@ const ReceiptsPage: React.FC<Props> = () => {
       fetchReceipts({ userId: Number(currentUser.userId), page: 0, size: 100 })
     );
   }, [dispatch]);
-
-  // render preloader screen if not authenticated or page still loading
-  if (!isAuthenticated) {
-    return <Preloader />;
-  }
 
   return (
     <div className="main flex relative w-full">

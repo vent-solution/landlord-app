@@ -4,11 +4,9 @@ import { FaSearch } from "react-icons/fa";
 import Preloader from "../../other/Preloader";
 import { LogModel } from "./LogModel";
 import { AppDispatch } from "../../app/store";
-import axios from "axios";
-import { fetchData } from "../../global/api";
 import PaginationButtons from "../../global/PaginationButtons";
 import Log from "./Log";
-import { getLogs, resetLogs } from "./LogsSlice";
+import { fetchLogs, getLogs } from "./LogsSlice";
 import { UserModel } from "../users/models/userModel";
 import { getAllUsers } from "../users/usersSlice";
 import { FaDownload } from "react-icons/fa6";
@@ -80,45 +78,29 @@ let LogsList: React.FC<Props> = () => {
 
   // handle fetch next page
   const handleFetchNextPage = useCallback(async () => {
-    const userIdList: number[] = [];
-    userIdList.push(Number(currentUser?.userId));
     const IDs = landlordUsers.map((user) => Number(user.userId));
-
-    userIdList.push(...IDs);
-    try {
-      const result = await fetchData(
-        `/fetch-landlord-user-logs/${userIdList}/${page + 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetLogs(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH LOGS CANCELLED ", error.message);
-      }
-    }
-  }, [dispatch, page, size, currentUser?.userId, landlordUsers]);
+    dispatch(fetchLogs({ userId: IDs, page: page + 1, size: size }));
+  }, [
+    dispatch,
+    page,
+    size,
+    currentUser?.userId,
+    landlordUsers,
+    currentUser?.userId,
+  ]);
 
   // handle fetch next page
   const handleFetchPreviousPage = useCallback(async () => {
-    const userIdList: number[] = [];
-    userIdList.push(Number(currentUser?.userId));
     const IDs = landlordUsers.map((user) => Number(user.userId));
-
-    userIdList.push(...IDs);
-    try {
-      const result = await fetchData(
-        `/fetch-landlord-user-logs/${userIdList}/${page - 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetLogs(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH LOGS CANCELLED ", error.message);
-      }
-    }
-  }, [dispatch, page, size, currentUser?.userId, landlordUsers]);
+    dispatch(fetchLogs({ userId: IDs, page: page - 1, size: size }));
+  }, [
+    dispatch,
+    page,
+    size,
+    currentUser?.userId,
+    landlordUsers,
+    currentUser?.userId,
+  ]);
 
   if (status === "loading") return <Preloader />;
   if (error !== null) return <h1>{error}</h1>;

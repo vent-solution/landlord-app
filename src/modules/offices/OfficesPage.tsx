@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { MdDashboard, MdPayment } from "react-icons/md";
-import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
-import Preloader from "../../other/Preloader";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
 import OfficesList from "./OfficesList";
-import { PiBuildingsFill } from "react-icons/pi";
 
 interface Props {}
 const OfficesPage: React.FC<Props> = () => {
   // LOCAL STATES
-  // const [navLinks] = useState(navItems);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [, setIsAuthenticated] = useState(false);
 
   /*
    *create a delay of 3sec and check authication
@@ -26,14 +17,9 @@ const OfficesPage: React.FC<Props> = () => {
     if (currentUser) {
       setIsAuthenticated(true);
     } else {
-      window.location.href = "/";
+      window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
     }
   }, []);
-
-  // render preloader screen if not authenticated or page still loading
-  if (!isAuthenticated) {
-    return <Preloader />;
-  }
 
   return (
     <div className="main flex relative w-full">

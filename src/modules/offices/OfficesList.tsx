@@ -12,8 +12,7 @@ import { AppDispatch } from "../../app/store";
 import axios from "axios";
 import { fetchData } from "../../global/api";
 import PaginationButtons from "../../global/PaginationButtons";
-import { FaDownload, FaPlus } from "react-icons/fa6";
-import { CgDanger } from "react-icons/cg";
+import { FaPlus } from "react-icons/fa6";
 import EmptyList from "../../global/EnptyList";
 
 interface Props {}

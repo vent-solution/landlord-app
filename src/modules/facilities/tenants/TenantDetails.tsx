@@ -267,12 +267,6 @@ const TenantDetails: React.FC<Props> = ({
               <h2 className="text-xl font-bold">Unit details</h2>
               <div className="p-0 flex justify-start items-center w-full">
                 <p className="text-sm flex flex-wrap  px-3">
-                  {/* <span className="w-full">
-                    <b>ID: </b>
-                    <span>
-                      {"ACC-" + currentAccommodation?.accommodationId}
-                    </span>
-                  </span> */}
                   <span className="w-full">
                     <b>Number: </b>
                     <span>{currentAccommodation?.accommodationNumber}</span>

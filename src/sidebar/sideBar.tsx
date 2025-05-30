@@ -25,7 +25,7 @@ interface Props {}
 
 const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
 
-let SideBar: React.FC<Props> = ({}) => {
+let SideBar: React.FC<Props> = () => {
   const [navLinks, setNavLinks] = useState<NavLinkModel[]>(navItems);
 
   const [showProfileButtons, setShowProfileButtons] = useState<boolean>(false);

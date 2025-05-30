@@ -52,7 +52,7 @@ const NavItem: React.FC<Props> = ({ navLink, icon, navLinks, setNavLinks }) => {
       active: link.link === location.pathname,
     }));
     setNavLinks(updatedLinks);
-  }, [location.pathname]);
+  }, [location.pathname, navLinks, setNavLinks]);
 
   return (
     <>

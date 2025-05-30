@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
 import Preloader from "../../other/Preloader";
 import { AppDispatch } from "../../app/store";
-import axios from "axios";
-import { fetchData } from "../../global/api";
 import PaginationButtons from "../../global/PaginationButtons";
 import Log from "../logs/Log";
 import { LogModel } from "../logs/LogModel";
-import { fetchLogs, getLogs, resetLogs } from "../logs/LogsSlice";
+import { fetchLogs, getLogs } from "../logs/LogsSlice";
 
 interface Props {
   userId: number;
@@ -77,34 +75,12 @@ let UserActivityList: React.FC<Props> = ({ userId }) => {
 
   // handle fetch next page
   const handleFetchNextPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-landlord-user-logs/${[userId]}/${page + 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetLogs(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH LOGS CANCELLED ", error.message);
-      }
-    }
+    dispatch(fetchLogs({ userId: [userId], page: page + 1, size: size }));
   }, [dispatch, page, size, userId]);
 
   // handle fetch next page
   const handleFetchPreviousPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-landlord-user-logs/${[userId]}/${page - 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetLogs(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH LOGS CANCELLED ", error.message);
-      }
-    }
+    dispatch(fetchLogs({ userId: [userId], page: page - 1, size: size }));
   }, [dispatch, page, size, userId]);
 
   if (status === "loading") return <Preloader />;
@@ -144,17 +120,15 @@ let UserActivityList: React.FC<Props> = ({ userId }) => {
       <div className="lg:px-5 overflow-auto h-[calc(100svh-270px)]">
         {filteredLogs.length > 0 ? (
           <table className="border-2 w-full bg-cyan-50 bordered mt-3 shadow-lg">
-            <thead className="sticky top-0 bg-blue-900 text-base text-white">
+            <thead className="sticky top-0 bg-blue-900 text-white">
               <tr>
-                <th className="px-2">#</th>
-                {/* <th className="px-2">Log number</th> */}
-                <th className="px-2">User number</th>
-                <th className="px-2">User full name</th>
-                <th className="px-2">User role</th>
-                <th className="px-2">Activity</th>
-                <th className="px-2 w-1/3">Description</th>
-                <th className="px-2">Status</th>
-                <th className="px-2">Log date</th>
+                <th className="p-2 text-start font-bold">User number</th>
+                <th className="p-2 text-start font-bold">User full name</th>
+                <th className="p-2 text-start font-bold">User role</th>
+                <th className="p-2 text-start font-bold">Activity</th>
+                <th className="p-2 text-start font-bold w-1/3">Description</th>
+                <th className="p-2 text-start font-bold">Status</th>
+                <th className="p-2 text-start font-bold">Log date</th>
               </tr>
             </thead>
             <tbody className="text-black font-light">

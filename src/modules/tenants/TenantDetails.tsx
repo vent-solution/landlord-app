@@ -301,10 +301,6 @@ const TenantDetails: React.FC<Props> = ({
                     </span>
                   </span>
                   <span className="w-full py-1">
-                    <b>Unit ID: </b>
-                    <span>{"ACC-" + accommodation?.accommodationId}</span>
-                  </span>
-                  <span className="w-full py-1">
                     <b>Unit number: </b>
                     <span>{accommodation?.accommodationNumber}</span>
                   </span>
@@ -442,12 +438,6 @@ const TenantDetails: React.FC<Props> = ({
                             );
                             return;
                           }
-
-                          // setTenants(
-                          //   tenants.filter(
-                          //     (tenant) => tenant.tenantId !== tnt.tenantId
-                          //   )
-                          // );
 
                           dispatch(
                             setAlert({

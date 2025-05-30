@@ -1,13 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { MdDashboard, MdPayment } from "react-icons/md";
-import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
 import Preloader from "../../other/Preloader";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
-import { PiBuildingsFill } from "react-icons/pi";
 import Tenants from "./Tenants";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
@@ -18,84 +11,16 @@ import TenantDetails from "./TenantDetails";
 interface Props {}
 const TenantsPage: React.FC<Props> = () => {
   // LOCAL STATES
-  // const [navLinks] = useState<NavLinkModel[]>([
-  //   {
-  //     icon: <MdDashboard />,
-  //     name: "Dashboard",
-  //     link: "/dashboard",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <PiBuildingsFill />,
-  //     name: "Facilties",
-  //     link: "/facilities",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaUsers />,
-  //     name: "Users",
-  //     link: "/users",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Tenants",
-  //     link: "/tenants",
-  //     active: true,
-  //   },
-
-  //   {
-  //     icon: <ImOffice />,
-  //     name: "Our offices",
-  //     link: "/offices",
-  //     active: false,
-  //   },
-  //   // {
-  //   //   icon: <MdPayment />,
-  //   //   name: "Subscription fees",
-  //   //   link: "/subscription",
-  //   //   active: false,
-  //   // },
-  //   // {
-  //   //   icon: <IoDiamondSharp />,
-  //   //   name: "Bids",
-  //   //   link: "/bids",
-  //   //   active: false,
-  //   // },
-
-  //   {
-  //     icon: <FaBusinessTime />,
-  //     name: "Market place",
-  //     link: "/market",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaReceipt />,
-  //     name: "Receipts",
-  //     link: "/receipts",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <RxActivityLog />,
-  //     name: "Activity Logs",
-  //     link: "/logs",
-  //     active: false,
-  //   },
-  // ]);
 
   const [showTenantDetails, setShowTenantDetails] = useState<boolean>(false);
   const [tenantId, setTenantId] = useState<number>(0);
   const [selectedAccommodationId, setSelectedAccommodationId] =
     useState<number>(0);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [, setIsAuthenticated] = useState(false);
 
   const tenantsState = useSelector(getLandlordTenants);
+  const { status } = tenantsState;
   const tenant = tenantsState.landlordTenants.map((history) => history.tenant);
   const accommodation = tenantsState.landlordTenants.map(
     (history) => history.accommodation
@@ -120,7 +45,7 @@ const TenantsPage: React.FC<Props> = () => {
     if (currentUser) {
       setIsAuthenticated(true);
     } else {
-      window.location.href = "/";
+      window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
     }
   }, []);
 
@@ -141,7 +66,7 @@ const TenantsPage: React.FC<Props> = () => {
   }, [showTenantDetails]);
 
   // render preloader screen if not authenticated or page still loading
-  if (!isAuthenticated) {
+  if (status === "loading") {
     return <Preloader />;
   }
 
