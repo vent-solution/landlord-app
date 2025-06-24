@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import { MdDashboard } from "react-icons/md";
-import { FaUsers, FaReceipt } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
-import { NavLinkModel } from "../users/models/navLinkModel";
+import React from "react";
 import SideBar from "../../sidebar/sideBar";
-import { PiBuildingsFill } from "react-icons/pi";
 import { useSelector } from "react-redux";
 import { getSettings } from "../settings/SettingsSlice";
 import TotalEarnings from "./TotalEarnings";
 import MonthlyEarnings from "./MonthlyEarnings";
 import AnnualEarnings from "./AnnualEarnings";
 import DailyEarnings from "./DailyEarnings";
-import { FaBusinessTime } from "react-icons/fa";
 import NumberOfFacilities from "./NumberOfFacilities";
 
 interface Props {}

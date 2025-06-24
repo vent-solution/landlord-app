@@ -14,7 +14,7 @@ import {
 } from "./TenantRentSlice";
 import { RentModel } from "../rent/RentModel";
 import axios from "axios";
-import { fetchData } from "../../../global/api";
+import { fetchData, postData } from "../../../global/api";
 import Preloader from "../../../other/Preloader";
 import TenantRentRow from "./TenantRentRow";
 import {
@@ -26,6 +26,14 @@ import { calculateRentExpiry } from "../../../global/actions/calculateRentExpiry
 import { calculateFutureDate } from "../../receipts/calculateFutureDate";
 import { getAccommodationByIdAndTenant } from "../accommodations/accommodationsSlice";
 import { calculateBalanceDate } from "../../receipts/calculateBalanceDate";
+import { setUserAction } from "../../../global/actions/actionSlice";
+import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
+import { UserActivity } from "../../../global/enums/userActivity";
+import { setAlert } from "../../../other/alertSlice";
+import { setConfirm } from "../../../other/ConfirmSlice";
+import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
+import { webSocketService } from "../../../webSockets/socketService";
+import { UserModel } from "../../users/models/userModel";
 
 interface Props {
   tenant?: TenantModel;
@@ -339,7 +347,7 @@ const TenantDetails: React.FC<Props> = ({
                   {new Date(String(checkIn)).toDateString()}
                 </span>
               </h2>
-              <div className="p-2 flex justify-start items-center w-full  my-2">
+              <div className="p-2 flex flex-wrap justify-start items-center w-full  my-2">
                 <p className="text-sm flex flex-wrap">
                   <span className="w-full py-1">
                     <b>No: </b>
@@ -375,6 +383,100 @@ const TenantDetails: React.FC<Props> = ({
                     <span>{tenant && tenant.idType}</span>
                   </span>
                 </p>
+
+                <div className="py-3 w-full text-sm">
+                  <button
+                    className="py-1 px-3 rounded-lg bg-gray-300 hover:bg-gray-100 font-extrabold"
+                    onClick={() => {
+                      // handle checkout tenant
+                      const handleCheckOutTenant = async () => {
+                        const currentUser: UserModel = JSON.parse(
+                          localStorage.getItem("dnap-user") as string
+                        );
+
+                        try {
+                          const result = await postData(
+                            `/checkout-tenant/${Number(
+                              currentUser.userId
+                            )}/${Number(accommodationId)}/${Number(
+                              tenant?.tenantId
+                            )}`,
+                            {}
+                          );
+
+                          if (
+                            result.data.status &&
+                            result.data.status !== "OK"
+                          ) {
+                            dispatch(
+                              setAlert({
+                                message: result.data.message,
+                                status: true,
+                                type: AlertTypeEnum.danger,
+                              })
+                            );
+                            return;
+                          }
+
+                          // setTenants(
+                          //   tenants.filter(
+                          //     (tenant) => tenant.tenantId !== tnt.tenantId
+                          //   )
+                          // );
+
+                          dispatch(
+                            setAlert({
+                              type: AlertTypeEnum.success,
+                              status: true,
+                              message: result.data.message,
+                            })
+                          );
+
+                          const socketMessage: SocketMessageModel = {
+                            userId: Number(currentUser.userId),
+                            userRole: String(currentUser.userRole),
+                            content: String(
+                              tenantRent[0].accommodation?.accommodationId
+                            ),
+                            activity: UserActivity.checkOutTenant,
+                          };
+
+                          webSocketService.sendMessage(
+                            "/app/check-out-tenant",
+                            socketMessage
+                          );
+                        } catch (error) {
+                          if (axios.isCancel(error)) {
+                            console.log(
+                              "CHECKOUT TENANT CANCELLED: ",
+                              error.message
+                            );
+                          }
+                        } finally {
+                          dispatch(
+                            setConfirm({
+                              message: "",
+                              status: false,
+                            })
+                          );
+                        }
+                      };
+
+                      dispatch(
+                        setUserAction({ userAction: handleCheckOutTenant })
+                      );
+
+                      dispatch(
+                        setConfirm({
+                          message: `Are you sure you want to check out tenant (TNT-${tenant?.tenantId}) from Unit (${tenantRent[0].accommodation?.accommodationNumber}) of facility (FAC-${tenantRent[0].accommodation?.facility.facilityId}) `,
+                          status: true,
+                        })
+                      );
+                    }}
+                  >
+                    Check out
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -398,28 +500,6 @@ const TenantDetails: React.FC<Props> = ({
                   <span className="w-full">
                     <b>Tel: </b>
                     <span>{tenant && tenant.nextOfKin?.nokTelephone}</span>
-                  </span>
-                  <span className="w-full">
-                    <b>ID: </b>
-                    <span>{tenant && tenant.nextOfKin?.nokNationalId}</span>
-                  </span>
-                  <span className="w-full">
-                    <b>ID Type: </b>
-                    <span>{tenant && tenant.nextOfKin?.nokIdType}</span>
-                  </span>
-                  <span className="w-full">
-                    <b>Address: </b>
-                    <span>
-                      {tenant &&
-                        tenant.nextOfKin?.address?.city +
-                          ", " +
-                          tenant.nextOfKin?.address?.country}
-                    </span>
-                  </span>
-
-                  <span className="w-full">
-                    <b>Address Type: </b>
-                    <span>{tenant && tenant.nextOfKin?.addressType}</span>
                   </span>
                 </p>
               </div>

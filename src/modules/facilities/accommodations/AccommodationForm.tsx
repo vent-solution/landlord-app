@@ -30,6 +30,8 @@ import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
 import { UserModel } from "../../users/models/userModel";
 import { UserActivity } from "../../../global/enums/userActivity";
 import { webSocketService } from "../../../webSockets/socketService";
+import checkRequiredFormFields from "../../../global/validation/checkRequiredFormFields";
+import { businessTypeEnum } from "../../../global/enums/businessTypeEnum";
 
 interface Props {
   facility: FacilitiesModel;
@@ -99,6 +101,11 @@ const AccommodationForm: React.FC<Props> = ({
       accommodationType: String(selectedType?.values),
     });
 
+  const canSave =
+    accommodation.accommodationNumber &&
+    accommodation.price &&
+    accommodation.paymentPartten;
+
   // set selected accommodationType and the accommodation type
   useEffect(() => {
     currentAccommodation?.accommodationType &&
@@ -134,27 +141,11 @@ const AccommodationForm: React.FC<Props> = ({
 
   // handle change text field
   const handelChangeTextField = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { id, value } = e.target;
-
-      setAccommodation((prev) => ({ ...prev, [id]: value }));
-    },
-    []
-  );
-
-  // handle change text area
-  const handelChangeTextArea = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const { id, value } = e.target;
-
-      setAccommodation((prev) => ({ ...prev, [id]: value }));
-    },
-    []
-  );
-
-  // handle change select option
-  const handelChangeSelectField = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+    (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => {
       const { id, value } = e.target;
 
       setAccommodation((prev) => ({ ...prev, [id]: value }));
@@ -172,8 +163,36 @@ const AccommodationForm: React.FC<Props> = ({
 
   // handle save new accommodation
   const saveNewAccommodation = useCallback(async () => {
+    if (!canSave) {
+      if (facility.businessType === businessTypeEnum.saleCondominium) {
+        checkRequiredFormFields([
+          document.getElementById("accommodationNumber") as HTMLInputElement,
+          document.getElementById("price") as HTMLInputElement,
+          // document.getElementById("paymentPartten") as HTMLInputElement,
+        ]);
+      } else {
+        checkRequiredFormFields([
+          document.getElementById("accommodationNumber") as HTMLInputElement,
+          document.getElementById("price") as HTMLInputElement,
+          document.getElementById("paymentPartten") as HTMLInputElement,
+        ]);
+      }
+    }
+
     try {
       const result = await postData(`/add-new-accommodation`, accommodation);
+
+      if (!result) {
+        dispatch(
+          setAlert({
+            type: AlertTypeEnum.danger,
+            status: true,
+            message: "ERROR OCCURRED PLEASE TRY AGAIN!",
+          })
+        );
+        return;
+      }
+
       if (
         (result.data.status && result.data.status !== "OK") ||
         result.status !== 200
@@ -296,13 +315,13 @@ const AccommodationForm: React.FC<Props> = ({
       <div className="w-full lg:w-5/6 h-fit bg-gray-100 m-auto shadow-lg p-5">
         <div className="w-full px-3 flex justify-between items-center sticky top-0 py-2 bg-white shadow-lg">
           {!accommodationId && (
-            <h1 className="w-3/4 text-center text-2xl tracking-wider">
+            <h1 className="w-3/4 text-center text-lg lg:text-2xl tracking-wider">
               Add {selectedType?.label}
             </h1>
           )}
 
           {accommodationId && (
-            <h1 className="w-3/4 text-center text-2xl tracking-wider">
+            <h1 className="w-3/4 text-center text-lg lg:text-2xl tracking-wider">
               Update{" "}
               {ACCOMMODATION_TYPE_DATA.find(
                 (type) => type.value === selectedType?.values
@@ -333,7 +352,7 @@ const AccommodationForm: React.FC<Props> = ({
                 id="accommodationType"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
                 onChange={(e) => {
-                  handelChangeSelectField(e);
+                  handelChangeTextField(e);
                   markRequiredFormField(e.target);
                   setSelectedType({
                     label: String(
@@ -420,7 +439,10 @@ const AccommodationForm: React.FC<Props> = ({
               className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
               onChange={(e) => {
                 markRequiredFormField(e.target);
-                handelChangeTextField(e);
+                setAccommodation((prev) => ({
+                  ...prev,
+                  price: Number(e.target.value),
+                }));
               }}
             />
             <small className="w-full text-red-600">Price is required!</small>
@@ -443,7 +465,10 @@ const AccommodationForm: React.FC<Props> = ({
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
                 onChange={(e) => {
                   markRequiredFormField(e.target);
-                  handelChangeTextField(e);
+                  setAccommodation((prev) => ({
+                    ...prev,
+                    bedrooms: Number(e.target.value),
+                  }));
                 }}
               />
               <small className="w-full text-red-600">
@@ -472,7 +497,7 @@ const AccommodationForm: React.FC<Props> = ({
                 }
               />
               <label htmlFor="fullyFurnished" className="w-full font-bold">
-                fully funished
+                fully furnished
               </label>
               <small className="w-fit"></small>
             </div>
@@ -517,7 +542,7 @@ const AccommodationForm: React.FC<Props> = ({
               <select
                 id="accommodationCategory"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-                onChange={handelChangeSelectField}
+                onChange={handelChangeTextField}
               >
                 <option value={accommodation.accommodationCategory || ""}>
                   {accommodation.accommodationCategory
@@ -549,7 +574,7 @@ const AccommodationForm: React.FC<Props> = ({
               <select
                 id="genderRestriction"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-                onChange={handelChangeSelectField}
+                onChange={handelChangeTextField}
               >
                 <option value={accommodation.genderRestriction || ""}>
                   {accommodation.genderRestriction
@@ -584,39 +609,48 @@ const AccommodationForm: React.FC<Props> = ({
                 value={accommodation.capacity || ""}
                 placeholder="0"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-                onChange={handelChangeTextField}
+                onChange={(e) =>
+                  setAccommodation((prev) => ({
+                    ...prev,
+                    capacity: Number(e.target.value),
+                  }))
+                }
               />
               <small className="w-full"></small>
             </div>
           )}
 
           {/* payment partern*/}
-          <div className="form-group p-2 py-5 w-full lg:w-1/3">
-            <label htmlFor="paymentPartten" className="w-full font-bold px-3">
-              payment parttern
-              <span className="text-red">*</span>
-            </label>
-            <select
-              id="paymentPartten"
-              className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-              onChange={handelChangeSelectField}
-            >
-              <option value={accommodation.paymentPartten || ""}>
-                {accommodation.paymentPartten
-                  ? PAYMENT_PARTERN.find(
-                      (partern) =>
-                        partern.value === accommodation.paymentPartten
-                    )?.label
-                  : "SELECT PARTERN"}
-              </option>
-              {PAYMENT_PARTERN.map((partern, index) => (
-                <option key={index} value={partern.value}>
-                  {partern.label}
+          {facility.businessType === businessTypeEnum.rent && (
+            <div className="form-group p-2 py-5 w-full lg:w-1/3">
+              <label htmlFor="paymentPartten" className="w-full font-bold px-3">
+                payment pattern
+                <span className="text-red">*</span>
+              </label>
+              <select
+                id="paymentPartten"
+                className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
+                onChange={handelChangeTextField}
+              >
+                <option value={accommodation.paymentPartten || ""}>
+                  {accommodation.paymentPartten
+                    ? PAYMENT_PARTERN.find(
+                        (partern) =>
+                          partern.value === accommodation.paymentPartten
+                      )?.label
+                    : "SELECT PARTERN"}
                 </option>
-              ))}
-            </select>
-            <small className="w-full"></small>
-          </div>
+                {PAYMENT_PARTERN.map((partern, index) => (
+                  <option key={index} value={partern.value}>
+                    {partern.label}
+                  </option>
+                ))}
+              </select>
+              <small className="w-full text-red-600">
+                Payment pattern is required!
+              </small>
+            </div>
+          )}
 
           {/* room location*/}
           {(selectedType?.values === AccommodationType.shopRoom ||
@@ -630,7 +664,7 @@ const AccommodationForm: React.FC<Props> = ({
               <select
                 id="roomLocation"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-                onChange={handelChangeSelectField}
+                onChange={handelChangeTextField}
               >
                 <option value={accommodation.roomLocation || ""}>
                   {accommodation.roomLocation
@@ -664,7 +698,12 @@ const AccommodationForm: React.FC<Props> = ({
                 value={accommodation.numberOfwashRooms || ""}
                 placeholder="0"
                 className="w-full outline-none border border-gray-400 focus:border-2 focus:border-blue-400 rounded-lg"
-                onChange={handelChangeTextField}
+                onChange={(e) =>
+                  setAccommodation((prev) => ({
+                    ...prev,
+                    numberOfwashRooms: Number(e.target.value),
+                  }))
+                }
               />
               <small className="w-full"></small>
             </div>
@@ -680,10 +719,14 @@ const AccommodationForm: React.FC<Props> = ({
               id="description"
               rows={10}
               maxLength={10000}
-              value={accommodation.description || ""}
+              value={
+                (accommodation.description !== "null" &&
+                  accommodation.description) ||
+                ""
+              }
               placeholder="Add more description"
               className="outline-none border border-gray-400 w-full p-3 rounded-lg resize-none focus:border-blue-500"
-              onChange={handelChangeTextArea}
+              onChange={handelChangeTextField}
             ></textarea>
           </div>
 

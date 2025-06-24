@@ -68,9 +68,7 @@ let ExpenseFilterForm: React.FC<Props> = ({
           setAlert({
             status: true,
             type: AlertTypeEnum.danger,
-            message: `ERROR OCCURRED PLEASE TRY AGAIN!!, ${
-              response.data.message && response.data.message
-            }`,
+            message: `${response.data.message && response.data.message}`,
           })
         );
 

@@ -44,51 +44,51 @@ let NumberOfFacilities: React.FC<Props> = () => {
       </div>
 
       <div className="mt-2 w-1/2 lg:w-1/6 px-2">
-        <div className="border border-gray-400  py-5 shadow-lg bg-gradient-to-t from-orange-100 via-orange-200 to-orange-300">
-          <h4 className="text-sm font-light text-gray-600">Rent units</h4>
-          <h1 className="text-3xl text-black font-light">
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">Rent units</h4>
+          <h1 className="text-xl text-white font-light">
             {rentFacilities.length}
           </h1>
         </div>
       </div>
 
       <div className="mt-2 w-1/2 lg:w-1/6 px-2 ">
-        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-orange-100 via-orange-200 to-orange-300">
-          <h4 className="text-sm font-light text-gray-600">
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">
             Rent whole facility
           </h4>
-          <h1 className="text-3xl text-black font-light">
+          <h1 className="text-xl text-white font-light">
             {rentWholeFacilities.length}
           </h1>
         </div>
       </div>
 
       <div className="mt-2 w-1/2 lg:w-1/6 px-2 ">
-        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-green-100 via-green-200 to-green-300">
-          <h4 className="text-sm font-light text-gray-600">
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">
             Sale whole facility
           </h4>
-          <h1 className="text-3xl text-black font-light">
+          <h1 className="text-xl text-white font-light">
             {saleFacilities.length}
           </h1>
         </div>
       </div>
 
       <div className="mt-2 w-1/2 lg:w-1/6 px-2 ">
-        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-green-100 via-green-200 to-green-300">
-          <h4 className="text-sm font-light text-gray-600">
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">
             Sale condominiums
           </h4>
-          <h1 className="text-3xl text-black font-light">
+          <h1 className="text-xl text-white font-light">
             {saleCondominiumsFacilities.length}
           </h1>
         </div>
       </div>
 
       <div className="mt-2 w-1/2 lg:w-1/6 px-2">
-        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-red-100 via-red-200 to-red-300">
-          <h4 className="text-sm font-light text-gray-600">Hospitality</h4>
-          <h1 className="text-3xl text-black font-light">
+        <div className="border border-gray-400 py-5 shadow-lg bg-gradient-to-t from-blue-800 via-blue-900 to-blue-950">
+          <h4 className="text-sm font-light text-gray-300">Hospitality</h4>
+          <h1 className="text-xl text-white font-light">
             {hospitalityFacilities.length}
           </h1>
         </div>

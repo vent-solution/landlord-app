@@ -80,7 +80,7 @@ const facilityHistorySlice = createSlice({
     addHistory: {
       reducer: (state, action: PayloadAction<HistoryModel>) => {
         state.totalElements += 1;
-        state.facilityHistory = [action.payload, ...state.facilityHistory];
+        state.facilityHistory = [...state.facilityHistory, action.payload];
       },
 
       prepare: (history: HistoryModel) => ({ payload: history }),

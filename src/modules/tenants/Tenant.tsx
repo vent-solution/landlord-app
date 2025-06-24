@@ -1,6 +1,7 @@
 import React from "react";
 import { HistoryModel } from "../facilities/history/HistoryModel";
 import { ACCOMMODATION_TYPE_DATA } from "../../global/PreDefinedData/PreDefinedData";
+import countriesList from "../../global/data/countriesList.json";
 
 interface Props {
   history: HistoryModel;
@@ -13,7 +14,6 @@ interface Props {
 
 let Tenant: React.FC<Props> = ({
   history,
-  tenantIndex,
   setTenantId,
   toggleShowTenantDetails,
   setSelectedAccommodationId,
@@ -30,8 +30,15 @@ let Tenant: React.FC<Props> = ({
       }}
     >
       {/* <td className="py-4">{tenantIndex + 1}</td> */}
-      <td className="px-2 pt-2">
-        {"FAC-" + accommodation.facility.facilityId}
+      <td className="px-2 pt-2 w-48">
+        {`(FAC- ${accommodation.facility.facilityId}) ${
+          accommodation.facility.facilityName
+        }, ${accommodation.facility.facilityLocation.primaryAddress}, ${
+          countriesList.find(
+            (country) =>
+              country.value === accommodation.facility.facilityLocation.country
+          )?.label
+        }`}
       </td>
       <td className="px-2 pt-2">{accommodation.accommodationNumber}</td>
       <td className="px-2 pt-2">{accommodation.floor}</td>

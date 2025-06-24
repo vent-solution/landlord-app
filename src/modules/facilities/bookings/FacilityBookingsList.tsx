@@ -17,6 +17,7 @@ import Preloader from "../../../other/Preloader";
 import { FaDownload } from "react-icons/fa6";
 import BookingFilterForm from "./BookingFilterForm";
 import BookingForm from "./BookingForm";
+import EmptyList from "../../../global/EnptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -239,15 +240,7 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="booking" />
           )}
         </div>
         <PaginationButtons

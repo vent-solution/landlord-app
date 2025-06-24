@@ -36,28 +36,6 @@ function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   // fetch all the landlord users
-  useEffect(() => {
-    dispatch(
-      fetchUsers({ userId: Number(currentUser?.userId), page: 0, size: 10 })
-    );
-
-    // fetch facilities that belong to the current landlord
-    let userId: number;
-
-    if (currentUser?.userRole !== UserRoleEnum.landlord) {
-      userId = Number(currentUser?.linkedTo);
-    } else {
-      userId = Number(currentUser.userId);
-    }
-
-    dispatch(
-      fetchFacilities({
-        userId: Number(userId),
-        page: 0,
-        size: 25,
-      })
-    );
-  }, [dispatch]);
 
   // socket connection and subscription
   useEffect(() => {

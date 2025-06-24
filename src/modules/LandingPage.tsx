@@ -7,6 +7,11 @@ import { LandlordCreationModel } from "./auth/landlordModel";
 import { fetchData } from "../global/api";
 import { UserRoleEnum } from "../global/enums/userRoleEnum";
 import LandlordForm from "./auth/LandlordForm";
+import { fetchFacilities } from "./facilities/FacilitiesSlice";
+import { fetchUsers } from "./users/usersSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import { UserStatusEnum } from "../global/enums/userStatusEnum";
 
 interface Props {}
 
@@ -20,24 +25,26 @@ const LandingPage: React.FC<Props> = () => {
 
     companyName: "",
 
-    idType: "",
-    nationalId: "",
+    // idType: "",
+    // nationalId: "",
 
     addressType: "",
     address: {
       country: "",
-      state: "",
-      city: "",
-      county: "",
-      division: "",
-      parish: "",
-      zone: "",
-      street: "",
-      plotNumber: "",
+      // state: "",
+      // city: "",
+      // county: "",
+      // division: "",
+      // parish: "",
+      // zone: "",
+      // street: "",
+      // plotNumber: "",
     },
   });
 
   const [isShowLandlordForm, setIsShowLandlordForm] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
 
@@ -56,6 +63,19 @@ const LandingPage: React.FC<Props> = () => {
           window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
           return;
         }
+
+        if (result.data.userStatus !== UserStatusEnum.online) {
+          window.location.href = `${process.env.REACT_APP_ENTRY_APP_URL}`;
+          return;
+        }
+
+        dispatch(
+          fetchFacilities({
+            userId: Number(userId),
+            page: 0,
+            size: 50,
+          })
+        );
 
         localStorage.setItem(
           "dnap-user",
@@ -81,8 +101,19 @@ const LandingPage: React.FC<Props> = () => {
             setIsShowLandlordForm(true);
             return;
           } else {
+            dispatch(fetchUsers({ userId: Number(userId), page: 0, size: 10 }));
+            fetchFacilities({
+              userId: Number(userId),
+              page: 0,
+              size: 25,
+            });
+
             navigate(`/dashboard`);
           }
+        }
+
+        if (result.data.userRole === UserRoleEnum.manager) {
+          navigate(`/dashboard`);
         }
       } catch (error) {
         if (axios.isCancel(error)) {

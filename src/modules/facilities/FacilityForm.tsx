@@ -28,19 +28,13 @@ import {
 } from "../../global/PreDefinedData/PreDefinedData";
 import { businessTypeEnum } from "../../global/enums/businessTypeEnum";
 import { useNavigate, useParams } from "react-router-dom";
-import { findFacilityById } from "./FacilitiesSlice";
+import { addNewFacility, findFacilityById } from "./FacilitiesSlice";
 import { setConfirm } from "../../other/ConfirmSlice";
 import { setUserAction } from "../../global/actions/actionSlice";
 import checkRequiredFormFields from "../../global/validation/checkRequiredFormFields";
 
 interface Props {
   toggelIsAddFacility: () => void;
-}
-
-interface CountryOption {
-  label: string; // What gets displayed
-  value: string; // A value representing the country, like ISO code
-  flag: string; // Flag URL for display in custom option rendering
 }
 
 const INITIAL_FACILITY_DATA: CreationFacilitiesModel = {
@@ -52,9 +46,7 @@ const INITIAL_FACILITY_DATA: CreationFacilitiesModel = {
   facilityLocation: {},
   contact: {
     telephone1: null,
-    telephone2: null,
     email: null,
-    fax: null,
   },
   genderRestriction: genderRestrictionEnum.both,
   businessType: null,
@@ -97,15 +89,9 @@ const INITIAL_FACILITY_AMENITIES = {
 };
 
 const INITIAL_ADDRESS = {
+  primaryAddress: null,
   country: null,
-  state: null,
   city: null,
-  county: null,
-  division: null,
-  parish: null,
-  zone: null,
-  street: null,
-  plotNumber: null,
 };
 
 let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
@@ -125,10 +111,6 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
     name,
   }));
 
-  const [selectedCountry, setSelectedCountry] = useState<CountryOption | null>(
-    null
-  );
-
   const [facilityData, setFacilityData] = useState<CreationFacilitiesModel>(
     INITIAL_FACILITY_DATA
   );
@@ -138,15 +120,9 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
   );
 
   const [address, setAddress] = useState<{
+    primaryAddress: string | null;
     country: string | null;
-    state: string | null;
     city: string | null;
-    county: string | null;
-    division: string | null;
-    parish: string | null;
-    zone: string | null;
-    street: string | null;
-    plotNumber: string | null;
   }>(INITIAL_ADDRESS);
 
   const { facilityId } = useParams();
@@ -185,6 +161,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
         contact: { ...facility?.contact },
         facilityAmenities: facility?.facilityAmenities,
         facilityRating: facility?.facilityRating,
+        bookingPercentage: Number(facility?.bookingPercentage),
       }));
 
       setAmenities((prev) => ({ ...prev, ...facility?.facilityAmenities }));
@@ -217,29 +194,11 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
     }));
   }, []);
 
-  // set facility country of loaction
-  const setFaciityCountry = (country: string) => {
-    setFacilityData({
-      ...facilityData,
-      facilityLocation: {
-        ...facilityData.facilityLocation,
-        country: country,
-      },
-    });
-  };
-
-  // Handle the change of selected country
-  const handleCountryChange = (selectedOption: CountryOption | null) => {
-    setFaciityCountry(String(selectedOption?.label));
-    setSelectedCountry(selectedOption);
-  };
-
   // handle form field change
   const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-      | React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { id, value } = e.target;
     setFacilityData({ ...facilityData, [id]: value });
@@ -248,12 +207,18 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
 
   // handle save facility button clicked
   const handleSaveFacility = async () => {
+    console.log(facilityData);
+
     if (!canSave) {
       // check required form input fields
       checkRequiredFormFields([
         document.getElementById("bookingPercentage") as HTMLInputElement,
         document.getElementById("facilityName") as HTMLInputElement,
         document.getElementById("city") as HTMLInputElement,
+        document.getElementById("telephone1") as HTMLInputElement,
+        document.getElementById("email") as HTMLInputElement,
+        document.getElementById("country") as HTMLInputElement,
+        document.getElementById("primaryAddress") as HTMLInputElement,
       ]);
 
       // check required form select fields
@@ -279,6 +244,18 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
         facility: facilityData,
         amenities: amenities,
       });
+
+      if (!result) {
+        dispatch(
+          setAlert({
+            type: AlertTypeEnum.danger,
+            status: true,
+            message: "INTERNAL SERVER ERROR!",
+          })
+        );
+        return;
+      }
+
       if (
         result.status !== 200 ||
         (result.data.status && result.data.status !== "OK")
@@ -297,10 +274,11 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
         setAlert({
           type: AlertTypeEnum.success,
           status: true,
-          message: result.data.message,
+          message: "Facility has been added successfully!",
         })
       );
 
+      dispatch(addNewFacility(result.data));
       toggelIsAddFacility();
       navigate("/facilities");
     } catch (error) {
@@ -376,7 +354,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
   ]);
 
   return (
-    <div className="w-full overflow-auto h-[calc(100vh-90px)] pt-0 px-2 lg:px-10 py-10">
+    <div className="w-full overflow-auto h-[calc(100vh-90px)] pt-0 px-2 lg:px-5 py-10">
       <div className="w-full lg:w-5/6 m-auto h-fit mt-1 shadow-lg relative bg-gray-50">
         <div className="w-full py-2 px-2 flex justify-between items-center bg-white shadow-lg sticky top-0">
           <h1 className="w-5/6 text-center text-2xl font-light tracking-wider">
@@ -390,11 +368,11 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </h1>
         </div>
         <div className="w-full p-5 flex flex-wrap justify-start text-sm">
-          <h1 className="font-bold text-xl w-full p-5 text-blue-800">
+          <h1 className="font-bold text-xl w-full p-5 text-blue-800 border-b-2 border-blue-800">
             Facility details
           </h1>
           {/* facility category select field */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="facilityCategory" className="font-bold">
               Facility category
               <span className="tex-red-500">*</span>
@@ -403,7 +381,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
             <select
               name=""
               id="facilityCategory"
-              className="w-full  outline-none rounded-lg border border"
+              className="w-full  outline-none border border"
               onChange={(e) => {
                 handleChange(e);
                 markRequiredFormField(e.target);
@@ -442,7 +420,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
 
           {/* facility rating select field */}
           {facilityData.facilityCategory === facilityCategory.hotel && (
-            <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+            <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
               <label htmlFor="facilityRating" className="font-bold">
                 Rating
                 <span className="tex-red-500">*</span>
@@ -451,7 +429,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               <select
                 name=""
                 id="facilityRating"
-                className="w-full  outline-none rounded-lg border"
+                className="w-full  outline-none border"
                 onChange={(e) => {
                   handleChange(e);
                   markRequiredFormField(e.target);
@@ -485,7 +463,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           )}
 
           {/* business type select field */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="businessType" className="font-bold">
               {" "}
               Business type
@@ -494,7 +472,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
             <select
               name=""
               id="businessType"
-              className="w-full  outline-none rounded-lg border"
+              className="w-full  outline-none border"
               onChange={(e) => {
                 handleChange(e);
                 markRequiredFormField(e.target);
@@ -531,7 +509,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           {/* price */}
           {(facilityData.businessType === businessTypeEnum.sale ||
             facilityData.businessType === businessTypeEnum.rentWhole) && (
-            <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+            <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
               <label htmlFor="facilityCategory" className="font-bold">
                 Price <span className="tex-red-500">*</span>
               </label>
@@ -542,14 +520,19 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
                 id="price"
                 value={facilityData.price || ""}
                 placeholder="$.0"
-                className="w-full  outline-none rounded-lg border"
-                onChange={handleChange}
+                className="w-full  outline-none border"
+                onChange={(e) =>
+                  setFacilityData((prev) => ({
+                    ...prev,
+                    price: Number(e.target.value),
+                  }))
+                }
               />
             </div>
           )}
 
           {/*booking percentage */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="bookingPercentage" className="font-bold">
               Booking percentage <span className="tex-red-500">*</span>
             </label>
@@ -559,9 +542,12 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               id="bookingPercentage"
               value={Number(facilityData.bookingPercentage) || ""}
               placeholder="Enter percentage (eg. 200)"
-              className="w-full  outline-none rounded-lg border"
+              className="w-full  outline-none border"
               onChange={(e) => {
-                handleChange(e);
+                setFacilityData((prev) => ({
+                  ...prev,
+                  bookingPercentage: Number(e.target.value),
+                }));
                 markRequiredFormField(e.target);
               }}
             />
@@ -572,7 +558,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </div>
 
           {/* facility name text field */}
-          <div className="form-group w-full px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="facilityName" className="font-bold">
               Facility name
               <span className="tex-red-500">*</span>
@@ -582,7 +568,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               id="facilityName"
               value={String(facilityData.facilityName || "")}
               placeholder="Enter facility name"
-              className="w-full outline-none rounded-lg border"
+              className="w-full outline-none border"
               onChange={(e) => {
                 handleChange(e);
                 markRequiredFormField(e.target);
@@ -595,7 +581,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </div>
 
           {/* preferred currency */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="preferedCurrency" className="font-bold">
               Preferred currency <span className="tex-red-500">*</span>
             </label>
@@ -603,7 +589,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               name=""
               id="preferedCurrency"
               value={facilityData.preferedCurrency || ""}
-              className="w-full  outline-none rounded-lg border"
+              className="w-full  outline-none border"
               onChange={(e) => {
                 handleChange(e);
                 markRequiredFormField(e.target);
@@ -614,7 +600,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               </option>
               {currencyArray.map((currency) => (
                 <option value={currency.code} className="capitalize">
-                  {currency.code + " -> " + currency.name}
+                  {currency.code + ": " + currency.name}
                 </option>
               ))}
             </select>
@@ -625,7 +611,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </div>
 
           {/* Gender restriction */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="genderRestriction" className="font-bold">
               Gender restriction <span className="tex-red-500"></span>
             </label>
@@ -633,7 +619,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               name=""
               id="genderRestriction"
               value={facilityData.genderRestriction || ""}
-              className="w-full  outline-none rounded-lg border"
+              className="w-full  outline-none border"
               onChange={handleChange}
             >
               <option value={genderRestrictionEnum.both} className="uppercase">
@@ -648,15 +634,15 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </div>
 
           {/* facility status */}
-          <div className="form-group w-full lg:w-1/3 px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-1/3 px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="facilityStatus" className="font-bold">
               Facility status <span className="tex-red-500">*</span>
             </label>
             <select
-              name=""
+              name="facilityStatus"
               id="facilityStatus"
               value={facilityData.facilityStatus || ""}
-              className="w-full  outline-none rounded-lg border"
+              className="w-full  outline-none border"
               onChange={(e) => {
                 handleChange(e);
                 markRequiredFormField(e.target);
@@ -677,7 +663,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           </div>
 
           {/* Facility description text area */}
-          <div className="form-group w-full lg:w-full px-4 py-5 my-2 lg:mx-0">
+          <div className="form-group w-full lg:w-full px-4 py-0 my-2 lg:mx-0">
             <label htmlFor="description" className="font-bold">
               More description <span className="tex-red-500"></span>
             </label>
@@ -687,31 +673,30 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
               id="description"
               rows={12}
               maxLength={5000}
-              value={facilityData.description || ""}
+              value={
+                (facilityData.description !== "null" &&
+                  facilityData.description) ||
+                ""
+              }
               placeholder="Add more preferred details about the facility up to 5000 characters"
               className="w-full p-3 resize-none outline-none border"
               onChange={handleChange}
             ></textarea>
           </div>
 
-          <h1 className="font-bold text-xl w-full p-5 text-blue-800">
+          <h1 className="font-bold text-xl w-full p-5 text-blue-800 border-b-2 border-blue-800">
             Facility Location
           </h1>
 
-          <AddressForm
-            handleCountryChange={handleCountryChange}
-            facilityData={facilityData}
-            selectedCountry={selectedCountry}
-            setAddress={setAddress}
-          />
+          <AddressForm facilityData={facilityData} setAddress={setAddress} />
 
-          <h1 className="font-bold text-xl w-full p-5 text-blue-800">
+          <h1 className="font-bold text-xl w-full p-5 text-blue-800 border-b-2 border-blue-800">
             Contact
           </h1>
 
           <ContactForm setData={setFacilityData} data={facilityData} />
 
-          <h1 className="font-bold text-xl w-full p-5 text-blue-800">
+          <h1 className="font-bold text-xl w-full p-5 text-blue-800 border-b-2 border-blue-800">
             Amenities
           </h1>
 
@@ -722,7 +707,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
           />
         </div>
         {!facilityId ? (
-          <div className="w-full flex justify-center items-center py-5">
+          <div className="w-full flex justify-center items-center py-0">
             <button
               className="p-3 w-1/4 bg-blue-600 text-white text-xl hover:bg-blue-400 active:w-1/5"
               onClick={handleSaveFacility}
@@ -731,7 +716,7 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
             </button>
           </div>
         ) : (
-          <div className="w-full flex justify-center items-center py-5">
+          <div className="w-full flex justify-center items-center py-0">
             <button
               className="p-3 w-1/4 bg-blue-600 text-white text-xl hover:bg-blue-400 active:w-1/5"
               onClick={() => {

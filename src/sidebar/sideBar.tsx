@@ -20,19 +20,19 @@ import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
 import { IoDiamondSharp } from "react-icons/io5";
 
 import navItems from "../global/navItems.json";
+import { useLocation } from "react-router-dom";
 
 interface Props {}
 
-const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
-
 let SideBar: React.FC<Props> = () => {
-  const [navLinks, setNavLinks] = useState<NavLinkModel[]>(navItems);
+  const location = useLocation();
+
+  const [navLinks] = useState<NavLinkModel[]>(navItems);
 
   const [showProfileButtons, setShowProfileButtons] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [currentUser] = useState<UserModel>(user);
 
   const navigate = useNavigate();
 
@@ -70,10 +70,13 @@ let SideBar: React.FC<Props> = () => {
     >
       {/* SIDEBAR SECTION UPPER PART */}
       <div className="w-full h-1/6 flex items-center justify-around py-3 px-2 lg:px-10 text-center border-gray-400 border-b-2">
-        <div className="logo  w-fit font-bold border-2 border-white rounded-full p-2">
+        <div
+          className="logo  w-fit font-bold border-2 border-white rounded-full p-2 cursor-pointer"
+          onClick={() => (window.location.href = "/landlord/dashboard")}
+        >
           <img
             className="w-6 h-6"
-            src="/images/logo-no-background.png"
+            src="/landlord/images/logo-no-background.png"
             alt=""
           />
         </div>
@@ -89,7 +92,7 @@ let SideBar: React.FC<Props> = () => {
           <div
             className="profile-image w-10 h-10 rounded-full hover:h-9 hover:w-9 cursor-pointer relative"
             style={{
-              background: "url('/images/Anatoli-profile-pic.jpeg')",
+              background: "url('/landlord/images/Anatoli-profile-pic.png')",
               backgroundSize: "cover",
             }}
             onClick={toggleShowProfileButtons}
@@ -113,7 +116,12 @@ let SideBar: React.FC<Props> = () => {
       >
         <button
           className=" hover:bg-blue-900 font-bold text-left px-5 text-white flex items-center my-1"
-          onClick={() => navigate(`/users/${currentUser.userId}`)}
+          onClick={() => {
+            const user = JSON.parse(
+              localStorage.getItem("dnap-user") as string
+            );
+            navigate(`/users/${user.userId}`);
+          }}
         >
           <span className="p-2">
             <ImProfile />
@@ -147,15 +155,61 @@ let SideBar: React.FC<Props> = () => {
         } h-3/4 flex-wrap   overflow-auto text-gray-400 text-lg`}
       >
         <div className="py-2 w-full">
-          {navLinks.map((navLink, index) => (
-            <NavItem
-              key={index}
-              navLink={navLink}
-              icon={<IconRenderer iconName={navLink.icon} />}
-              setNavLinks={setNavLinks}
-              navLinks={navLinks}
-            />
-          ))}
+          {navLinks.map((navLink, index) => {
+            const isActive = navLink.link === location.pathname;
+
+            // If childLinks exist, assign active status
+            const childLinks = navLink.childLinks?.map((child) => ({
+              ...child,
+              active: child.link === location.pathname,
+            }));
+
+            return (
+              <NavItem
+                key={index}
+                navLink={{ ...navLink, active: isActive, childLinks }}
+                icon={<IconRenderer iconName={navLink.icon} />}
+                setShowLinks={setShowLinks}
+              />
+            );
+          })}
+        </div>
+
+        <div
+          className={`py-5 w-full items-center justify-center border-t text-sm`}
+        >
+          <button
+            className="w-full hover:bg-blue-900 text-left px-5 text-white flex items-center my-1"
+            onClick={() => {
+              const user = JSON.parse(
+                localStorage.getItem("dnap-user") as string
+              );
+              navigate(`/users/${user.userId}`);
+            }}
+          >
+            <span className="p-2">
+              <ImProfile />
+            </span>
+            Profile
+          </button>
+          <button
+            className="w-full hover:bg-blue-900 text-left px-5 text-white flex items-center my-3"
+            onClick={() => {
+              dispatch(
+                setConfirm({
+                  message: "Are you sure you want to log out?",
+                  status: true,
+                })
+              );
+
+              dispatch(setUserAction({ userAction: handelLogOut }));
+            }}
+          >
+            <span className="p-2">
+              <RiLogoutCircleLine />
+            </span>
+            {loading ? "Wait..." : "Log out"}
+          </button>
         </div>
       </div>
 

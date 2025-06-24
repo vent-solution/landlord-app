@@ -339,10 +339,25 @@ let RentForm: React.FC<Props> = ({
               }
               dispatch(setUserAction({ userAction: handleSaveRentPayment }));
 
+              const actualAmount = convertCurrency(
+                currencyState,
+                String(accommodation?.facility.preferedCurrency),
+                "usd",
+                Number(rentData.amount)
+              );
+
               dispatch(
                 setConfirm({
                   status: true,
-                  message: `Are you sure you want to save rent payment TENAT: (TNT-${rentData.tenant?.tenantId}), FACILITY: (FAC-${facilityId}), UNIT: (${rentData.accommodation?.accommodationId}), AMOUNT: ${rentData.amount}`,
+                  message: `Are you sure you want to save rent payment TENAT: (TNT-${
+                    rentData.tenant?.tenantId
+                  }), FACILITY: (FAC-${facilityId}), UNIT: (${
+                    rentData.accommodation?.accommodationNumber
+                  }), AMOUNT: ${
+                    accommodation?.facility.preferedCurrency +
+                    ". " +
+                    actualAmount
+                  }`,
                 })
               );
             }}

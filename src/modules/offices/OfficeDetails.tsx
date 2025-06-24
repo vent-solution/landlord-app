@@ -81,15 +81,15 @@ const OfficeDetails: React.FC<Props> = ({ office }) => {
               <b>Country: </b>
               <i className="">{office.officeLocation.country}</i>
             </p>
-            <p className="text-sm">
+            {/* <p className="text-sm">
               <b>State: </b>
               <i>{office.officeLocation.state}</i>
-            </p>
+            </p> */}
             <p className="text-sm">
               <b>City: </b>
               <i>{office.officeLocation.city}</i>
             </p>
-            <p className="text-sm">
+            {/* <p className="text-sm">
               <b>County: </b>
               <i>{office.officeLocation.county}</i>
             </p>
@@ -112,7 +112,7 @@ const OfficeDetails: React.FC<Props> = ({ office }) => {
             <p className="text-sm">
               <b>Plot Number: </b>
               <i>{office.officeLocation.plotNumber}</i>
-            </p>
+            </p> */}
           </div>
         </div>
 

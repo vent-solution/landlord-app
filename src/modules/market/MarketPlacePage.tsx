@@ -1,20 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { MdDashboard, MdPayment } from "react-icons/md";
-import { FaUsers } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
-import { NavLinkModel } from "../users/models/navLinkModel";
 import SideBar from "../../sidebar/sideBar";
 import Preloader from "../../other/Preloader";
 import { UserModel } from "../users/models/userModel";
-import { PiBuildingsFill } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import { UserRoleEnum } from "../../global/enums/userRoleEnum";
 import { fetchFacilities, getFacilities } from "../facilities/FacilitiesSlice";
 import { AppDispatch } from "../../app/store";
-import { FaBusinessTime, FaReceipt } from "react-icons/fa";
-import { SiCoinmarketcap } from "react-icons/si";
 import {
   FACILITY_CATEGORY_DATA,
   FACILITY_RATING,
@@ -35,80 +26,7 @@ import FacilityBidForm from "../facilities/bids/FacilityBidForm";
 
 interface Props {}
 
-const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
-
 const Dashboard: React.FC<Props> = () => {
-  // const navLinks: NavLinkModel[] = [
-  //   {
-  //     icon: <MdDashboard />,
-  //     name: "Dashboard",
-  //     link: "/dashboard",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <PiBuildingsFill />,
-  //     name: "Facilities",
-  //     link: "/facilities",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaUsers />,
-  //     name: "Users",
-  //     link: "/users",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Tenants",
-  //     link: "/tenants",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <ImOffice />,
-  //     name: "Our offices",
-  //     link: "/offices",
-  //     active: false,
-  //   },
-  //   // {
-  //   //   icon: <MdPayment />,
-  //   //   name: "Subscription fees",
-  //   //   link: "/subscription",
-  //   //   active: false,
-  //   // },
-
-  //   // {
-  //   //   icon: <SiCoinmarketcap />,
-  //   //   name: "Bids",
-  //   //   link: "/bids",
-  //   //   active: false,
-  //   // },
-
-  //   {
-  //     icon: <FaBusinessTime />,
-  //     name: "Market place",
-  //     link: "/market",
-  //     active: true,
-  //   },
-
-  //   {
-  //     icon: <FaReceipt />,
-  //     name: "Receipts",
-  //     link: "/receipts",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <RxActivityLog />,
-  //     name: "Activity Logs",
-  //     link: "/logs",
-  //     active: false,
-  //   },
-  // ];
-
   const [filteredFacilities, setFilteredFacilities] = useState<
     FacilitiesModel[]
   >([]);
@@ -162,13 +80,15 @@ const Dashboard: React.FC<Props> = () => {
       window.location.href = "/";
     }
   }, []);
-
-  const [currentUser] = useState<UserModel>(user);
   const dispatch = useDispatch<AppDispatch>();
 
   // fetch facilities that belong to the current landlord
   useEffect(() => {
-    let userId: number;
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
+
+    let userId = null;
 
     if (currentUser?.userRole !== UserRoleEnum.landlord) {
       userId = Number(currentUser?.linkedTo);
@@ -183,12 +103,7 @@ const Dashboard: React.FC<Props> = () => {
         size: 25,
       })
     );
-  }, [
-    currentUser?.linkedTo,
-    currentUser?.userId,
-    currentUser?.userRole,
-    dispatch,
-  ]);
+  }, [dispatch]);
 
   //filter facilities on the market
 
@@ -513,57 +428,63 @@ const Dashboard: React.FC<Props> = () => {
 
                   {/* our facilities */}
                   <div className="w-1/2 p-2 lg:px-5 border">
-                    {filteredFacilities.map((facility, index) => (
-                      <div className="w-full p-2 lg:p-5 m-auto text-start lg:text-center lg:hover:bg-blue-100">
-                        <div key={index} className="py-5 w-full overflow-auto">
-                          <span className="font-bold text-sm px-3 py-1 bg-gray-500 text-white rounded-full">
-                            {index + 1}
-                          </span>
+                    {[...filteredFacilities]
+                      .sort((a, b) => Number(b.bidAmount) - Number(a.bidAmount))
+                      .map((facility, index) => (
+                        <div className="w-full p-2 lg:p-5 m-auto text-start lg:text-center lg:hover:bg-blue-100">
+                          <div
+                            key={index}
+                            className="py-5 w-full overflow-auto"
+                          >
+                            <span className="font-bold text-sm px-3 py-1 bg-gray-500 text-white rounded-full">
+                              {index + 1}
+                            </span>
 
-                          <h2 className="text-sm font-bold text-gray-600 mt-1">
-                            {
-                              FACILITY_RATING.find(
-                                (rate) => rate.value === facility.facilityRating
-                              )?.label
-                            }
-                          </h2>
-
-                          <h1 className="text-lg font-bold text-gray-600">
-                            {facility.facilityName}
-                          </h1>
-
-                          <h1 className="text-sm">
-                            {facility.facilityLocation.city +
-                              " " +
-                              facility.facilityLocation.country}
-                          </h1>
-
-                          <h2 className="text-xs text-gray-600">
-                            {
-                              FACILITY_CATEGORY_DATA.find(
-                                (category) =>
-                                  category.value === facility.facilityCategory
-                              )?.label
-                            }
-                          </h2>
-
-                          {/* {facility.bidAmount && (
-                            <h2 className="text-sm font-bold text-green-600">
-                              USD. {facility.bidAmount}
+                            <h2 className="text-sm font-bold text-gray-600 mt-1">
+                              {
+                                FACILITY_RATING.find(
+                                  (rate) =>
+                                    rate.value === facility.facilityRating
+                                )?.label
+                              }
                             </h2>
-                          )} */}
+
+                            <h1 className="text-lg font-bold text-gray-600">
+                              {facility.facilityName}
+                            </h1>
+
+                            <h1 className="text-sm">
+                              {facility.facilityLocation.city +
+                                " " +
+                                facility.facilityLocation.country}
+                            </h1>
+
+                            <h2 className="text-xs text-gray-600">
+                              {
+                                FACILITY_CATEGORY_DATA.find(
+                                  (category) =>
+                                    category.value === facility.facilityCategory
+                                )?.label
+                              }
+                            </h2>
+
+                            {facility.bidAmount && (
+                              <h2 className="text-sm font-bold text-green-600">
+                                USD. {facility.bidAmount}
+                              </h2>
+                            )}
+                          </div>
+                          <button
+                            className="px-5 text-sm text-blue-400 border-2 border-blue-400 rounded-lg lg:hover:bg-blue-500 lg:hover:text-white "
+                            onClick={() => {
+                              setSelectedFacility(facility);
+                              setIsShowBidForm(true);
+                            }}
+                          >
+                            bid
+                          </button>
                         </div>
-                        {/* <button
-                          className="px-5 text-sm text-blue-400 border-2 border-blue-400 rounded-lg lg:hover:bg-blue-500 lg:hover:text-white "
-                          onClick={() => {
-                            setSelectedFacility(facility);
-                            setIsShowBidForm(true);
-                          }}
-                        >
-                          bid
-                        </button> */}
-                      </div>
-                    ))}
+                      ))}
                   </div>
 
                   {/* other facilities */}

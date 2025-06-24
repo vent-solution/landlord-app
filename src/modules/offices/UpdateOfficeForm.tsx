@@ -27,13 +27,13 @@ const UpdateOfficeForm: React.FC<Props> = ({
     officeLocation: {
       country: "",
       city: "",
-      state: "",
-      county: "",
-      division: "",
-      parish: "",
-      zone: "",
-      street: "",
-      plotNumber: "",
+      // state: "",
+      // county: "",
+      // division: "",
+      // parish: "",
+      // zone: "",
+      // street: "",
+      // plotNumber: "",
     },
     officeContact: { telephone1: "", telephone2: "", email: "", fax: "" },
     officeOwner: {
@@ -169,13 +169,13 @@ const UpdateOfficeForm: React.FC<Props> = ({
         officeLocation: {
           country: currentOffice.officeLocation.country,
           city: currentOffice.officeLocation.city,
-          state: currentOffice.officeLocation.state,
-          county: currentOffice.officeLocation.county,
-          division: currentOffice.officeLocation.division,
-          parish: currentOffice.officeLocation.parish,
-          zone: currentOffice.officeLocation.zone,
-          street: currentOffice.officeLocation.street,
-          plotNumber: currentOffice.officeLocation.plotNumber,
+          // state: currentOffice.officeLocation.state,
+          // county: currentOffice.officeLocation.county,
+          // division: currentOffice.officeLocation.division,
+          // parish: currentOffice.officeLocation.parish,
+          // zone: currentOffice.officeLocation.zone,
+          // street: currentOffice.officeLocation.street,
+          // plotNumber: currentOffice.officeLocation.plotNumber,
         },
         officeContact: {
           telephone1: currentOffice.officeContact.telephone1,
@@ -194,13 +194,13 @@ const UpdateOfficeForm: React.FC<Props> = ({
         officeLocation: {
           country: "",
           city: "",
-          state: "",
-          county: "",
-          division: "",
-          parish: "",
-          zone: "",
-          street: "",
-          plotNumber: "",
+          // state: "",
+          // county: "",
+          // division: "",
+          // parish: "",
+          // zone: "",
+          // street: "",
+          // plotNumber: "",
         },
         officeContact: {
           telephone1: "",
@@ -298,7 +298,7 @@ const UpdateOfficeForm: React.FC<Props> = ({
         </div>
 
         {/* State form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="state"
             className={`${
@@ -319,10 +319,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* County form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="county"
             className={`${
@@ -343,10 +343,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Division form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="division"
             className={`${
@@ -367,10 +367,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Parish/Ward form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="parish"
             className={`${
@@ -391,10 +391,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Zone/LC1 form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="zone"
             className={`${
@@ -415,10 +415,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Street form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="street"
             className={`${
@@ -449,10 +449,10 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Plot number form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5 text-sm font-bold">
           <label
             htmlFor="plotNumber"
             className={`${
@@ -473,7 +473,7 @@ const UpdateOfficeForm: React.FC<Props> = ({
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
       </div>
 
       {/* contact section */}

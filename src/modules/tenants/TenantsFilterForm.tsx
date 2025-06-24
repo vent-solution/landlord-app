@@ -16,10 +16,6 @@ interface Props {
   setIsShowReportFilterForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const currentUser: UserModel = JSON.parse(
-  localStorage.getItem("dnap-user") as string
-);
-
 let TenantsFilterForm: React.FC<Props> = ({
   isShowReportFilterForm,
   setIsShowReportFilterForm,
@@ -41,6 +37,9 @@ let TenantsFilterForm: React.FC<Props> = ({
 
   // set default download filters
   useEffect(() => {
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
     setFilters((prev: downloadFilters) => ({
       ...prev,
       userId: Number(currentUser.userId),

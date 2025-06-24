@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { MdDashboard } from "react-icons/md";
-import { FaBusinessTime, FaUsers } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
-import Preloader from "../../other/Preloader";
+import React, { useEffect } from "react";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
-import { PiBuildingsFill } from "react-icons/pi";
 import Facilities from "./Facilities";
-import { FaReceipt } from "react-icons/fa";
 import { UserModel } from "../users/models/userModel";
 
 interface Props {}
@@ -87,8 +78,6 @@ const FacilitiesPage: React.FC<Props> = () => {
   //   },
   // ]);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   /*
    *create a delay of 3sec and check authication
    * to proceed to page or go back to login page
@@ -97,17 +86,10 @@ const FacilitiesPage: React.FC<Props> = () => {
     const currentUser: UserModel = JSON.parse(
       localStorage.getItem("dnap-user") as string
     );
-    if (currentUser.userId) {
-      setIsAuthenticated(true);
-    } else {
-      window.location.href = `/${Number(currentUser.userId)}`;
+    if (!currentUser.userId) {
+      window.location.href = `/landlord/${Number(currentUser.userId)}`;
     }
   }, []);
-
-  // render preloader screen if not authenticated or page still loading
-  if (!isAuthenticated) {
-    return <Preloader />;
-  }
 
   return (
     <div className="main flex relative w-full">

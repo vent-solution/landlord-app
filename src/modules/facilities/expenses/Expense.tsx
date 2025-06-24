@@ -2,13 +2,16 @@ import React from "react";
 import { FormatMoney } from "../../../global/actions/formatMoney";
 import { ExpenseModel } from "./expenseModel";
 import { parseISO, formatDistanceToNow, format } from "date-fns";
+import { convertCurrency2 } from "../../../global/actions/currencyConverter";
+import { useSelector } from "react-redux";
+import { getCurrencyExchange } from "../../../other/apis/CurrencyExchangeSlice";
 
 interface Props {
   expense: ExpenseModel;
   expenseIndex: number;
 }
 
-let Expense: React.FC<Props> = ({ expense, expenseIndex }) => {
+let Expense: React.FC<Props> = ({ expense }) => {
   const dateAdded = expense.dateCreated
     ? parseISO(String(expense.dateCreated))
     : null;
@@ -34,7 +37,15 @@ let Expense: React.FC<Props> = ({ expense, expenseIndex }) => {
       <td>{new Date(expense.transactionDate).toDateString()}</td>
       <td className="pt-5">{expense.description}</td>
       <td className="font-bold font-mono">
-        {FormatMoney(expense.amount, 2, expense.currency)}
+        {FormatMoney(
+          convertCurrency2(
+            expense.transactionCurrencyRate,
+            expense.dollarRate,
+            expense.amount
+          ),
+          2,
+          expense.currency
+        )}
       </td>
 
       <td>{added}</td>

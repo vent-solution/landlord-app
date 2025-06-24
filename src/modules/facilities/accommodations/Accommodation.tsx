@@ -16,7 +16,7 @@ interface Props {
   onClick: () => void;
 }
 
-const Accommodattion: React.FC<Props> = ({
+const Accommodation: React.FC<Props> = ({
   accommodation,
   accommodationIndex,
   facility,
@@ -98,4 +98,4 @@ const Accommodattion: React.FC<Props> = ({
   );
 };
 
-export default Accommodattion;
+export default Accommodation;

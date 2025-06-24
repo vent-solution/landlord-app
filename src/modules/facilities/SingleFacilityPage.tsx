@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { MdDashboard, MdOutlinePayments } from "react-icons/md";
-import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
-import { ImOffice, ImStatsDots } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
+import { MdOutlinePayments } from "react-icons/md";
+import { ImStatsDots } from "react-icons/im";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { PiBuildingsFill } from "react-icons/pi";
 
 import Details from "./Details";
 import { FacilitiesModel } from "./FacilityModel";
@@ -34,83 +29,11 @@ import { fetchfacilityRent } from "./rent/FacilityRentSlice";
 import { fetchFacilityHistory } from "./history/HistorySlice";
 import { BiSolidDetail, BiUnite } from "react-icons/bi";
 import { FaHistory, FaPersonBooth } from "react-icons/fa";
-import { GiExpense, GiSkullStaff } from "react-icons/gi";
+import { GiExpense } from "react-icons/gi";
 import { TbBrandBooking } from "react-icons/tb";
-import { fetchFacilityExpenses } from "./expenses/expenseSlice";
 import Expenses from "./expenses/Expenses";
 
 const SingleFacilityPage: React.FC = () => {
-  // LOCAL STATES
-  // const [navLinks] = useState<NavLinkModel[]>([
-  //   {
-  //     icon: <MdDashboard />,
-  //     name: "Dashboard",
-  //     link: `/dashboard`,
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <PiBuildingsFill />,
-  //     name: "Facilties",
-  //     link: "/facilities",
-  //     active: true,
-  //   },
-  //   {
-  //     icon: <FaUsers />,
-  //     name: `Users`,
-  //     link: "/users",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Tenants",
-  //     link: "/tenants",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <ImOffice />,
-  //     name: "Our offices",
-  //     link: "/offices",
-  //     active: false,
-  //   },
-  //   // {
-  //   //   icon: <MdPayment />,
-  //   //   name: "Subscription fees",
-  //   //   link: "/subscription",
-  //   //   active: false,
-  //   // },
-
-  //   // {
-  //   //   icon: <IoDiamondSharp />,
-  //   //   name: "Bids",
-  //   //   link: "/bids",
-  //   //   active: false,
-  //   // },
-
-  //   {
-  //     icon: <FaBusinessTime />,
-  //     name: "Market place",
-  //     link: "/market",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaReceipt />,
-  //     name: "Receipts",
-  //     link: "/receipts",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <RxActivityLog />,
-  //     name: "Activity Logs",
-  //     link: "/logs",
-  //     active: false,
-  //   },
-  // ]);
-
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
@@ -181,17 +104,6 @@ const SingleFacilityPage: React.FC = () => {
     );
   }, [dispatch, facilityId]);
 
-  // fetch facility expenses
-  useEffect(() => {
-    dispatch(
-      fetchFacilityExpenses({
-        facilityId: Number(facilityId),
-        page: 0,
-        size: 25,
-      })
-    );
-  }, [dispatch, facilityId]);
-
   // redirect page if user is not authenticated
   useEffect(() => {
     const currentUser = localStorage.getItem("dnap-user");
@@ -225,7 +137,7 @@ const SingleFacilityPage: React.FC = () => {
       case "Histories":
         return <Histories facility={facility} />;
       case "Expenses":
-        return <Expenses facilityId={facility.facilityId} />;
+        return <Expenses facility={facility} />;
       case "Visits":
         return <Visits facility={facility} />;
       case "Statistics":

@@ -99,15 +99,13 @@ let MonthlyEarnings: React.FC<Props> = ({ settings }) => {
     [selectedYear]
   );
 
-  // Fetch total monthly subscription amount when the selected year changes
+  // Fetch total monthly rent amount when the selected year changes
   useEffect(() => {
     const fetchTotalMonthRent = async (year: number) => {
       try {
         const result = await fetchData(
           `/fetch-total-landlord-monthly-rent/${year}/${allFacilityIds}`
         );
-
-        console.log("MONTHLY:", result.data);
 
         if (!result) {
           return;

@@ -163,17 +163,17 @@ const TenantsList: React.FC<Props> = ({
         >
           {filteredTenants.length > 0 ? (
             <table className="border-2 w-full bg-white text-center shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-base text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white">
                 <tr>
                   {/* <th className="text-start px-2 font-bold">#</th> */}
                   <th className="text-start p-2 font-bold">Facility</th>
-                  <th className="text-start p-2 font-bold">Unit</th>
+                  <th className="text-start p-2 font-bold">Unit Number</th>
                   <th className="text-start p-2 font-bold">Floor</th>
-                  <th className="text-start p-2 font-bold">Category</th>
-                  <th className="text-start p-2 font-bold">Tenant</th>
-                  <th className="text-start p-2 font-bold">Name</th>
-                  <th className="text-start p-2 font-bold">Telephone</th>
-                  <th className="text-start p-2 font-bold">Email</th>
+                  <th className="text-start p-2 font-bold">Unit Category</th>
+                  <th className="text-start p-2 font-bold">Tenant Number</th>
+                  <th className="text-start p-2 font-bold">Tenant Name</th>
+                  <th className="text-start p-2 font-bold">Tenant Telephone</th>
+                  <th className="text-start p-2 font-bold">Tenant Email</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

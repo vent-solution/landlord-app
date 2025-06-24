@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import PaginationButtons from "../../global/PaginationButtons";
 import FacilityRow from "./FacilityRow";
 import { FacilitiesModel } from "./FacilityModel";
-import { UserRoleEnum } from "../../global/enums/userRoleEnum";
-import { fetchFacilities } from "./FacilitiesSlice";
+import EmptyList from "../../global/EnptyList";
+import Preloader from "../../other/Preloader";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
+import { UserRoleEnum } from "../../global/enums/userRoleEnum";
 import { UserModel } from "../users/models/userModel";
-import EmptyList from "../../global/EnptyList";
+import { fetchFacilities } from "./FacilitiesSlice";
 
 interface Props {
   filteredFacilities: FacilitiesModel[];
@@ -15,6 +16,8 @@ interface Props {
   totalPages: number;
   handleFetchNextPage: () => Promise<void>;
   handleFetchPreviousPage: () => Promise<void>;
+
+  status: "loading" | "idle" | "failed" | "succeeded";
 }
 
 const FacilitiesTable: React.FC<Props> = ({
@@ -23,10 +26,11 @@ const FacilitiesTable: React.FC<Props> = ({
   totalPages,
   handleFetchNextPage,
   handleFetchPreviousPage,
+  status,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  // fetch facilities that belong to the current landlord
+  // // fetch facilities that belong to the current landlord
   useEffect(() => {
     let userId: number;
     const currentUser: UserModel = JSON.parse(
@@ -47,6 +51,8 @@ const FacilitiesTable: React.FC<Props> = ({
       })
     );
   }, [dispatch]);
+
+  if (status === "loading") return <Preloader />;
 
   return (
     <>

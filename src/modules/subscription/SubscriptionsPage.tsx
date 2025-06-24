@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { MdDashboard, MdPayment } from "react-icons/md";
-import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
-import { ImOffice } from "react-icons/im";
-import { RxActivityLog } from "react-icons/rx";
-import { IoDiamondSharp } from "react-icons/io5";
 import Preloader from "../../other/Preloader";
 import SideBar from "../../sidebar/sideBar";
-import { NavLinkModel } from "../users/models/navLinkModel";
 import SubscriptionsList from "./SubscriptionsList";
-import { PiBuildingsFill } from "react-icons/pi";
 import { UserModel } from "../users/models/userModel";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../app/store";
@@ -21,75 +14,6 @@ const user: UserModel = JSON.parse(localStorage.getItem("dnap-user") as string);
 
 const SubscriptionsPage: React.FC<Props> = () => {
   // LOCAL STATES
-  // const [navLinks] = useState<NavLinkModel[]>([
-  //   {
-  //     icon: <MdDashboard />,
-  //     name: "Dashboard",
-  //     link: "/dashboard",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <PiBuildingsFill />,
-  //     name: "Facilties",
-  //     link: "/facilities",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaUsers />,
-  //     name: "Users",
-  //     link: "/users",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Tenants",
-  //     link: "/tenants",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <ImOffice />,
-  //     name: "Our offices",
-  //     link: "/offices",
-  //     active: false,
-  //   },
-  //   {
-  //     icon: <MdPayment />,
-  //     name: "Subscription fees",
-  //     link: "/subscription",
-  //     active: true,
-  //   },
-  //   {
-  //     icon: <IoDiamondSharp />,
-  //     name: "Bids",
-  //     link: "/bids",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaBusinessTime />,
-  //     name: "Market place",
-  //     link: "/market",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <FaReceipt />,
-  //     name: "Receipts",
-  //     link: "/receipts",
-  //     active: false,
-  //   },
-
-  //   {
-  //     icon: <RxActivityLog />,
-  //     name: "Activity Logs",
-  //     link: "/logs",
-  //     active: false,
-  //   },
-  // ]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser] = useState<UserModel | null>(user);

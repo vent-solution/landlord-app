@@ -63,10 +63,10 @@ const OfficesList: React.FC<Props> = () => {
               officeLocation.country.toLowerCase().includes(searchTerm)) ||
             (officeLocation.city &&
               officeLocation.city.toLowerCase().includes(searchTerm)) ||
-            (officeLocation.state &&
-              officeLocation.state.toLowerCase().includes(searchTerm)) ||
-            (officeLocation.street &&
-              officeLocation.street.toLowerCase().includes(searchTerm)) ||
+            // (officeLocation.state &&
+            //   officeLocation.state.toLowerCase().includes(searchTerm)) ||
+            // (officeLocation.street &&
+            //   officeLocation.street.toLowerCase().includes(searchTerm)) ||
             (officeContact.email &&
               officeContact.email.toLowerCase().includes(searchTerm)) ||
             (officeContact.telephone1 &&

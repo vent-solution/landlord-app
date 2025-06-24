@@ -39,6 +39,8 @@ export const fetchReceipts = createAsyncThunk(
         `/fetch-receipts-by-landlord/${userId}/${page}/${size}`
       );
 
+      if (!result) return initialState;
+
       if (result.data.status && result.data.status !== "OK") {
         console.log((await result).data.message);
         return initialState;

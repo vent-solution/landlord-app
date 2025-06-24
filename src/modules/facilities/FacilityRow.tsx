@@ -12,13 +12,14 @@ import {
 } from "../../global/PreDefinedData/PreDefinedData";
 import { fetchData } from "../../global/api";
 import axios from "axios";
+import countriesList from "../../global/data/countriesList.json";
 
 interface Props {
   facility: FacilitiesModel;
   facilityIndex: number;
 }
 
-const FacilityRow: React.FC<Props> = ({ facilityIndex, facility }) => {
+const FacilityRow: React.FC<Props> = ({ facility }) => {
   const [facilityCategory, setFacilityCategory] = useState<{
     label: string;
     value: string;
@@ -104,7 +105,11 @@ const FacilityRow: React.FC<Props> = ({ facilityIndex, facility }) => {
       <td className="px-2 pt-3">{facility.facilityName}</td>
       <td className="px-2 pt-3">
         {facility.facilityLocation.city && facility.facilityLocation.city}{" "}
-        {facility.facilityLocation.country}
+        {
+          countriesList.find(
+            (country) => country.value === facility.facilityLocation.country
+          )?.label
+        }
       </td>
       <td className="px-2 pt-3">
         {

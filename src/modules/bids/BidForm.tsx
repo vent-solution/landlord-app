@@ -16,6 +16,7 @@ import { UserModel } from "../users/models/userModel";
 import { BidCreationModel } from "./BidModel";
 import { findFacilityById, getFacilities } from "../facilities/FacilitiesSlice";
 import { FormatMoney } from "../../global/actions/formatMoney";
+import { getCurrencyExchange } from "../../other/apis/CurrencyExchangeSlice";
 
 interface Props {
   setIsShowBidForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,6 +25,9 @@ interface Props {
 let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
   const [bidData, setBidData] = useState<BidCreationModel>({
     bidAmount: null,
+    dollarRate: null,
+    desiredCurrencyRate: null,
+    transactionCurrencyRate: null,
     currency: null,
     paymentType: null,
     facility: { facilityId: null },
@@ -48,6 +52,8 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
   const { facilities } = facilitiesState;
 
   const facility = useSelector(findFacilityById(Number(selectedFacilityId)));
+
+  const currencyState = useSelector(getCurrencyExchange);
 
   // set selected facility
 
@@ -270,6 +276,10 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
                 setBidData((prev) => ({
                   ...prev,
                   bidAmount: Number(e.target.value),
+                  dollarRate: currencyState["usd"],
+                  desiredCurrencyRate:
+                    currencyState[String(facility?.preferedCurrency)],
+                  transactionCurrencyRate: currencyState["usd"],
                 }))
               }
             />
@@ -300,7 +310,7 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlineMomo}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/mtn-momo.png"
+                src="/landlord/payment-method-images/mtn-momo.png"
                 alt=""
                 height={50}
                 width={100}
@@ -328,7 +338,7 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
                 }
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/airtel-money.png"
+                src="/landlord/payment-method-images/airtel-money.png"
                 alt=""
                 height={50}
                 width={100}
@@ -354,7 +364,7 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlineBank}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/visa-payment.png"
+                src="/landlord/payment-method-images/visa-payment.png"
                 alt=""
                 height={50}
                 width={100}
@@ -380,7 +390,7 @@ let BidForm: React.FC<Props> = ({ setIsShowBidForm }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlinePaypal}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/paypal.jpeg"
+                src="/landlord/payment-method-images/paypal.jpeg"
                 alt=""
                 height={50}
                 width={100}

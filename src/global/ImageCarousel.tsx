@@ -6,8 +6,6 @@ import { setUserAction } from "./actions/actionSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 
-// import url from "../../../../FILES/IMAGES/facility-images/";
-
 interface Props {
   setIsShowImageForm: React.Dispatch<React.SetStateAction<boolean>>;
   facility: { facilityId: number };
@@ -109,14 +107,14 @@ const ImageCarousel: React.FC<Props> = ({
 
       {/* Action Buttons (Show on Hover) */}
       <div
-        className={`p-4 bg-red-50 absolute top-0 right-0 text-3xl transform -translate-x-1/2 flex space-x-4 transition-opacity duration-300 ${
+        className={`p-4 absolute top-0 right-0 text-xl transform -translate-x-1/2 flex space-x-4 transition-opacity duration-300 ${
           showActionButtons ? "opacity-100" : "lg:opacity-0"
         }`}
       >
         {/* button for deleting an image */}
         {images.length > 0 && (
           <button
-            className="text-red-600 shadow-black shadow-sm p-2 lg:hover:bg-gray-50"
+            className="text-red-600 shadow-black shadow-sm p-2  bg-white lg:hover:text-white lg:hover:bg-red-600"
             onClick={() => {
               dispatch(setUserAction({ userAction: handleDeleteImage }));
               dispatch(
@@ -133,7 +131,7 @@ const ImageCarousel: React.FC<Props> = ({
 
         {/*button for adding a new image */}
         <button
-          className="lg:hover:text-white shadow-black shadow-sm p-2 lg:hover:bg-gray-800 text-black"
+          className="lg:hover:text-white shadow-black shadow-sm p-2 lg:hover:bg-gray-800 text-black bg-white"
           onClick={() => setIsShowImageForm(true)}
         >
           <FaPlus />

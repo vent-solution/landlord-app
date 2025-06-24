@@ -15,6 +15,7 @@ import { ReceiptModel } from "./ReceiptModel";
 import ReceiptDetails from "./ReceiptDetails";
 import { FaDownload } from "react-icons/fa6";
 import ReceiptsFilterForm from "./ReceiptsFilterForm";
+import EmptyList from "../../global/EnptyList";
 
 interface Props {}
 const ReceiptsList: React.FC<Props> = () => {
@@ -234,15 +235,7 @@ const ReceiptsList: React.FC<Props> = () => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName="receipt" />
           )}
         </div>
         <PaginationButtons

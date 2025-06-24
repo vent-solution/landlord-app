@@ -16,6 +16,7 @@ import axios from "axios";
 import { getSettings } from "../../settings/SettingsSlice";
 import { BidCreationModel } from "../../bids/BidModel";
 import { FormatMoney } from "../../../global/actions/formatMoney";
+import { getCurrencyExchange } from "../../../other/apis/CurrencyExchangeSlice";
 
 interface Props {
   facility: FacilitiesModel;
@@ -25,6 +26,9 @@ interface Props {
 let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
   const [bidData, setBidData] = useState<BidCreationModel>({
     bidAmount: null,
+    dollarRate: null,
+    desiredCurrencyRate: null,
+    transactionCurrencyRate: null,
     currency: null,
     paymentType: null,
     facility: { facilityId: null },
@@ -36,6 +40,8 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const adminFinancialSettings = useSelector(getSettings);
+
+  const currencyState = useSelector(getCurrencyExchange);
 
   // SET THE DEFAULT SERVICE FEE DATA
   useEffect(() => {
@@ -89,20 +95,6 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
 
       return;
     }
-
-    // check if transaction date is provided
-    // if (!facilityServiceFeeData.transactionDate) {
-    //   dispatch(setConfirm({ status: false, message: "" }));
-    //   dispatch(
-    //     setAlert({
-    //       type: AlertTypeEnum.danger,
-    //       status: true,
-    //       message: "Invalid transaction date.",
-    //     })
-    //   );
-
-    //   return;
-    // }
 
     // check if payment method is selected;
     if (!bidData.paymentType) {
@@ -218,6 +210,7 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
           <div className="form-group w-full py-5">
             <label htmlFor="bidAmount" className="w-full text-sm">
               Amount ({adminFinancialSettings.settings[0].preferedCurrency}){" "}
+              {bidData.desiredCurrencyRate}
               <span className="text-red-600">*</span>
             </label>
             <input
@@ -230,6 +223,10 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
                 setBidData((prev) => ({
                   ...prev,
                   bidAmount: Number(e.target.value),
+                  dollarRate: currencyState["usd"],
+                  desiredCurrencyRate:
+                    currencyState[String(facility.preferedCurrency)],
+                  transactionCurrencyRate: currencyState["usd"],
                 }))
               }
             />
@@ -260,7 +257,7 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlineMomo}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/mtn-momo.png"
+                src="/landlord/payment-method-images/mtn-momo.png"
                 alt=""
                 height={50}
                 width={100}
@@ -288,7 +285,7 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
                 }
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/airtel-money.png"
+                src="/landlord/payment-method-images/airtel-money.png"
                 alt=""
                 height={50}
                 width={100}
@@ -314,7 +311,7 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlineBank}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/visa-payment.png"
+                src="/landlord/payment-method-images/visa-payment.png"
                 alt=""
                 height={50}
                 width={100}
@@ -340,7 +337,7 @@ let FacilityBidForm: React.FC<Props> = ({ setIsShowBidForm, facility }) => {
                 checked={bidData.paymentType === PaymentTypeEnum.onlinePaypal}
               />
               <img
-                src="/FILES/IMAGES/payment-method-images/paypal.jpeg"
+                src="/landlord/payment-method-images/paypal.jpeg"
                 alt=""
                 height={50}
                 width={100}

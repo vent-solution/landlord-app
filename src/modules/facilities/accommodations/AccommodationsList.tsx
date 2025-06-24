@@ -344,7 +344,6 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                         onClick={() => {
                           setCurrentAccommodation(accommodation);
                           toggleShowAccommodationDetails();
-                          console.log(accommodation);
                         }}
                       />
                     )

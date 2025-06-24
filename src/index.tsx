@@ -5,14 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import "./styles/main.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { fetchCurrencyExchange } from "./other/apis/CurrencyExchangeSlice";
 import { fetchAdminFinancialSettings } from "./modules/settings/SettingsSlice";
 import { fetchOtherFacilities } from "./modules/market/otherFacilitiesSlice";
 
 store.dispatch(fetchCurrencyExchange());
 store.dispatch(fetchAdminFinancialSettings());
-store.dispatch(fetchOtherFacilities({ page: 0, size: 100 }));
+store.dispatch(fetchOtherFacilities({ page: 0, size: 20 }));
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { currencyNames } from "../../../other/apis/CurrencyName";
 import { ExpenseCreationModel } from "./expenseModel";
@@ -7,7 +7,7 @@ import { UserModel } from "../../users/models/userModel";
 import axios from "axios";
 import { postData } from "../../../global/api";
 import { AppDispatch } from "../../../app/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAlert } from "../../../other/alertSlice";
 import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
 import { setConfirm } from "../../../other/ConfirmSlice";
@@ -18,19 +18,17 @@ import { addNewExpense } from "./expenseSlice";
 import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
 import { UserActivity } from "../../../global/enums/userActivity";
 import { webSocketService } from "../../../webSockets/socketService";
+import { getCurrencyExchange } from "../../../other/apis/CurrencyExchangeSlice";
+import { FacilitiesModel } from "../FacilityModel";
 
 interface Props {
   toggleShowAndHideExpenseForm: () => void;
-  facilityId: number;
+  facility: FacilitiesModel;
 }
-
-const currentUser: UserModel = JSON.parse(
-  localStorage.getItem("dnap-user") as string
-);
 
 let ExpenseForm: React.FC<Props> = ({
   toggleShowAndHideExpenseForm,
-  facilityId,
+  facility,
 }) => {
   const [expenseData, setExpenseData] = useState<ExpenseCreationModel>({
     description: null,
@@ -38,8 +36,11 @@ let ExpenseForm: React.FC<Props> = ({
     currency: null,
     receiptNumber: null,
     transactionDate: null,
-    facility: { facilityId: facilityId },
-    addedBy: { userId: Number(currentUser.userId) },
+    facility: { facilityId: facility.facilityId },
+    addedBy: { userId: null },
+    dollarRate: null,
+    desiredCurrencyRate: null,
+    transactionCurrencyRate: null,
   });
 
   const currencyArray = Object.entries(currencyNames).map(([code, name]) => ({
@@ -49,6 +50,8 @@ let ExpenseForm: React.FC<Props> = ({
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const currencyState = useSelector(getCurrencyExchange);
+
   // check if all required fields are filled
   const canSave =
     expenseData.description &&
@@ -57,6 +60,19 @@ let ExpenseForm: React.FC<Props> = ({
     expenseData.transactionDate &&
     expenseData.facility.facilityId &&
     expenseData.addedBy.userId;
+
+  // set dollar rate
+  useEffect(() => {
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
+
+    setExpenseData((prev) => ({
+      ...prev,
+      addedBy: { userId: Number(currentUser.userId) },
+      dollarRate: currencyState["usd"],
+    }));
+  }, []);
 
   // handle change form fields
   const handleChangeFormField = (
@@ -69,6 +85,10 @@ let ExpenseForm: React.FC<Props> = ({
 
   // handle save expense
   const handleSaveExpense = async () => {
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
+
     // check if the transaction date is valid
     const today = new Date();
 
@@ -216,6 +236,7 @@ let ExpenseForm: React.FC<Props> = ({
           <div className="form-group w-full pb-5">
             <label htmlFor="amount" className="text-sm ">
               Amount <span className="text-red-500">*</span>
+              {}
             </label>
             <input
               type="number"
@@ -244,6 +265,17 @@ let ExpenseForm: React.FC<Props> = ({
               onChange={(e) => {
                 handleChangeFormField(e);
                 markRequiredFormField(e.target);
+                setExpenseData((prev) => ({
+                  ...prev,
+
+                  dollarRate: currencyState["usd"],
+
+                  desiredCurrencyRate:
+                    currencyState[String(facility.preferedCurrency)],
+
+                  transactionCurrencyRate:
+                    currencyState[String(e.target.value)],
+                }));
               }}
             >
               <option value={expenseData.currency ? expenseData.currency : ""}>
@@ -287,7 +319,7 @@ let ExpenseForm: React.FC<Props> = ({
           {/* transaction from field */}
           <div className="form-group w-full pb-5">
             <label htmlFor="transactionDate" className="text-sm ">
-              Transaction date {expenseData.transactionDate}{" "}
+              Transaction date
               <span className="text-red-500">*</span>
             </label>
             <input

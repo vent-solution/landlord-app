@@ -517,28 +517,6 @@ const TenantDetails: React.FC<Props> = ({
                     <b>Tel: </b>
                     <span>{tenant && tenant.nextOfKin?.nokTelephone}</span>
                   </span>
-                  <span className="w-full py-1">
-                    <b>National ID: </b>
-                    <span>{tenant && tenant.nextOfKin?.nokNationalId}</span>
-                  </span>
-                  <span className="w-full py-1">
-                    <b>ID Type: </b>
-                    <span>{tenant && tenant.nextOfKin?.nokIdType}</span>
-                  </span>
-                  <span className="w-full py-1">
-                    <b>Address: </b>
-                    <span>
-                      {tenant &&
-                        tenant.nextOfKin?.address?.city +
-                          ", " +
-                          tenant.nextOfKin?.address?.country}
-                    </span>
-                  </span>
-
-                  <span className="w-full py-1">
-                    <b>Address Type: </b>
-                    <span>{tenant && tenant.nextOfKin?.addressType}</span>
-                  </span>
                 </p>
               </div>
             </div>

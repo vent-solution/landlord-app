@@ -29,7 +29,8 @@ const Facilities: React.FC<Props> = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const facilitiesState = useSelector(getFacilities);
-  const { facilities, page, size, totalElements, totalPages } = facilitiesState;
+  const { facilities, page, size, totalElements, totalPages, status } =
+    facilitiesState;
 
   // toggel Is Add Facility
   const toggelIsAddFacility = () => {
@@ -49,7 +50,7 @@ const Facilities: React.FC<Props> = () => {
             facilityName,
             facilityCategory,
             dateCreated,
-            contact: { telephone1, telephone2, email },
+            contact: { telephone1, email },
             facilityLocation: { country, city },
           } = facility;
 
@@ -69,7 +70,6 @@ const Facilities: React.FC<Props> = () => {
             (country && country.toLowerCase().includes(searchTerm)) ||
             (city && city.toLowerCase().includes(searchTerm)) ||
             (telephone1 && telephone1.toLowerCase().includes(searchTerm)) ||
-            (telephone2 && telephone2.toLowerCase().includes(searchTerm)) ||
             (email && email.toLowerCase().includes(searchTerm)) ||
             (facilityDateAdded &&
               facilityDateAdded.toLowerCase().includes(searchTerm))
@@ -183,6 +183,7 @@ const Facilities: React.FC<Props> = () => {
               totalPages={totalPages}
               handleFetchNextPage={handleFetchNextPage}
               handleFetchPreviousPage={handleFetchPreviousPage}
+              status={status}
             />
           ) : (
             <FacilityForm toggelIsAddFacility={toggelIsAddFacility} />

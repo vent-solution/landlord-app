@@ -22,13 +22,13 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
     officeLocation: {
       country: "",
       city: "",
-      state: "",
-      county: "",
-      division: "",
-      parish: "",
-      zone: "",
-      street: "",
-      plotNumber: "",
+      // state: "",
+      // county: "",
+      // division: "",
+      // parish: "",
+      // zone: "",
+      // street: "",
+      // plotNumber: "",
     },
     officeContact: { telephone1: "", telephone2: "", email: "", fax: "" },
     officeOwner: { userId: "" },
@@ -42,7 +42,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
   const allRequiredFilled =
     office.officeLocation.country &&
     office.officeLocation.city &&
-    office.officeLocation.street &&
+    // office.officeLocation.street &&
     office.officeContact.telephone1 &&
     office.officeContact.email;
 
@@ -75,13 +75,13 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
       officeLocation: {
         country: "",
         city: "",
-        state: "",
-        county: "",
-        division: "",
-        parish: "",
-        zone: "",
-        street: "",
-        plotNumber: "",
+        // state: "",
+        // county: "",
+        // division: "",
+        // parish: "",
+        // zone: "",
+        // street: "",
+        // plotNumber: "",
       },
       officeContact: { telephone1: "", telephone2: "", email: "", fax: "" },
       officeOwner: { userId: currentUserId },
@@ -283,7 +283,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
         </div>
 
         {/* State form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="state"
             className={`${
@@ -304,10 +304,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* County form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="county"
             className={`${
@@ -328,10 +328,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Division form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="division"
             className={`${
@@ -352,10 +352,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Parish/Ward form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="parish"
             className={`${
@@ -376,10 +376,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Zone/LC1 form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="zone"
             className={`${
@@ -400,10 +400,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Street form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="street"
             className={`${
@@ -434,10 +434,10 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
 
         {/* Plot number form field */}
-        <div className="form-group w-full lg:w-1/2 px-3 py-5">
+        {/* <div className="form-group w-full lg:w-1/2 px-3 py-5">
           <label
             htmlFor="plotNumber"
             className={`${
@@ -458,7 +458,7 @@ const OfficeForm: React.FC<Props> = ({ toggleShowOfficeForm }) => {
             onChange={handleChange}
           />
           <small></small>
-        </div>
+        </div> */}
       </div>
 
       {/* contact section */}

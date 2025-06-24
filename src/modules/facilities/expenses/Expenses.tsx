@@ -9,17 +9,22 @@ import axios from "axios";
 import { fetchData } from "../../../global/api";
 import { FaDownload } from "react-icons/fa6";
 
-import { getFacilityExpenses, resetFacilityExpenses } from "./expenseSlice";
+import {
+  fetchFacilityExpenses,
+  getFacilityExpenses,
+  resetFacilityExpenses,
+} from "./expenseSlice";
 import { ExpenseModel } from "./expenseModel";
 import Expense from "./Expense";
 import ExpensesFilterForm from "./ExpensesFilterForm";
 import ExpenseForm from "./ExpenseForm";
 import EmptyList from "../../../global/EnptyList";
+import { FacilitiesModel } from "../FacilityModel";
 
 interface Props {
-  facilityId: number;
+  facility: FacilitiesModel;
 }
-let Expenses: React.FC<Props> = ({ facilityId }) => {
+let Expenses: React.FC<Props> = ({ facility }) => {
   const [filteredExpenses, setFilteredExpenses] = useState<ExpenseModel[]>([]);
   const [searchString, setSearchString] = useState<string>("");
 
@@ -29,7 +34,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const rentState = useSelector(getFacilityExpenses);
+  const expenseState = useSelector(getFacilityExpenses);
   const {
     facilityExpenses,
     page,
@@ -38,12 +43,23 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
     totalPages,
     status,
     error,
-  } = rentState;
+  } = expenseState;
 
   // toggle show and hid expense form
   const toggleShowAndHideExpenseForm = () => {
     setShowExpenseForm(!showExpenseForm);
   };
+
+  // fetch facility expenses
+  useEffect(() => {
+    dispatch(
+      fetchFacilityExpenses({
+        facilityId: Number(facility.facilityId),
+        page: 0,
+        size: 25,
+      })
+    );
+  }, [dispatch, facility.facilityId]);
 
   // filter facility expenses basing on various parameters
   useEffect(() => {
@@ -87,7 +103,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
   const handleFetchNextPage = useCallback(async () => {
     try {
       const result = await fetchData(
-        `/fetch-facility-expenses/${Number(facilityId)}/${
+        `/fetch-facility-expenses/${Number(facility.facilityId)}/${
           Number(page) + 1
         }/${size}`
       );
@@ -98,13 +114,13 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
       }
       console.error("Error fetching facility expenses: ", error);
     }
-  }, [dispatch, page, size, facilityId]);
+  }, [dispatch, page, size, facility.facilityId]);
 
   // handle fetch previous page
   const handleFetchPreviousPage = useCallback(async () => {
     try {
       const result = await fetchData(
-        `/fetch-facility-expenses/${Number(facilityId)}/${
+        `/fetch-facility-expenses/${Number(facility.facilityId)}/${
           Number(page) - 1
         }/${size}`
       );
@@ -115,7 +131,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
       }
       console.error("Error fetching expenses: ", error);
     }
-  }, [dispatch, page, size, facilityId]);
+  }, [dispatch, page, size, facility.facilityId]);
 
   if (status === "loading") return <Preloader />;
 
@@ -125,7 +141,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
     return (
       <ExpenseForm
         toggleShowAndHideExpenseForm={toggleShowAndHideExpenseForm}
-        facilityId={facilityId}
+        facility={facility}
       />
     );
 
@@ -215,7 +231,7 @@ let Expenses: React.FC<Props> = ({ facilityId }) => {
       <ExpensesFilterForm
         isShowReportFilterForm={isShowReportFilterForm}
         setIsShowReportFilterForm={setIsShowReportFilterForm}
-        facilityId={facilityId}
+        facilityId={facility.facilityId}
       />
     </div>
   );

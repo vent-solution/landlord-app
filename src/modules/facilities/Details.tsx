@@ -11,7 +11,6 @@ import { businessTypeEnum } from "../../global/enums/businessTypeEnum";
 import { genderRestrictionEnum } from "../../global/enums/genderRestrictionEnum";
 import FacilityForm from "./FacilityForm";
 import ImagesForm from "../../global/forms/FacilityImagesForm";
-import { FACILITY_IMAGES_URL } from "../../global/filesUrls";
 import axios from "axios";
 import { deleteData, fetchData, postData, putData } from "../../global/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +25,8 @@ import { useNavigate } from "react-router-dom";
 import { getCurrencyExchange } from "../../other/apis/CurrencyExchangeSlice";
 import Maps from "../../global/Maps";
 import { UserModel } from "../users/models/userModel";
-import { userLocationModel } from "../../global/models/UserLocationModel";
+import { updateFacility } from "./FacilitiesSlice";
+import countriesList from "../../global/data/countriesList.json";
 
 const ImageCarousel = React.lazy(() => import("../../global/ImageCarousel"));
 
@@ -38,11 +38,7 @@ const currentUser: UserModel = JSON.parse(
   localStorage.getItem("dnap-user") as string
 );
 
-const currentUserLocation: userLocationModel = JSON.parse(
-  sessionStorage.getItem("userLocation") as string
-);
-
-const Details: React.FC<Props> = ({ facility }) => {
+let Details: React.FC<Props> = ({ facility }) => {
   const navigate = useNavigate();
 
   const [businessType, setBusinessType] = useState<{
@@ -309,7 +305,7 @@ const Details: React.FC<Props> = ({ facility }) => {
             setIsShowImageForm={setIsShowImageForm}
             facility={{ facilityId: facility.facilityId }}
             images={facilityImages}
-            imageUrl={`/FILES/IMAGES/facility-images/${facility.facilityId}`}
+            imageUrl={`${process.env.REACT_APP_FACILITY_IMAGES_URL}/${facility.facilityId}`}
             currentIndex={currentIndex}
             setCurrentIndex={setCurrentIndex}
             handleDeleteImage={handleDeleteImage}
@@ -422,56 +418,28 @@ const Details: React.FC<Props> = ({ facility }) => {
                 {facility.facilityLocation.country && (
                   <p className="text-sm text-black">
                     <b>Country: </b>
-                    <i>{facility.facilityLocation.country}</i>
+                    <i>
+                      {
+                        countriesList.find(
+                          (country) =>
+                            country.value === facility.facilityLocation.country
+                        )?.label
+                      }
+                    </i>
                   </p>
                 )}
-                {facility.facilityLocation.state && (
-                  <p className="text-sm text-black">
-                    <b>State: </b>
-                    <i>{facility.facilityLocation.state}</i>
-                  </p>
-                )}
+
                 {facility.facilityLocation.city && (
                   <p className="text-sm text-black">
                     <b>City: </b>
                     <i>{facility.facilityLocation.city}</i>
                   </p>
                 )}
-                {facility.facilityLocation.county && (
-                  <p className="text-sm text-black">
-                    <b>County: </b>
-                    <i>{facility.facilityLocation.county}</i>
-                  </p>
-                )}
-                {facility.facilityLocation.division && (
-                  <p className="text-sm text-black">
-                    <b>Division: </b>
-                    <i>{facility.facilityLocation.division}</i>
-                  </p>
-                )}
-                {facility.facilityLocation.parish && (
-                  <p className="text-sm text-black">
-                    <b>Parish: </b>
-                    <i>{facility.facilityLocation.parish}</i>
-                  </p>
-                )}
 
-                {facility.facilityLocation.zone && (
+                {facility.facilityLocation.city && (
                   <p className="text-sm text-black">
-                    <b>Zone: </b>
-                    <i>{facility.facilityLocation.zone}</i>
-                  </p>
-                )}
-                {facility.facilityLocation.street && (
-                  <p className="text-sm text-black">
-                    <b>Street: </b>
-                    <i>{facility.facilityLocation.street}</i>
-                  </p>
-                )}
-                {facility.facilityLocation.plotNumber && (
-                  <p className="text-sm text-black">
-                    <b>Plot number: </b>
-                    <i>{facility.facilityLocation.plotNumber}</i>
+                    <b>Primary address: </b>
+                    <i>{facility.facilityLocation.primaryAddress}</i>
                   </p>
                 )}
               </div>
@@ -487,29 +455,11 @@ const Details: React.FC<Props> = ({ facility }) => {
                     <i>{facility.contact.telephone1}</i>
                   </p>
                 )}
-                {facility.contact.telephone2 && (
-                  <p className="text-sm text-black">
-                    <b>Alternative telephone: </b>
-                    <i>{facility.contact.telephone2}</i>
-                  </p>
-                )}
-                {facility.contact.telephone2 && (
-                  <p className="text-sm text-black">
-                    <b>Alternative telephone: </b>
-                    <i>{facility.contact.telephone2}</i>
-                  </p>
-                )}
+
                 {facility.contact.email && (
                   <p className="text-sm text-black">
                     <b>Email: </b>
                     <i>{facility.contact.email}</i>
-                  </p>
-                )}
-
-                {facility.contact.fax && (
-                  <p className="text-sm text-black">
-                    <b>Fax: </b>
-                    <i>{facility.contact.fax}</i>
                   </p>
                 )}
               </div>
@@ -616,6 +566,17 @@ const Details: React.FC<Props> = ({ facility }) => {
                           manager: manager,
                         });
 
+                        if (!result) {
+                          dispatch(
+                            setAlert({
+                              type: AlertTypeEnum.danger,
+                              status: true,
+                              message: "INTERNAL SERVER ERROR!",
+                            })
+                          );
+                          return;
+                        }
+
                         if (result.data.status && result.data.status !== "OK") {
                           dispatch(
                             setAlert({
@@ -631,7 +592,15 @@ const Details: React.FC<Props> = ({ facility }) => {
                           setAlert({
                             type: AlertTypeEnum.success,
                             status: true,
-                            message: result.data.message,
+                            message:
+                              "Facility manager has been updated successfully!",
+                          })
+                        );
+
+                        dispatch(
+                          updateFacility({
+                            id: Number(result.data.facility_id),
+                            changes: result.data,
                           })
                         );
 
@@ -1037,5 +1006,7 @@ const Details: React.FC<Props> = ({ facility }) => {
     </div>
   );
 };
+
+Details = React.memo(Details);
 
 export default Details;

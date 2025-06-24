@@ -12,6 +12,10 @@ export interface ExpenseModel {
   lastUpdated: Date;
   facility: FacilitiesModel;
   addedBy: UserModel;
+  dollarRate: string;
+  desiredCurrencyRate: string;
+
+  transactionCurrencyRate: string;
 }
 
 export interface ExpenseCreationModel {
@@ -22,4 +26,7 @@ export interface ExpenseCreationModel {
   transactionDate: string | null;
   facility: { facilityId: number | null };
   addedBy: { userId: number | null };
+  dollarRate: string | null;
+  desiredCurrencyRate: string | null;
+  transactionCurrencyRate: string | null;
 }

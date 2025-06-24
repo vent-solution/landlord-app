@@ -5,10 +5,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { setAlert } from "../../other/alertSlice";
 import { AlertTypeEnum } from "../../global/enums/alertTypeEnum";
-import {
-  ADDRESS_TYPE,
-  NATIONAL_ID_TYPE,
-} from "../../global/PreDefinedData/PreDefinedData";
+import { ADDRESS_TYPE } from "../../global/PreDefinedData/PreDefinedData";
 import { LandlordCreationModel } from "./landlordModel";
 import AlertMessage from "../../other/alertMessage";
 import countryList from "../../global/data/countriesList.json";
@@ -25,8 +22,8 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
   // check if can save landlord before saving
   const canSaveLandlord =
     Number(landlord.user?.userId) > 0 &&
-    String(landlord.idType).trim().length > 0 &&
-    String(landlord.nationalId).trim().length > 0 &&
+    // String(landlord.idType).trim().length > 0 &&
+    // String(landlord.nationalId).trim().length > 0 &&
     String(landlord.addressType).trim().length > 0 &&
     String(landlord.address?.country).trim().length > 0 &&
     String(landlord.address?.city).trim().length > 0;
@@ -53,10 +50,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
 
     // check if all the required form fields are filled
     if (
-      !landlord.idType ||
-      landlord.idType.trim().length < 1 ||
-      !landlord.nationalId ||
-      landlord.nationalId.trim().length < 1 ||
+      // !landlord.idType ||
+      // landlord.idType.trim().length < 1 ||
+      // !landlord.nationalId ||
+      // landlord.nationalId.trim().length < 1 ||
       !landlord.addressType ||
       landlord.addressType.trim().length < 1 ||
       !landlord.address?.country ||
@@ -82,6 +79,18 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
     try {
       const result = await postData("/saveLandlord", landlord);
 
+      if (!result) {
+        dispatch(
+          setAlert({
+            status: true,
+            type: AlertTypeEnum.danger,
+            message: "ERROR OCCURRED PLEASE TRY AGAIN LATER!",
+          })
+        );
+
+        return;
+      }
+
       if (result.data.status && result.data.status !== "OK") {
         dispatch(
           setAlert({
@@ -94,7 +103,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
         return;
       }
 
-      window.location.href = `/${landlord.user?.userId}`;
+      window.location.href = `/landlord/${landlord.user?.userId}`;
     } catch (error) {
       if (axios.isCancel(error)) {
         console.log("SAVE USER CANCELLED: ");
@@ -135,7 +144,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
           {/* company name form input field */}
           <div className="form-group w-full p-5  shadow-lg">
             <label htmlFor="companyName" className="w-full font-bold">
-              Company name <span className="text-red-600"></span>
+              Company name <span className="text-red-600">(optional)</span>
             </label>
             <input
               type="text"
@@ -147,8 +156,8 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
             <small className="w-full"></small>
           </div>
 
-          {/* next of kin national ID form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* ID form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="nationalId" className="w-full font-bold">
               ID number <span className="text-red-600">*</span>
             </label>
@@ -167,10 +176,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
             <small className="w-full text-red-200">
               ID number is required!
             </small>
-          </div>
+          </div> */}
 
-          {/* next of kin national ID type form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* ID type form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="idType" className="w-full font-bold">
               ID type<span className="text-red-600">*</span>
             </label>
@@ -193,12 +202,12 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               ))}
             </select>
             <small className="w-full text-red-200">ID type is required</small>
-          </div>
+          </div> */}
 
-          {/* tenant's next of kin address */}
+          {/* address */}
           <h1 className="text-lg font-bold pt-5 w-full">Address</h1>
 
-          {/* next of kin address type form input field */}
+          {/* address type form input field */}
           <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="addressType" className="w-full font-bold">
               Address type <span className="text-red-600">*</span>
@@ -226,7 +235,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
             </small>
           </div>
 
-          {/* next of kin country form input field */}
+          {/* country form input field */}
           <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="country" className="w-full font-bold">
               Country <span className="text-red-600">*</span>
@@ -254,8 +263,8 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
             <small className="w-full text-red-200"> Country is required!</small>
           </div>
 
-          {/* next of kin state form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* state form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="state" className="w-full font-bold">
               State <span className="text-red-600"></span>
             </label>
@@ -275,9 +284,9 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin city form input field */}
+          {/* city form input field */}
           <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="city" className="w-full font-bold">
               City/Municipality/District <span className="text-red-600">*</span>
@@ -303,7 +312,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
           </div>
 
           {/* next of kin county form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="county" className="w-full font-bold">
               County <span className="text-red-600"></span>
             </label>
@@ -323,10 +332,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin division form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* division form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="division" className="w-full font-bold">
               Division / Sub county <span className="text-red-600"></span>
             </label>
@@ -346,10 +355,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin parish form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* parish form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="parish" className="w-full font-bold">
               Parish / Ward <span className="text-red-600"></span>
             </label>
@@ -369,10 +378,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin zone form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* zone form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="zone" className="w-full font-bold">
               Zone / Village / LC1 <span className="text-red-600"></span>
             </label>
@@ -392,10 +401,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin street form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* street form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="street" className="w-full font-bold">
               Street <span className="text-red-600"></span>
             </label>
@@ -415,10 +424,10 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
-          {/* next of kin plotNumber form input field */}
-          <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
+          {/* plotNumber form input field */}
+          {/* <div className="form-group w-full lg:w-1/2 p-5  shadow-lg">
             <label htmlFor="plotNumber" className="w-full font-bold">
               Plot Number <span className="text-red-600"></span>
             </label>
@@ -438,7 +447,7 @@ const LandlordForm: React.FC<Props> = ({ landlord, setLandlord }) => {
               }
             />
             <small className="w-full"></small>
-          </div>
+          </div> */}
 
           {/* button for saving tenant */}
           <div className="form-group w-full py-10 shadow-lg flex justify-center items-center">

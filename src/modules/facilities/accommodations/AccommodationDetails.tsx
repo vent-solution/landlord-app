@@ -40,6 +40,7 @@ import { UserActivity } from "../../../global/enums/userActivity";
 import { webSocketService } from "../../../webSockets/socketService";
 import { AccommodationAvailability } from "../../../global/enums/accommodationAvailability";
 import convertCurrency from "../../../global/actions/currencyConverter";
+import { parseISO } from "date-fns";
 
 interface Props {
   accommodation?: AccommodationModel;
@@ -483,7 +484,12 @@ const AccommodationDetails: React.FC<Props> = ({
                   </span>
                   <span className="w-full">
                     <b>Status: </b>
-                    <span>{accommodation?.availability}</span>
+                    <span>
+                      {Number(tenants?.length) >=
+                      Number(accommodation?.capacity)
+                        ? AccommodationAvailability.occupied
+                        : accommodation?.availability}
+                    </span>
                   </span>
 
                   <div className="py-3 flex justify-around w-3/4">
@@ -551,12 +557,14 @@ const AccommodationDetails: React.FC<Props> = ({
                       {index + 1}
                     </span>
                     <span className="px-2 py-1 text-gray-500 bg-gray-100 text-sm rounded-full font-light ">
-                      {new Date(
+                      {parseISO(
                         String(
-                          tenantHistory?.find(
-                            (history) =>
-                              history.tenant.tenantId === tnt.tenantId
-                          )?.checkIn
+                          tenantHistory.length > 0
+                            ? tenantHistory?.find(
+                                (history) =>
+                                  history.tenant.tenantId === tnt.tenantId
+                              )?.checkIn
+                            : tnt.dateCreated
                         )
                       ).toDateString()}
                     </span>

@@ -44,12 +44,10 @@ let AnnualEarnings: React.FC<Props> = ({ currency, facilityId }) => {
           `/fetch-annual-facility-rent-amount/${year}/${Number(facilityId)}`
         );
 
-        console.log("FACILITY ANNUAL RENT: ", result.data);
-
-        if (result.status !== 200) {
-          console.log("ANNUAL BID AMOUNT", result.data);
+        if (!result || result.status !== 200) {
           return;
         }
+
         updateEarningsForYear(result.data);
       } catch (error) {
         if (axios.isCancel(error)) {

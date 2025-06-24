@@ -131,8 +131,8 @@ const accommodationsSlice = createSlice({
         );
       },
 
-      prepare: (accodationId: number) => {
-        return { payload: accodationId };
+      prepare: (accommodationId: number) => {
+        return { payload: accommodationId };
       },
     },
   },

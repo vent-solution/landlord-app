@@ -1,6 +1,6 @@
 import React from "react";
-import PhoneInput from "react-phone-input-2";
 import { CreationFacilitiesModel } from "../../modules/facilities/FacilityModel";
+import markRequiredFormField from "../validation/markRequiredFormField";
 
 interface Props {
   setData: React.Dispatch<React.SetStateAction<CreationFacilitiesModel>>;
@@ -11,92 +11,85 @@ let ContactForm: React.FC<Props> = ({ setData, data }) => {
   return (
     <>
       {/* telephone*/}
-      <div className="form-group w-full lg:w-1/2 px-4 py-5 my-2 lg:mx-0">
+      <div className="form-group w-full lg:w-1/2 px-4 py-0 my-2 lg:mx-0">
         <label htmlFor="telephone1" className="font-bold">
-          Telephone
+          Telephone (Include country code eg. +234...)
           <span className="text-red-500">*</span>
         </label>
-        <PhoneInput
-          country={"us"}
-          value={data.contact.telephone1}
-          placeholder="Enter telephone 1"
+        <input
+          type="text"
+          name="telephone1"
+          id="telephone1"
+          placeholder="Enter telephone 1 (eg. +234...)"
+          className="w-full outline-none border"
           onChange={(phone) => {
+            markRequiredFormField(phone.target);
             setData({
               ...data,
               contact: {
                 ...data.contact,
-                telephone1: phone ? "+" + phone : null,
+                telephone1: phone.target.value,
               },
             });
           }}
-          inputStyle={{
-            width: "100%",
-            padding: "10px 50px",
-            fontSize: "16px",
-            borderRadius: "4px",
-          }}
-          containerStyle={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center", // To keep the phone number and country code in the same line
-          }}
         />
+
+        <small className="text-red-500">Telephone1 is required!</small>
       </div>
 
       {/* whatsapp*/}
-      <div className="form-group w-full lg:w-1/2 px-4 py-5 my-2 lg:mx-0">
+      {/* <div className="form-group w-full lg:w-1/2 px-4 py-0 my-2 lg:mx-0">
         <label htmlFor="plotNumber" className="font-bold">
-          WhatsApp
+          Telephone2
           <span className="tex-red-500"></span>
         </label>
-        <PhoneInput
-          country={"us"} // Default country code (optional)
-          value={data.contact.telephone2}
-          placeholder="Enter telephone 2"
+        <input
+          type="text"
+          name="telephone2"
+          id="telephone2"
+          placeholder="Enter telephone2 (eg. +234...)"
+          className="w-full outline-none border"
           onChange={(phone) => {
+            markRequiredFormField(phone.target);
             setData({
               ...data,
               contact: {
                 ...data.contact,
-                telephone2: phone ? "+" + phone : null,
+                telephone2: phone.target.value,
               },
             });
           }}
-          inputStyle={{
-            width: "100%",
-            padding: "10px 50px",
-            fontSize: "16px",
-            borderRadius: "4px",
-          }}
         />
-      </div>
+      </div> */}
 
       {/* email */}
-      <div className="form-group w-full lg:w-1/2 px-4 py-5 my-2 lg:mx-0">
+      <div className="form-group w-full lg:w-1/2 px-4 py-0 my-2 lg:mx-0">
         <label htmlFor="plotNumber" className="font-bold">
           Email
-          <span className="tex-red-500"></span>
+          <span className="tex-red-500">*</span>
         </label>
         <input
           type="email"
           id="email"
           value={data.contact.email || ""}
-          placeholder="Enter email"
+          placeholder="Enter email (example@domain.com)"
           className="w-full outline-none border"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            markRequiredFormField(e.target);
             setData({
               ...data,
               contact: {
                 ...data.contact,
                 email: String(e.target.value),
               },
-            })
-          }
+            });
+          }}
         />
+        <small className="text-red-500">Email is required!</small>
       </div>
 
       {/* fax */}
-      <div className="form-group w-full lg:w-1/2 px-4 py-5 my-2 lg:mx-0">
+      {/* <div className="form-group w-full lg:w-1/2 px-4 py-0 my-2 lg:mx-0">
         <label htmlFor="plotNumber" className="font-bold">
           Fax
           <span className="tex-red-500"></span>
@@ -117,7 +110,7 @@ let ContactForm: React.FC<Props> = ({ setData, data }) => {
             })
           }
         />
-      </div>
+      </div> */}
     </>
   );
 };

@@ -7,7 +7,7 @@ export interface RentModel {
   price: number | null;
   amount: number;
   dollarRate: number;
-  facilityCurrencyRate: number | null;
+  facilityCurrencyRate: number;
   currency: string;
   paymentType: string;
   transactionDate: string;

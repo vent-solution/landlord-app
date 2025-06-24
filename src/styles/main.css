@@ -12,7 +12,7 @@
 input,
 select {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 300;
   padding: 5px 10px;
   color: black;
 }
@@ -82,9 +82,6 @@ tr:hover td.actions {
 .form-group label {
   font-size: 11pt;
 }
-.form-group input {
-  border: 2px white solid;
-}
 .form-group small {
   visibility: hidden;
   font-size: 12px;
@@ -113,20 +110,6 @@ ul li.active {
 
 .custom-tooltip {
   box-shadow: 0 0 20px black;
-}
-
-/* Preloader.css */
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff; /* Background color of the preloader */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* Ensure it's on top of everything else */
 }
 
 .cube {

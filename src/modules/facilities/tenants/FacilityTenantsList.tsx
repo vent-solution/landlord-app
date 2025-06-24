@@ -169,18 +169,18 @@ const TenantsList: React.FC<Props> = ({
         <div className="lg:px-5 mb-12 overflow-auto pb-5 h-[calc(100vh-330px)]">
           {filteredTenants.length > 0 ? (
             <table className="border-2 w-full bg-white text-center shadow-lg">
-              <thead className="sticky top-0 bg-blue-900 text-white">
+              <thead className="sticky top-0 bg-blue-900 text-white text-sm">
                 <tr>
-                  {/* <th className="p-2 text-start fond-bold">#</th> */}
-                  {/* <th className="p-2 text-start fond-bold">Facility</th> */}
-                  <th className="p-2 text-start fond-bold">Unit</th>
-                  <th className="p-2 text-start fond-bold">Floor</th>
-                  <th className="p-2 text-start fond-bold">Category</th>
-                  <th className="p-2 text-start fond-bold">Tenant</th>
-                  <th className="p-2 text-start fond-bold">Name</th>
-                  <th className="p-2 text-start fond-bold">Telephone</th>
-                  <th className="p-2 text-start fond-bold">Email</th>
-                  <th className="p-2 text-start fond-bold">CheckIn</th>
+                  {/* <th className="p-2 text-start font-bold">#</th> */}
+                  {/* <th className="p-2 text-start font-bold">Facility</th> */}
+                  <th className="p-2 text-start font-bold">Unit</th>
+                  <th className="p-2 text-start font-bold">Floor</th>
+                  <th className="p-2 text-start font-bold">Category</th>
+                  <th className="p-2 text-start font-bold">Tenant</th>
+                  <th className="p-2 text-start font-bold">Name</th>
+                  <th className="p-2 text-start font-bold">Telephone</th>
+                  <th className="p-2 text-start font-bold">Email</th>
+                  <th className="p-2 text-start font-bold">CheckIn</th>
                 </tr>
               </thead>
               <tbody className="text-black font-light">

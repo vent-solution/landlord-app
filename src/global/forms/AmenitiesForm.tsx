@@ -14,7 +14,7 @@ interface Props {
   facilityData: CreationFacilitiesModel;
 }
 
-const AmenitiesForm: React.FC<Props> = ({
+let AmenitiesForm: React.FC<Props> = ({
   setAmenities,
   amenities,
   facilityData,
@@ -42,10 +42,10 @@ const AmenitiesForm: React.FC<Props> = ({
   return (
     <>
       {/* parking */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
         <label htmlFor="parking" className="font-bold">
           Parking
-          <span className="tex-red-500">*</span>
+          <span className="tex-red-500"></span>
         </label>
 
         <select
@@ -83,10 +83,10 @@ const AmenitiesForm: React.FC<Props> = ({
       {/* water */}
       {(facilityData.businessType === businessTypeEnum.rent ||
         facilityData.businessType === businessTypeEnum.saleCondominium) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="water" className="font-bold">
             Water
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
 
           <select
@@ -125,10 +125,10 @@ const AmenitiesForm: React.FC<Props> = ({
       {/* electricity */}
       {(facilityData.businessType === businessTypeEnum.rent ||
         facilityData.businessType === businessTypeEnum.saleCondominium) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="electricity" className="font-bold">
             Electricity
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
 
           <select
@@ -166,10 +166,10 @@ const AmenitiesForm: React.FC<Props> = ({
       )}
 
       {/* wifi */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
         <label htmlFor="wifi" className="font-bold">
           Wifi
-          <span className="tex-red-500">*</span>
+          <span className="tex-red-500"></span>
         </label>
 
         <select
@@ -207,7 +207,7 @@ const AmenitiesForm: React.FC<Props> = ({
       {/* statndby generator */}
       {(facilityData.businessType === businessTypeEnum.rent ||
         facilityData.businessType === businessTypeEnum.saleCondominium) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
           <input
             type="checkbox"
             checked={amenities.standByGenerator}
@@ -224,13 +224,13 @@ const AmenitiesForm: React.FC<Props> = ({
           />
           <label htmlFor="cabelInternet" className="font-bold px-2">
             Statndby generator
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
         </div>
       )}
 
       {/* elevator */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
         <input
           type="checkbox"
           name="elevator"
@@ -253,7 +253,7 @@ const AmenitiesForm: React.FC<Props> = ({
       {/* surveillance cameras */}
       {(facilityData.businessType === businessTypeEnum.rent ||
         facilityData.businessType === businessTypeEnum.saleCondominium) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
           <input
             type="checkbox"
             name="surveillanceCameras"
@@ -269,7 +269,7 @@ const AmenitiesForm: React.FC<Props> = ({
           />
           <label htmlFor="cabelInternet" className="font-bold px-2">
             Surveillance Cameras
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
         </div>
       )}
@@ -277,7 +277,7 @@ const AmenitiesForm: React.FC<Props> = ({
       {/* security guard */}
       {(facilityData.businessType === businessTypeEnum.rent ||
         facilityData.businessType === businessTypeEnum.saleCondominium) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
           <input
             type="checkbox"
             name="securityGuard"
@@ -293,16 +293,16 @@ const AmenitiesForm: React.FC<Props> = ({
           />
           <label htmlFor="cabelInternet" className="font-bold px-2">
             Security Guard
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
         </div>
       )}
 
       {/* cabel internet */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
         <label htmlFor="cabelInternet" className="font-bold">
           Cabel internet
-          <span className="tex-red-500">*</span>
+          <span className="tex-red-500"></span>
         </label>
 
         <select
@@ -338,10 +338,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.businessType === businessTypeEnum.saleCondominium) &&
         (facilityData.facilityCategory === facilityCategory.arcade ||
           facilityData.facilityCategory === facilityCategory.mall) && (
-          <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+          <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
             <label htmlFor="washRoom" className="font-bold">
               Wash rooms
-              <span className="tex-red-500">*</span>
+              <span className="tex-red-500"></span>
             </label>
             <select
               name=""
@@ -382,10 +382,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.hostel ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="airportTransport" className="font-bold">
             Airport transport
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -426,10 +426,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.hostel ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="gym" className="font-bold">
             Gym
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -465,10 +465,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.lodge ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="breakFast" className="font-bold">
             Breakfast
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -504,10 +504,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.hotel ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="swimmingPool" className="font-bold">
             Swimmingpool
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -539,10 +539,10 @@ const AmenitiesForm: React.FC<Props> = ({
       )}
       {/* hostel shuttle */}
       {facilityData.facilityCategory === facilityCategory.hostel && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="hostelShuttle" className="font-bold">
             Hostel shuttle
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -581,10 +581,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.hotel ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="conferenceSpace" className="font-bold">
             Conference space
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -622,10 +622,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.motel ||
         facilityData.facilityCategory === facilityCategory.hotel ||
         facilityData.facilityCategory === facilityCategory.lodge) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="canteen" className="font-bold">
             Canteen
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -656,10 +656,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.guestHouse ||
         facilityData.facilityCategory === facilityCategory.motel ||
         facilityData.facilityCategory === facilityCategory.hotel) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="clinic" className="font-bold">
             Clinic
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -695,10 +695,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.rentalBuilding ||
         facilityData.facilityCategory === facilityCategory.guestHouse ||
         facilityData.facilityCategory === facilityCategory.motel) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="studyRoom" className="font-bold">
             Study room
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -732,10 +732,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.rentalBuilding ||
         facilityData.facilityCategory ===
           facilityCategory.apartmentBuilding) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="communityRoom" className="font-bold">
             Community room
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -772,10 +772,10 @@ const AmenitiesForm: React.FC<Props> = ({
       {(facilityData.facilityCategory === facilityCategory.hotel ||
         facilityData.facilityCategory === facilityCategory.apartmentBuilding ||
         facilityData.facilityCategory === facilityCategory.motel) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="meetingSpace" className="font-bold">
             Meeting space
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -810,10 +810,10 @@ const AmenitiesForm: React.FC<Props> = ({
       {(facilityData.facilityCategory === facilityCategory.hotel ||
         facilityData.facilityCategory === facilityCategory.apartmentBuilding ||
         facilityData.facilityCategory === facilityCategory.motel) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="eventsSpace" className="font-bold">
             Events space
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -850,10 +850,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.motel ||
         facilityData.facilityCategory === facilityCategory.guestHouse ||
         facilityData.facilityCategory === facilityCategory.lodge) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="restaurant" className="font-bold">
             Restaurant
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -887,10 +887,10 @@ const AmenitiesForm: React.FC<Props> = ({
         facilityData.facilityCategory === facilityCategory.motel ||
         facilityData.facilityCategory === facilityCategory.guestHouse ||
         facilityData.facilityCategory === facilityCategory.lodge) && (
-        <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 my-5">
+        <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 my-5">
           <label htmlFor="barAndLounge" className="font-bold">
             Bar and lounge
-            <span className="tex-red-500">*</span>
+            <span className="tex-red-500"></span>
           </label>
           <select
             name=""
@@ -922,7 +922,7 @@ const AmenitiesForm: React.FC<Props> = ({
       )}
 
       {/* airConditioner */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
         <input
           type="checkbox"
           name="airConditioner"
@@ -938,12 +938,12 @@ const AmenitiesForm: React.FC<Props> = ({
         />
         <label htmlFor="cabelInternet" className="font-bold px-2">
           Air conditioner
-          <span className="tex-red-500">*</span>
+          <span className="tex-red-500"></span>
         </label>
       </div>
 
       {/* fenced */}
-      <div className="form-group w-1/2 lg:w-1/4 px-4 py-5 lg:mx-0 flex items-center my-5">
+      <div className="form-group w-full lg:w-1/4 px-4 py-0 lg:mx-0 flex items-center my-5">
         <input
           type="checkbox"
           name="fenced"
@@ -959,11 +959,12 @@ const AmenitiesForm: React.FC<Props> = ({
         />
         <label htmlFor="cabelInternet" className="font-bold px-2">
           Fenced
-          <span className="tex-red-500">*</span>
+          <span className="tex-red-500"></span>
         </label>
       </div>
     </>
   );
 };
 
+AmenitiesForm = React.memo(AmenitiesForm);
 export default AmenitiesForm;
