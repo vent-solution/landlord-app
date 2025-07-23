@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLinkModel } from "../modules/users/models/navLinkModel";
 import NavItem from "./navItem";
 import { MdDashboard, MdNotifications } from "react-icons/md";
@@ -12,27 +12,50 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
 import { setConfirm } from "../other/ConfirmSlice";
 import { setUserAction } from "../global/actions/actionSlice";
-import { UserModel } from "../modules/users/models/userModel";
 import { useNavigate } from "react-router-dom";
 import { logOutAction } from "../global/actions/logOut";
 import { PiBuildingsFill } from "react-icons/pi";
 import { FaBusinessTime, FaReceipt, FaUsers } from "react-icons/fa6";
 import { IoDiamondSharp } from "react-icons/io5";
 
-import navItems from "../global/navItems.json";
+import navItems from "./navItems.json";
 import { useLocation } from "react-router-dom";
+import { ViewRightsModel } from "../modules/users/rights/viewRightsModel";
 
 interface Props {}
 
 let SideBar: React.FC<Props> = () => {
   const location = useLocation();
 
-  const [navLinks] = useState<NavLinkModel[]>(navItems);
+  const [navLinks, setNavLinks] = useState<NavLinkModel[] | []>([]);
 
   const [showProfileButtons, setShowProfileButtons] = useState<boolean>(false);
 
   const [showLinks, setShowLinks] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const viewRights: ViewRightsModel = {
+    dashboard: true,
+    facilities: true,
+    users: true,
+    tenants: true,
+    offices: true,
+    market: true,
+    receipts: true,
+    logs: true,
+    landlords: false,
+    staffs: false,
+    settings: false,
+    subscription: false,
+    brokerFees: false,
+    bids: false,
+    statistics: false,
+    bookings: false,
+    expenses: false,
+    history: false,
+    accommodations: false,
+    rent: false,
+  };
 
   const navigate = useNavigate();
 
@@ -53,6 +76,15 @@ let SideBar: React.FC<Props> = () => {
     return iconMap[iconName] || null;
   }
 
+  // set which links the user can view depending on the module view rights for a particular user.
+  useEffect(() => {
+    const links = navItems.filter(
+      (item) => viewRights[item.link as keyof typeof viewRights]
+    );
+
+    setNavLinks(links);
+  }, []);
+
   // handle log out function
   const handelLogOut = async () => {
     logOutAction(dispatch, setLoading);
@@ -69,9 +101,9 @@ let SideBar: React.FC<Props> = () => {
       } lg:h-dvh bg-blue-950 px-1 w-full  overflow-hidden`}
     >
       {/* SIDEBAR SECTION UPPER PART */}
-      <div className="w-full h-1/6 flex items-center justify-around py-3 px-2 lg:px-10 text-center border-gray-400 border-b-2">
+      <div className="w-full h-1/6 flex flex-wrap items-center justify-around py-3 px-2 lg:px-5 text-center border-gray-400 border-b-2">
         <div
-          className="logo  w-fit font-bold border-2 border-white rounded-full p-2 cursor-pointer"
+          className="logo  w-fit font-bold border-2 border-white rounded-full p-2 cursor-pointer lg:hover:bg-blue-800"
           onClick={() => (window.location.href = "/landlord/dashboard")}
         >
           <img
@@ -107,6 +139,7 @@ let SideBar: React.FC<Props> = () => {
             <RxCross1 onClick={() => setShowLinks(false)} />
           )}
         </div>
+        {/* <h1 className="w-full text-sm font-bold uppercase text-start">lld-4</h1> */}
       </div>
 
       <div
@@ -152,9 +185,9 @@ let SideBar: React.FC<Props> = () => {
       <div
         className={`links bg-blue-950 lg:flex w-full ${
           !showLinks ? "hidden" : ""
-        } h-3/4 flex-wrap   overflow-auto text-gray-400 text-lg`}
+        } flex-wrap    text-gray-400 text-lg   h-3/4 overflow-hidden`}
       >
-        <div className="py-2 w-full">
+        <div className="py-2 w-full  h-3/4 overflow-auto">
           {navLinks.map((navLink, index) => {
             const isActive = navLink.link === location.pathname;
 

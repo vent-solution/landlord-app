@@ -3,6 +3,7 @@ import { AccommodationModel } from "./AccommodationModel";
 import axios from "axios";
 import { fetchData } from "../../../global/api";
 import { AccommodationAvailability } from "../../../global/enums/accommodationAvailability";
+import { businessTypeEnum } from "../../../global/enums/businessTypeEnum";
 
 interface UpdateModel {
   id: number;
@@ -198,9 +199,10 @@ export const getAccommodationByIdAndTenant =
 export const getAvailableAccommodations = (state: {
   facilityAccommodations: StateModel;
 }) =>
-  state.facilityAccommodations.facilityAccommodations.filter(
-    (accommodation) =>
-      accommodation.availability === AccommodationAvailability.available
+  state.facilityAccommodations.facilityAccommodations.filter((accommodation) =>
+    accommodation.facility.businessType === businessTypeEnum.hospitality
+      ? accommodation
+      : accommodation.availability === AccommodationAvailability.available
   );
 
 export const {

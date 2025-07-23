@@ -14,7 +14,7 @@ const NavItem: React.FC<Props> = ({ navLink, icon, setShowLinks }) => {
     <>
       {navLink.link && (
         <Link
-          to={String(navLink.link)}
+          to={`/${navLink.link}`}
           className={`navLink w-full mt-1 p-2 flex flex-wrap items-center h-fit hover:bg-blue-900 hover:text-white rounded-md ${
             navLink.active ? "bg-blue-900 text-white" : ""
           }`}
@@ -30,7 +30,7 @@ const NavItem: React.FC<Props> = ({ navLink, icon, setShowLinks }) => {
       {navLink.childLinks?.map((child, index) => (
         <Link
           key={index}
-          to={String(child.link)}
+          to={`/${child.link}`}
           className={`navLink  w-full mt-1 p-1 pl-3 font-bold flex items-center h-fit hover:bg-blue-900 hover:text-white ${
             child.active ? "bg-blue-900 text-white " : ""
           }`}

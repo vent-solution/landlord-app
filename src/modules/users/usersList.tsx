@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import User from "./user";
 import { UserModel } from "./models/userModel";
-import { fetchUsers, getAllUsers, resetUsers } from "./usersSlice";
+import { getAllUsers, resetUsers } from "./usersSlice";
 import { FaSearch } from "react-icons/fa";
 import { UserRoleEnum } from "../../global/enums/userRoleEnum";
 import Preloader from "../../other/Preloader";
@@ -15,7 +15,7 @@ import { AlertTypeEnum } from "../../global/enums/alertTypeEnum";
 import PaginationButtons from "../../global/PaginationButtons";
 import AddUserForm from "./addUserForm";
 import { FaPlus } from "react-icons/fa6";
-import EmptyList from "../../global/EnptyList";
+import EmptyList from "../../global/EmptyList";
 
 interface Props {
   currentUser: UserModel | null;
@@ -43,13 +43,6 @@ const UserList: React.FC<Props> = ({ currentUser }) => {
   const toggleShowForm = useCallback(() => {
     setIsShowForm(!isShowForm);
   }, [isShowForm]);
-
-  // fetch all the landlord users
-  useEffect(() => {
-    dispatch(
-      fetchUsers({ userId: Number(currentUser?.userId), page: 0, size: 10 })
-    );
-  }, [currentUser?.userId, dispatch]);
 
   // filter users depending on search parameters
   useEffect(() => {

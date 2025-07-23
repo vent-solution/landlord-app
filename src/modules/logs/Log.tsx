@@ -7,7 +7,7 @@ interface Props {
   logIndex: number;
 }
 
-let Log: React.FC<Props> = ({ log, logIndex }) => {
+let Log: React.FC<Props> = ({ log }) => {
   const createdDate = log.dateCreated ? parseISO(log.dateCreated) : null;
 
   // formating the date and time Subscription created
@@ -24,7 +24,7 @@ let Log: React.FC<Props> = ({ log, logIndex }) => {
     : "";
 
   return (
-    <tr className="cursor-pointer text-start border-y-2 hover:bg-gradient-to-b  hover:from-gray-100 hover:via-gray-100 hover:to-gray-100  bg-gradient-to-b from-white to-white">
+    <tr className="cursor-pointer text-start border-y-2 hover:bg-gradient-to-b  hover:from-gray-100 hover:via-gray-100 hover:to-gray-100  bg-gradient-to-b from-white to-white text-sm">
       {/* <td className="px-2 pt-8">{logIndex + 1}</td> */}
       {/* <td className="px-2">{"LOG-" + log.logId}</td> */}
 

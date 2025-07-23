@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../../sidebar/sideBar";
-import Preloader from "../../other/Preloader";
 import { UserModel } from "./models/userModel";
 import UserProfileDetails from "./UserProfile";
 import UserActivityList from "./UserActivityList";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from "./usersSlice";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import UserRights from "./rights/UserRights";
+import { AppDispatch } from "../../app/store";
+import { fetchViewRights } from "./rights/viewRightsSlice";
+import { UserRoleEnum } from "../../global/enums/userRoleEnum";
 
 interface Props {}
 const UsersPage: React.FC<Props> = () => {
   // LOCAL STATES
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const [currentSection, setCurrentSection] = useState<string>("Profile");
 
   const navigate = useNavigate();
@@ -22,27 +22,35 @@ const UsersPage: React.FC<Props> = () => {
 
   const user = useSelector(getUserById(Number(userId)));
 
-  /*
-   *create a delay of 3sec and check authication
-   * to proceed to page or go back to login page
-   */
+  const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
-    const currentUser = localStorage.getItem("dnap-user");
-    if (currentUser) {
-      setIsAuthenticated(true);
-    } else {
-      window.location.href = "/";
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
+
+    // window.alert([
+    //   currentUser.userRole === UserRoleEnum.landlord,
+    //   currentUser.userId !== userId,
+    //   Number(currentUser.userId) !== Number(userId),
+    //   currentUser.userId,
+    //   userId,
+    // ]);
+
+    if (Number(currentUser.userId) !== Number(userId)) {
+      dispatch(fetchViewRights({ userId: Number(userId) }));
     }
-  }, []);
+  }, [userId, dispatch]);
 
   // render section depending on the current active link
   const renderSection = (user?: UserModel) => {
     switch (currentSection) {
       case "Profile":
         return <UserProfileDetails userId={Number(user?.userId)} />;
+      case "Rights":
+        return <UserRights userId={Number(user?.userId)} />;
       case "Activity":
         return <UserActivityList userId={Number(user?.userId)} />;
-
       default:
         return <UserProfileDetails userId={Number(user?.userId)} />;
     }
@@ -50,7 +58,6 @@ const UsersPage: React.FC<Props> = () => {
 
   // function for selecting facility section
   const selectSection = (li: HTMLLIElement) => {
-    // navigate(`/users/${userId}`);
     const { id } = li;
     const ul = li.parentElement;
 
@@ -65,9 +72,9 @@ const UsersPage: React.FC<Props> = () => {
   };
 
   // render preloader screen if not authenticated or page still loading
-  if (!isAuthenticated) {
-    return <Preloader />;
-  }
+  // if (status === "loading") {
+  //   return <Preloader />;
+  // }
 
   return (
     <div className="main max-h-screen lg:overflow-hidden flex relative w-full">
@@ -105,6 +112,16 @@ const UsersPage: React.FC<Props> = () => {
               }
             >
               Profile details
+            </li>
+
+            <li
+              id="Rights"
+              className="p-2 lg:px-5 lg:py-3 mt-2 font-bold border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer"
+              onClick={(e: React.MouseEvent<HTMLLIElement>) =>
+                selectSection(e.currentTarget)
+              }
+            >
+              User rights
             </li>
 
             <li

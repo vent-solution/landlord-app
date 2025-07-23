@@ -2,22 +2,16 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FacilitiesModel } from "../FacilityModel";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../app/store";
-import {
-  fetchFacilityBookings,
-  getFacilityBookings,
-  resetFacilityBookings,
-} from "./bookingsSlice";
+import { fetchFacilityBookings, getFacilityBookings } from "./bookingsSlice";
 import FacilityBookingRow from "./FacilityBookingRow";
 import { BookingModel } from "./BookingModel";
 import { FaPlus, FaSearch } from "react-icons/fa";
 import PaginationButtons from "../../../global/PaginationButtons";
-import axios from "axios";
-import { fetchData } from "../../../global/api";
 import Preloader from "../../../other/Preloader";
 import { FaDownload } from "react-icons/fa6";
 import BookingFilterForm from "./BookingFilterForm";
 import BookingForm from "./BookingForm";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -121,37 +115,24 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
 
   // handle fetch next page
   const handleFetchNextPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-bookings-by-facility/${Number(facility.facilityId)}/${
-          page + 1
-        }/${size}`
-      );
-      dispatch(resetFacilityBookings(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH BIDS CANCELLED ", error.message);
-      }
-      console.error("Error fetching bids: ", error);
-    }
+    dispatch(
+      fetchFacilityBookings({
+        facilityId: Number(facility.facilityId),
+        page: page + 1,
+        size: size,
+      })
+    );
   }, [dispatch, page, size, facility.facilityId]);
 
   // handle fetch previous page
   const handleFetchPreviousPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-bookings-by-facility/${Number(facility.facilityId)}/${
-          page - 1
-        }/${size}`
-      );
-      console.log(result);
-      dispatch(resetFacilityBookings(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH BIDS CANCELLED ", error.message);
-      }
-      console.error("Error fetching bids: ", error);
-    }
+    dispatch(
+      fetchFacilityBookings({
+        facilityId: Number(facility.facilityId),
+        page: page - 1,
+        size: size,
+      })
+    );
   }, [dispatch, page, size, facility.facilityId]);
 
   if (status === "loading") return <Preloader />;
@@ -166,7 +147,7 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
     );
 
   return (
-    <div className="users-list flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 bg-gray-200">
+    <div className="users-list overflow-auto flex w-full h-svh lg:h-dvh mt-2 lg:mt-0 z-0 bg-gray-200 relative">
       <div className="list w-full h-[calc(100vh-140px)] relative ">
         <div className="w-full mb-5 ">
           <div className="lower w-full h-1/3 flex flex-wrap justify-end items-center px-2 lg:px-10 py-3">
@@ -189,7 +170,7 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
                   <span className="pr-2">
                     <FaPlus />
                   </span>
-                  <span>Add</span>
+                  <span>Add booking</span>
                 </button>
                 <h1 className="text-lg font-bold mr-2">
                   {facilityBookings.length + "/" + totalElements}
@@ -230,6 +211,7 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
                   <th className="p-2 text-start font-bold">Amount</th>
                   <th className="p-2 text-start font-bold">Payment type</th>
                   <th className="p-2 text-start font-bold">Check In</th>
+                  <th className="p-2 text-start font-bold">Check Out</th>
                   <th className="p-2 text-start font-bold">Date Added</th>
                 </tr>
               </thead>
@@ -249,13 +231,12 @@ let FacilityBookingsList: React.FC<Props> = ({ facility }) => {
           handleFetchNextPage={handleFetchNextPage}
           handleFetchPreviousPage={handleFetchPreviousPage}
         />
+        <BookingFilterForm
+          isShowReportFilterForm={isShowReportFilterForm}
+          setIsShowReportFilterForm={setIsShowReportFilterForm}
+          facilityId={facility.facilityId}
+        />
       </div>
-
-      <BookingFilterForm
-        isShowReportFilterForm={isShowReportFilterForm}
-        setIsShowReportFilterForm={setIsShowReportFilterForm}
-        facilityId={facility.facilityId}
-      />
     </div>
   );
 };

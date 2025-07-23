@@ -34,7 +34,10 @@ import { UserModel } from "../../users/models/userModel";
 import { TenantModel } from "../../tenants/TenantModel";
 import RentForm from "../rent/RentForm";
 import TenantForm from "../../tenants/TenantForm";
-import { getHistoryByAccommodationId } from "../tenants/TenantsSlice";
+import {
+  deleteTenant,
+  getHistoryByAccommodationId,
+} from "../tenants/TenantsSlice";
 import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
 import { UserActivity } from "../../../global/enums/userActivity";
 import { webSocketService } from "../../../webSockets/socketService";
@@ -49,12 +52,6 @@ interface Props {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// tenant choices
-const TENANT_CHOICES = [
-  { label: "Existing tenant", value: TenantChoiceEnum.existingTenant },
-  { label: "New tenant", value: TenantChoiceEnum.newTenant },
-];
-
 const currentUser: UserModel = JSON.parse(
   localStorage.getItem("dnap-user") as string
 );
@@ -64,6 +61,8 @@ const AccommodationDetails: React.FC<Props> = ({
   toggleShowAccommodationDetails,
   setShowForm,
 }) => {
+  // const [newAccommodation, setNewAccommodation] = useState(accommodation);
+
   const [currencyNames, setCurrencyNames] = useState<string[]>([]);
   const [desiredCurrency, setDesiredCurrency] = useState<string>("");
   const [convertedPrice, setConvertedPrice] = useState<number>(0);
@@ -73,18 +72,7 @@ const AccommodationDetails: React.FC<Props> = ({
 
   const [searchString, setSearchString] = useState<string>("");
 
-  const [isCheckInExistingTenant, setIsCheckInExistingTenant] =
-    useState<boolean>(false);
-
-  const [isCheckInNewTenant, setIsCheckInNewTenant] = useState<boolean>(false);
-
-  const [tenantChoice, setTenantChoice] = useState<{
-    label: string;
-    value: string;
-  }>({
-    label: "",
-    value: "",
-  });
+  const [isCheckInTenant, setIsCheckInTenant] = useState<boolean>(false);
 
   const [tenants, setTenants] = useState<TenantModel[] | undefined>(
     accommodation?.tenants
@@ -104,20 +92,6 @@ const AccommodationDetails: React.FC<Props> = ({
   );
 
   const currencyState = useSelector(getCurrencyExchange);
-
-  // select tenant choice
-  useEffect(() => {
-    if (tenantChoice?.value === TenantChoiceEnum.existingTenant) {
-      setIsCheckInExistingTenant(true);
-      setIsCheckInNewTenant(false);
-    } else if (tenantChoice?.value === TenantChoiceEnum.newTenant) {
-      setIsCheckInNewTenant(true);
-      setIsCheckInExistingTenant(false);
-    } else {
-      setIsCheckInNewTenant(false);
-      setIsCheckInExistingTenant(false);
-    }
-  }, [tenantChoice]);
 
   // set a list of currency names
   useEffect(() => {
@@ -297,67 +271,18 @@ const AccommodationDetails: React.FC<Props> = ({
         facilityId={accommodation?.facility.facilityId}
         accommodation={accommodation}
         setShowRentForm={setShowRentForm}
+        tenants={tenants}
       />
     );
 
-  // conditional rendering is check in new tenant is true
-  if (isCheckInNewTenant)
-    return (
-      <div className="w-full text-black bg-gray-100 p-5">
-        <div className="w-full flex justify-between items-center text-3xl p-2 sticky top-0 z-20 bg-white">
-          <p className="w-3/4 text-center">Add new tenant</p>
-          <span
-            className="lg:hover:bg-red-600 lg:hover:text-white p-1 rounded-lg cursor-pointer"
-            onClick={() => {
-              setIsCheckInNewTenant(false);
-              setTenantChoice({ label: "", value: "" });
-            }}
-          >
-            <RxCross2 />
-          </span>
-        </div>
-        <div className="w-full h-full flex justify-center items-center">
-          <TenantForm
-            facilityId={Number(accommodation?.facility.facilityId)}
-            accommodationId={Number(accommodation?.accommodationId)}
-            unitNumber={accommodation?.accommodationNumber}
-            unitType={accommodation?.accommodationType}
-            setIsCheckInExistingTenant={setIsCheckInExistingTenant}
-            setTenantChoice={setTenantChoice}
-            setTenants={setTenants}
-            setIsCheckInNewTenant={setIsCheckInNewTenant}
-          />
-        </div>
-      </div>
-    );
-
   // conditional rendering if check in existing tenant is true
-  if (isCheckInExistingTenant)
+  if (isCheckInTenant)
     return (
-      <div className="w-full h-[calc(100vh-115px)] pb-10 bg-gray-100">
-        <div className="w-full flex justify-end items-center text-3xl p-2 sticky top-0">
-          <span
-            className="bg-pay-200 p-1 rounded-lg lg:hover:bg-red-500 lg:hover:text-white cursor-pointer border border-gray-400"
-            onClick={() => {
-              setIsCheckInExistingTenant(false);
-              setTenantChoice({ label: "", value: "" });
-            }}
-          >
-            <RxCross2 />
-          </span>
-        </div>
-        <div className="w-full h-full flex justify-center items-center">
-          <TenantIdForm
-            facilityId={Number(accommodation?.facility.facilityId)}
-            accommodationId={Number(accommodation?.accommodationId)}
-            unitNumber={accommodation?.accommodationNumber}
-            unitType={accommodation?.accommodationType}
-            setIsCheckInExistingTenant={setIsCheckInExistingTenant}
-            setTenantChoice={setTenantChoice}
-            setTenants={setTenants}
-          />
-        </div>
-      </div>
+      <TenantIdForm
+        accommodation={accommodation}
+        setIsCheckInTenant={setIsCheckInTenant}
+        setTenants={setTenants}
+      />
     );
 
   return (
@@ -488,7 +413,10 @@ const AccommodationDetails: React.FC<Props> = ({
                       {Number(tenants?.length) >=
                       Number(accommodation?.capacity)
                         ? AccommodationAvailability.occupied
-                        : accommodation?.availability}
+                        : accommodation?.availability ===
+                          AccommodationAvailability.booked
+                        ? AccommodationAvailability.booked
+                        : AccommodationAvailability.available}
                     </span>
                   </span>
 
@@ -523,32 +451,16 @@ const AccommodationDetails: React.FC<Props> = ({
             </div>
 
             {/* tenants section*/}
-            <div className="p-4 w-full pt-14">
-              <h2 className="text-xl font-bold">
-                Tenant(s){" "}
-                {accommodation?.availability ===
-                  AccommodationAvailability.available && (
-                  <select
-                    className="ml-5 px-2 text-sm bg-gray-900 text-white lg:hover:bg-gray-500 cursor-pointer"
-                    value={tenantChoice.value}
-                    onChange={(e) => {
-                      const foundChoice = TENANT_CHOICES.find(
-                        (choice) => choice.value === e.target.value
-                      );
-                      setTenantChoice(foundChoice || { label: "", value: "" });
-                    }}
-                  >
-                    <option value={tenantChoice?.value || ""}>
-                      CheckIn tenant
-                    </option>
-                    {TENANT_CHOICES.map((choice) => (
-                      <option value={choice.value} key={choice.value}>
-                        {choice.label}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </h2>
+            <div className="p-4 w-full pt-14 flex flex-wrap justify-between items-center">
+              <h2 className="text-xl font-bold">Tenant(s) </h2>
+              {Number(tenants?.length) < Number(accommodation?.capacity) && (
+                <button
+                  className="px-2 text-sm bg-gray-900 text-white lg:hover:bg-gray-500 cursor-pointer p-2 rounded-lg lg:active:scale-95"
+                  onClick={() => setIsCheckInTenant(true)}
+                >
+                  Check In tenant
+                </button>
+              )}
 
               {tenants?.map((tnt, index) => (
                 <div className="p-2 flex flex-wrap justify-start items-center w-full my-2 relative">
@@ -637,6 +549,13 @@ const AccommodationDetails: React.FC<Props> = ({
                               tenants.filter(
                                 (tenant) => tenant.tenantId !== tnt.tenantId
                               )
+                            );
+
+                            dispatch(
+                              deleteTenant([
+                                Number(tnt.tenantId),
+                                Number(accommodation?.accommodationId),
+                              ])
                             );
 
                             dispatch(

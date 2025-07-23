@@ -13,11 +13,11 @@ const Amenity: React.FC<Props> = ({ name, availability, amenity }) => {
     <>
       {availability && (
         <p className="flex justify-between text-center text-sm bg-black px-5 border-b-2 border-gray-300 hover:bg-gray-700 py-3">
-          <b className="w-fit capitalize text-cyan-400 font-extralight">
+          <b className="w-fit capitalize text-cyan-400 font-extralight text-start">
             {name}
           </b>
           <span className="w-1/2 flex justify-between">
-            <span className="flex justify-center items-center w-1/3 font-bold text-lg">
+            {/* <span className="flex justify-center items-center w-1/3 font-bold text-lg">
               {amenity === AmenityEnum.no ? (
                 <RxCross2 className="text-red-600" />
               ) : !amenity ? (
@@ -25,7 +25,7 @@ const Amenity: React.FC<Props> = ({ name, availability, amenity }) => {
               ) : (
                 <GiCheckMark className="text-green-600" />
               )}
-            </span>
+            </span> */}
             <span className="flex justify-center items-center w-1/3 font-bold text-lg">
               {amenity === AmenityEnum.paid ? (
                 <RxCross2 className="text-red-600" />

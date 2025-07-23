@@ -103,12 +103,12 @@ let BookingFilterForm: React.FC<Props> = ({
 
   return (
     <div
-      className={`p-10 filter-form-overlay absolute top-0 left-0 right-0 bottom-0 flex items-center lg:items-start justify-center lg:justify-end  transition-all ease-in delay-150  ${
+      className={`p-10 overflow-auto h-[cal(100vh-300px)] filter-form-overlay absolute top-0 left-0 right-0 bottom-0 flex items-center bg-red-500 lg:items-start justify-center lg:justify-end  transition-all ease-in delay-150  ${
         !isShowReportFilterForm === false ? "scale-100" : "scale-0"
       } `}
     >
       <form
-        className="w-full lg:w-1/3 h-[calc(100vh-100px)] overflow-auto m-auto py-10 rounded-lg relative bg-gray-100"
+        className="w-full lg:w-1/2 h-[calc(100vh-100px)] overflow-auto m-auto py-10 rounded-lg relative bg-gray-100"
         onSubmit={(e: React.FormEvent) => e.preventDefault()}
       >
         <button
@@ -126,11 +126,11 @@ let BookingFilterForm: React.FC<Props> = ({
           <RxCross1 />
         </button>
 
-        <h1 className="w-full p-5 text-center text-4xl font-sans font-bold">
+        <h1 className="w-full px-5 text-center text-4xl font-sans font-bold">
           Booking
         </h1>
 
-        <div className="py-10 w-full ">
+        <div className="pb-10 w-full ">
           <div className="form-group py-3 w-2/3 m-auto">
             <label htmlFor="startDate" className="w-full text-sm">
               Start date

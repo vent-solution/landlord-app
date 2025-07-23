@@ -275,6 +275,17 @@ const AddUserForm: React.FC<Props> = ({ toggleShowForm }) => {
 
       const result = await postData("/saveUser", user);
 
+      if (!result || result.status !== 200) {
+        dispatch(
+          setAlert({
+            message: "Internal server error!",
+            type: AlertTypeEnum.danger,
+            status: true,
+          })
+        );
+        return;
+      }
+
       // check if the user was not saved successfully and set an error alert
       if (result.data.status && result.data.status !== "OK") {
         dispatch(

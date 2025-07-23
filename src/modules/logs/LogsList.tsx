@@ -11,6 +11,7 @@ import { UserModel } from "../users/models/userModel";
 import { getAllUsers } from "../users/usersSlice";
 import { FaDownload } from "react-icons/fa6";
 import LogsFilterForm from "./LogsFilterForm";
+import EmptyList from "../../global/EmptyList";
 
 interface Props {}
 
@@ -176,15 +177,7 @@ let LogsList: React.FC<Props> = () => {
               </tbody>
             </table>
           ) : (
-            <div className="w-ull h-full flex justify-center items-center">
-              <div
-                className="w-14 lg:w-20 h-14 lg:h-20"
-                style={{
-                  background: "URL('/images/Ghost.gif')",
-                  backgroundSize: "cover",
-                }}
-              ></div>
-            </div>
+            <EmptyList itemName={"Activity log"} />
           )}
         </div>
 

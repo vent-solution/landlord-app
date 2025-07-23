@@ -146,7 +146,6 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
   // set selected facility on updating facility data
   useEffect(() => {
     const facility = selectedFacility;
-    // const timeout = setTimeout(() => {
     if (facilityId) {
       setFacilityData((prev) => ({
         ...prev,
@@ -166,12 +165,9 @@ let FacilityForm: React.FC<Props> = ({ toggelIsAddFacility }) => {
 
       setAmenities((prev) => ({ ...prev, ...facility?.facilityAmenities }));
     }
-    // }, 1000);
-
-    // return () => clearTimeout(timeout);
   }, [facilityId, selectedFacility]);
 
-  // set facility loaction
+  // set facility location
   useEffect(() => {
     setFacilityData((prev) => ({ ...prev, facilityLocation: address }));
   }, [address]);

@@ -16,12 +16,14 @@ import { AddAccommodationRent } from "../accommodations/AccommodationRentSlice";
 import { AccommodationModel } from "../accommodations/AccommodationModel";
 import convertCurrency from "../../../global/actions/currencyConverter";
 import { getCurrencyExchange } from "../../../other/apis/CurrencyExchangeSlice";
+import { TenantModel } from "../../tenants/TenantModel";
 
 interface Props {
   tenantId?: number;
   facilityId?: number;
   accommodation?: AccommodationModel;
   setShowRentForm: React.Dispatch<React.SetStateAction<boolean>>;
+  tenants: TenantModel[] | undefined;
 }
 
 const INITIAL_RENT_DATA: CreationRentModel = {
@@ -44,6 +46,7 @@ let RentForm: React.FC<Props> = ({
   facilityId,
   accommodation,
   setShowRentForm,
+  tenants,
 }) => {
   const currencyState = useSelector(getCurrencyExchange);
 
@@ -190,7 +193,7 @@ let RentForm: React.FC<Props> = ({
             >
               <option value="">SELECT TENANT</option>
 
-              {accommodation?.tenants?.map((tenant) => (
+              {tenants?.map((tenant) => (
                 <option value={tenant.tenantId}>
                   TNT-{tenant.tenantId}{" "}
                   {tenant.user.firstName + " " + tenant.user.lastName}
@@ -251,7 +254,7 @@ let RentForm: React.FC<Props> = ({
         {/* rent amount */}
         <div className="form-group w-full text-sm py-3">
           <label htmlFor="" className="font-bold">
-            Amount ({accommodation?.facility.preferedCurrency}){" "}
+            Amount
             <span className="text-red-600">*</span>
           </label>
           <input
@@ -270,7 +273,7 @@ let RentForm: React.FC<Props> = ({
               }))
             }
           />
-          <small></small>
+          <small>Amount is required!</small>
         </div>
 
         {/* payment type*/}
@@ -339,24 +342,26 @@ let RentForm: React.FC<Props> = ({
               }
               dispatch(setUserAction({ userAction: handleSaveRentPayment }));
 
-              const actualAmount = convertCurrency(
-                currencyState,
-                String(accommodation?.facility.preferedCurrency),
-                "usd",
-                Number(rentData.amount)
+              const actualAmount: string = String(
+                convertCurrency(
+                  currencyState,
+                  String(accommodation?.facility.preferedCurrency),
+                  "usd",
+                  Number(rentData.amount)
+                )
               );
 
               dispatch(
                 setConfirm({
                   status: true,
-                  message: `Are you sure you want to save rent payment TENAT: (TNT-${
+                  message: `Are you sure you want to save rent payment TENANT: (TNT-${
                     rentData.tenant?.tenantId
                   }), FACILITY: (FAC-${facilityId}), UNIT: (${
                     rentData.accommodation?.accommodationNumber
                   }), AMOUNT: ${
                     accommodation?.facility.preferedCurrency +
                     ". " +
-                    actualAmount
+                    String(actualAmount)
                   }`,
                 })
               );

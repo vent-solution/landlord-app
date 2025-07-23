@@ -4,6 +4,7 @@ import { parseISO, formatDistanceToNow, format } from "date-fns";
 import { FacilitiesModel } from "../FacilityModel";
 import { FormatMoney } from "../../../global/actions/formatMoney";
 import {
+  ACCOMMODATION_CATEGORY,
   ACCOMMODATION_TYPE_DATA,
   PAYMENT_PARTERN,
 } from "../../../global/PreDefinedData/PreDefinedData";
@@ -11,14 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   accommodation: AccommodationModel;
-  accommodationIndex: number;
   facility: FacilitiesModel;
   onClick: () => void;
 }
 
 const Accommodation: React.FC<Props> = ({
   accommodation,
-  accommodationIndex,
   facility,
   onClick,
 }) => {
@@ -74,6 +73,13 @@ const Accommodation: React.FC<Props> = ({
         {
           ACCOMMODATION_TYPE_DATA.find(
             (type) => type.value === accommodation.accommodationType
+          )?.label
+        }
+      </td>
+      <td>
+        {
+          ACCOMMODATION_CATEGORY.find(
+            (category) => category.value === accommodation.accommodationCategory
           )?.label
         }
       </td>

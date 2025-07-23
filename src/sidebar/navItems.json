@@ -2,55 +2,55 @@
   {
     "icon": "MdDashboard",
     "name": "Dashboard",
-    "link": "/dashboard",
+    "link": "dashboard",
     "active": false
   },
 
   {
     "icon": "PiBuildingsFill",
     "name": "Facilities",
-    "link": "/facilities",
+    "link": "facilities",
     "active": false
   },
   {
     "icon": "FaUsers",
     "name": "Users",
-    "link": "/users",
+    "link": "users",
     "active": false
   },
 
   {
     "icon": "IoDiamondSharp",
     "name": "Tenants",
-    "link": "/tenants",
+    "link": "tenants",
     "active": false
   },
 
   {
     "icon": "ImOffice",
     "name": "Our offices",
-    "link": "/offices",
+    "link": "offices",
     "active": false
   },
 
   {
     "icon": "FaBusinessTime",
     "name": "Market place",
-    "link": "/market",
+    "link": "market",
     "active": false
   },
 
   {
     "icon": "FaReceipt",
     "name": "Receipts",
-    "link": "/receipts",
+    "link": "receipts",
     "active": false
   },
 
   {
     "icon": "RxActivityLog",
     "name": "Activity Logs",
-    "link": "/logs",
+    "link": "logs",
     "active": false
   }
 ]

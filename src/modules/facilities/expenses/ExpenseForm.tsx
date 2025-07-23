@@ -14,7 +14,6 @@ import { setConfirm } from "../../../other/ConfirmSlice";
 import checkRequiredFormFields from "../../../global/validation/checkRequiredFormFields";
 import { setUserAction } from "../../../global/actions/actionSlice";
 import { FormatMoney } from "../../../global/actions/formatMoney";
-import { addNewExpense } from "./expenseSlice";
 import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
 import { UserActivity } from "../../../global/enums/userActivity";
 import { webSocketService } from "../../../webSockets/socketService";
@@ -171,15 +170,15 @@ let ExpenseForm: React.FC<Props> = ({
         })
       );
 
-      dispatch(addNewExpense(result.data));
+      // dispatch(addNewExpense(result.data));
 
       setExpenseData((prev) => ({
         ...prev,
-        description: null,
+        description: "",
         amount: null,
-        currency: null,
-        receiptNumber: null,
-        transactionDate: null,
+        currency: "",
+        receiptNumber: "",
+        transactionDate: "",
       }));
 
       const socketMessage: SocketMessageModel = {
@@ -236,16 +235,18 @@ let ExpenseForm: React.FC<Props> = ({
           <div className="form-group w-full pb-5">
             <label htmlFor="amount" className="text-sm ">
               Amount <span className="text-red-500">*</span>
-              {}
             </label>
             <input
               type="number"
               id="amount"
               placeholder="Add amount"
-              value={expenseData.amount ? expenseData.amount : ""}
+              value={expenseData.amount || ""}
               className="w-full outline-none border-2 border-gray-300 rounded-lg focus:border-blue-200"
               onChange={(e) => {
-                handleChangeFormField(e);
+                setExpenseData((prev) => ({
+                  ...prev,
+                  amount: Number(e.target.value),
+                }));
                 markRequiredFormField(e.target);
               }}
             />
@@ -278,7 +279,7 @@ let ExpenseForm: React.FC<Props> = ({
                 }));
               }}
             >
-              <option value={expenseData.currency ? expenseData.currency : ""}>
+              <option value={expenseData.currency || ""}>
                 {expenseData.currency
                   ? currencyArray.find(
                       (currency) => currency.code === expenseData.currency
@@ -307,7 +308,7 @@ let ExpenseForm: React.FC<Props> = ({
               type="text"
               id="receiptNumber"
               placeholder="Add receipt number"
-              value={expenseData.receiptNumber ? expenseData.receiptNumber : ""}
+              value={expenseData.receiptNumber || ""}
               className="w-full outline-none border-2 border-gray-300 rounded-lg focus:border-blue-200"
               onChange={(e) => {
                 handleChangeFormField(e);
@@ -326,9 +327,7 @@ let ExpenseForm: React.FC<Props> = ({
               type="date"
               id="transactionDate"
               placeholder="Add transaction date"
-              value={
-                expenseData.transactionDate ? expenseData.transactionDate : ""
-              }
+              value={expenseData.transactionDate || ""}
               className="w-full outline-none border-2 border-gray-300 rounded-lg focus:border-blue-200"
               onChange={(e) => {
                 handleChangeFormField(e);

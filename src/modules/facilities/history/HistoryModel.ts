@@ -6,6 +6,7 @@ export interface HistoryModel {
   tenant: TenantModel;
   accommodation: AccommodationModel;
   checkIn?: string;
+  expectedCheckOut?: string | null;
   checkOut?: string;
   status?: string;
 }

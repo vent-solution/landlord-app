@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { UserModel } from "../../users/models/userModel";
 import StaffRow from "./StaffRow";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 
 interface Props {
   manager: UserModel;

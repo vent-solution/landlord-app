@@ -23,6 +23,7 @@ import landlordTenantsReducer from "../modules/tenants/TenantsSlice";
 import otherFacilitiesReducer from "../modules/market/otherFacilitiesSlice";
 import receiptsReducer from "../modules/receipts/receiptsSlice";
 import facilityExpensesReducer from "../modules/facilities/expenses/expenseSlice";
+import viewRightsReducer from "../modules/users/rights/viewRightsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -50,6 +51,7 @@ export const store = configureStore({
     otherFacilities: otherFacilitiesReducer,
     receipts: receiptsReducer,
     facilityExpenses: facilityExpensesReducer,
+    viewRights: viewRightsReducer,
   },
 });
 

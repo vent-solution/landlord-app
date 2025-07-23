@@ -40,6 +40,7 @@ export const fetchFacilityTenants = createAsyncThunk(
       );
 
       if (
+        !result ||
         (result.data.status && result.data.status !== "OK") ||
         result.status !== 200
       ) {
@@ -59,16 +60,25 @@ const facilityTenantsSlice = createSlice({
   name: "facilityTenants",
   initialState,
   reducers: {
-    resetFacilityTenants: {
-      reducer: (state, action: PayloadAction<StateModel>) => {
-        state.facilityTenants = action.payload.facilityTenants;
-        state.page = action.payload.page;
-        state.size = action.payload.size;
-        state.totalElements = action.payload.totalElements;
-        state.totalPages = action.payload.totalPages;
+    addFacilityTenant: {
+      reducer: (state, action: PayloadAction<HistoryModel>) => {
+        state.facilityTenants = [...state.facilityTenants, action.payload];
       },
-      prepare: (tenantsState: StateModel) => {
+      prepare: (tenantsState: HistoryModel) => {
         return { payload: tenantsState };
+      },
+    },
+
+    deleteTenant: {
+      reducer: (state, action: PayloadAction<number[]>) => {
+        state.facilityTenants = state.facilityTenants.filter(
+          (history) =>
+            history.tenant.tenantId !== action.payload[0] &&
+            history.accommodation.accommodationId !== action.payload[1]
+        );
+      },
+      prepare: (IDs: number[]) => {
+        return { payload: IDs };
       },
     },
   },
@@ -109,6 +119,15 @@ export const getHistoryByAccommodationId =
         tenant.status === "checkIn"
     );
 
-export const { resetFacilityTenants } = facilityTenantsSlice.actions;
+export const getHistoryByTenantIdAndAccommodation =
+  (tenantId: number, accommodationId: number) =>
+  (state: { facilityTenants: StateModel }) =>
+    state.facilityTenants.facilityTenants.find(
+      (history) =>
+        Number(history.tenant.tenantId) === tenantId &&
+        Number(history.accommodation.accommodationId) === accommodationId
+    );
+
+export const { addFacilityTenant, deleteTenant } = facilityTenantsSlice.actions;
 
 export default facilityTenantsSlice.reducer;

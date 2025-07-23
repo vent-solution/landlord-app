@@ -431,7 +431,7 @@ const Dashboard: React.FC<Props> = () => {
                     {[...filteredFacilities]
                       .sort((a, b) => Number(b.bidAmount) - Number(a.bidAmount))
                       .map((facility, index) => (
-                        <div className="w-full p-2 lg:p-5 m-auto text-start lg:text-center lg:hover:bg-blue-100">
+                        <div className="w-full px-2 lg:px-5 py-10 lg:py-5 m-auto text-start lg:text-center lg:hover:bg-blue-100">
                           <div
                             key={index}
                             className="py-5 w-full overflow-auto"
@@ -456,7 +456,11 @@ const Dashboard: React.FC<Props> = () => {
                             <h1 className="text-sm">
                               {facility.facilityLocation.city +
                                 " " +
-                                facility.facilityLocation.country}
+                                countriesList.find(
+                                  (country) =>
+                                    country.value ===
+                                    facility.facilityLocation.country
+                                )?.label}
                             </h1>
 
                             <h2 className="text-xs text-gray-600">
@@ -492,7 +496,7 @@ const Dashboard: React.FC<Props> = () => {
                     {filteredOtherFacilities.map((facility, index) => (
                       <div
                         key={index}
-                        className="py-5 w-full overflow-auto lg:hover:bg-blue-100"
+                        className="py-10 lg:py-5 w-full overflow-auto lg:hover:bg-blue-100"
                       >
                         <div className="w-fit m-auto text-start lg:text-center">
                           <span className="font-bold text-xs px-3 py-1 bg-gray-400 text-white rounded-full w-10 h-10">
@@ -514,7 +518,11 @@ const Dashboard: React.FC<Props> = () => {
                           <h1 className="text-sm">
                             {facility.facilityLocation.city +
                               " " +
-                              facility.facilityLocation.country}
+                              countriesList.find(
+                                (country) =>
+                                  country.value ===
+                                  facility.facilityLocation.country
+                              )?.label}
                           </h1>
 
                           <h2 className="text-xs text-gray-600">

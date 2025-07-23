@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PaginationButtons from "../../global/PaginationButtons";
 import FacilityRow from "./FacilityRow";
 import { FacilitiesModel } from "./FacilityModel";
-import EmptyList from "../../global/EnptyList";
+import EmptyList from "../../global/EmptyList";
 import Preloader from "../../other/Preloader";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { UserRoleEnum } from "../../global/enums/userRoleEnum";
-import { UserModel } from "../users/models/userModel";
-import { fetchFacilities } from "./FacilitiesSlice";
 
 interface Props {
   filteredFacilities: FacilitiesModel[];
@@ -28,30 +23,6 @@ const FacilitiesTable: React.FC<Props> = ({
   handleFetchPreviousPage,
   status,
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  // // fetch facilities that belong to the current landlord
-  useEffect(() => {
-    let userId: number;
-    const currentUser: UserModel = JSON.parse(
-      localStorage.getItem("dnap-user") as string
-    );
-
-    if (currentUser?.userRole !== UserRoleEnum.landlord) {
-      userId = Number(currentUser?.linkedTo);
-    } else {
-      userId = Number(currentUser.userId);
-    }
-
-    dispatch(
-      fetchFacilities({
-        userId: Number(userId),
-        page: 0,
-        size: 50,
-      })
-    );
-  }, [dispatch]);
-
   if (status === "loading") return <Preloader />;
 
   return (

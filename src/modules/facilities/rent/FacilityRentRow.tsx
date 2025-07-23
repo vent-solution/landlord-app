@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { RentModel } from "./RentModel";
 import { FormatMoney } from "../../../global/actions/formatMoney";
-import { format, formatDistanceToNow, parseISO } from "date-fns";
 import { PAYMENT_TYPE_DATA } from "../../../global/PreDefinedData/PreDefinedData";
-import convertCurrency from "../../../global/actions/currencyConverter";
-import { useSelector } from "react-redux";
-import { getCurrencyExchange } from "../../../other/apis/CurrencyExchangeSlice";
+import { convertCurrency2 } from "../../../global/actions/currencyConverter";
 
 interface Props {
   rent: RentModel;
   rentIndex: number;
 }
 
-const FacilityRentRow: React.FC<Props> = ({ rent, rentIndex }) => {
-  const currencyState = useSelector(getCurrencyExchange);
-
-  const actualAmount = convertCurrency(
-    currencyState,
-    String(rent.accommodation.facility.preferedCurrency),
-    "usd",
+const FacilityRentRow: React.FC<Props> = ({ rent }) => {
+  const actualAmount = convertCurrency2(
+    String(rent.facilityCurrencyRate),
+    String(rent.dollarRate),
     Number(rent.amount)
   );
 

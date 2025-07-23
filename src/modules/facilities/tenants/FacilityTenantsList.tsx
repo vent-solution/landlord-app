@@ -3,15 +3,11 @@ import { FacilitiesModel } from "../FacilityModel";
 import { FaSearch } from "react-icons/fa";
 import Tenant from "./Tenant";
 import { useDispatch, useSelector } from "react-redux";
-import { getFacilityTenants, resetFacilityTenants } from "./TenantsSlice";
+import { fetchFacilityTenants, getFacilityTenants } from "./TenantsSlice";
 import { HistoryModel } from "../history/HistoryModel";
 import { AppDispatch } from "../../../app/store";
-import axios from "axios";
-import { fetchData } from "../../../global/api";
-import { setAlert } from "../../../other/alertSlice";
-import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
 import PaginationButtons from "../../../global/PaginationButtons";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -81,58 +77,24 @@ const TenantsList: React.FC<Props> = ({
 
   // handle fetch next page
   const handleFetchNextPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-facility-tenants/${Number(facility.facilityId)}/${
-          page + 1
-        }/${size}`
-      );
-
-      if (!result) {
-        dispatch(
-          setAlert({
-            status: true,
-            type: AlertTypeEnum.danger,
-            message: "Error occurred please try again.",
-          })
-        );
-
-        return;
-      }
-
-      dispatch(resetFacilityTenants(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH FACILITY TENANTS CANCELLED ", error.message);
-      }
-      console.error("Error fetching facility tenants: ", error);
-    }
+    dispatch(
+      fetchFacilityTenants({
+        facilityId: Number(facility.facilityId),
+        page: page + 1,
+        size: size,
+      })
+    );
   }, [dispatch, page, size, facility.facilityId]);
 
   // handle fetch previous page
   const handleFetchPreviousPage = useCallback(async () => {
-    try {
-      const result = await fetchData(
-        `/fetch-facility-tenants/${facility.facilityId}/${page - 1}/${size}`
-      );
-      if (!result) {
-        dispatch(
-          setAlert({
-            status: true,
-            type: AlertTypeEnum.danger,
-            message: "Error occurred please try again.",
-          })
-        );
-
-        return;
-      }
-      dispatch(resetFacilityTenants(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH ADMINS CANCELLED ", error.message);
-      }
-      console.error("Error fetching admins: ", error);
-    }
+    dispatch(
+      fetchFacilityTenants({
+        facilityId: Number(facility.facilityId),
+        page: page - 1,
+        size: size,
+      })
+    );
   }, [dispatch, page, size, facility.facilityId]);
 
   return (

@@ -65,21 +65,6 @@ const facilitiesSlice = createSlice({
   name: "facilities",
   initialState,
   reducers: {
-    // resetting facilities
-    resetFacilities: {
-      reducer(state, action: PayloadAction<FacilitiesState>) {
-        state.facilities = action.payload.facilities;
-        state.page = action.payload.page;
-        state.size = action.payload.size;
-        state.totalElements = action.payload.totalElements;
-        state.totalPages = action.payload.totalPages;
-      },
-
-      prepare(facilitiesState: FacilitiesState) {
-        return { payload: facilitiesState };
-      },
-    },
-
     // adding a new facility
     addNewFacility: {
       reducer(state, action: PayloadAction<FacilitiesModel>) {
@@ -136,8 +121,7 @@ const facilitiesSlice = createSlice({
   },
 });
 
-export const { resetFacilities, updateFacility, addNewFacility } =
-  facilitiesSlice.actions;
+export const { updateFacility, addNewFacility } = facilitiesSlice.actions;
 
 export const getFacilities = (state: { facilities: FacilitiesState }) =>
   state.facilities;

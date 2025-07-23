@@ -38,6 +38,11 @@ export const fetchFacilityBookings = createAsyncThunk(
       const result = await fetchData(
         `/fetch-bookings-by-facility/${facilityId}/${page}/${size}`
       );
+
+      if (!result) {
+        return initialState;
+      }
+
       if (
         (result.data.status && result.data.status !== "OK") ||
         result.status !== 200
@@ -57,15 +62,12 @@ const facilityBookingsSlice = createSlice({
   name: "facilityBookings",
   initialState,
   reducers: {
-    resetFacilityBookings: {
-      reducer: (state, action: PayloadAction<StateModel>) => {
-        state.facilityBookings = action.payload.facilityBookings;
-        state.page = action.payload.page;
-        state.size = action.payload.size;
-        state.totalElements = action.payload.totalElements;
-        state.totalPages = action.payload.totalPages;
+    addNewFacilityBooking: {
+      reducer: (state, action: PayloadAction<BookingModel>) => {
+        state.facilityBookings = [action.payload, ...state.facilityBookings];
+        state.totalElements = state.totalElements + 1;
       },
-      prepare: (facilityBookingsState: StateModel) => {
+      prepare: (facilityBookingsState: BookingModel) => {
         return { payload: facilityBookingsState };
       },
     },
@@ -99,6 +101,6 @@ const facilityBookingsSlice = createSlice({
 export const getFacilityBookings = (state: { facilityBookings: StateModel }) =>
   state.facilityBookings;
 
-export const { resetFacilityBookings } = facilityBookingsSlice.actions;
+export const { addNewFacilityBooking } = facilityBookingsSlice.actions;
 
 export default facilityBookingsSlice.reducer;

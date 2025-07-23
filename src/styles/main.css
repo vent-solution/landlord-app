@@ -13,7 +13,7 @@ input,
 select {
   font-size: 15px;
   font-weight: 300;
-  padding: 5px 10px;
+  padding: 10px;
   color: black;
 }
 
@@ -187,4 +187,20 @@ ul li.active {
   width: 100%;
   height: auto;
   border-radius: 4px;
+}
+
+#userRights div section {
+  transition: all 0.5s ease-in-out;
+  height: 0px;
+  overflow: hidden;
+  padding: 0;
+}
+
+#userRights div.active {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+#userRights div.active section {
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 20px 5px;
 }/*# sourceMappingURL=main.css.map */

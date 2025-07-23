@@ -15,7 +15,7 @@ import { ReceiptModel } from "./ReceiptModel";
 import ReceiptDetails from "./ReceiptDetails";
 import { FaDownload } from "react-icons/fa6";
 import ReceiptsFilterForm from "./ReceiptsFilterForm";
-import EmptyList from "../../global/EnptyList";
+import EmptyList from "../../global/EmptyList";
 
 interface Props {}
 const ReceiptsList: React.FC<Props> = () => {

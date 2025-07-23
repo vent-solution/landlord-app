@@ -621,7 +621,8 @@ const AccommodationForm: React.FC<Props> = ({
           )}
 
           {/* payment partern*/}
-          {facility.businessType === businessTypeEnum.rent && (
+          {(facility.businessType === businessTypeEnum.rent ||
+            facility.businessType === businessTypeEnum.hospitality) && (
             <div className="form-group p-2 py-5 w-full lg:w-1/3">
               <label htmlFor="paymentPartten" className="w-full font-bold px-3">
                 payment pattern

@@ -24,7 +24,6 @@ import {
 import RentForm from "../rent/RentForm";
 import { calculateRentExpiry } from "../../../global/actions/calculateRentExpiry";
 import { calculateFutureDate } from "../../receipts/calculateFutureDate";
-import { getAccommodationByIdAndTenant } from "../accommodations/accommodationsSlice";
 import { calculateBalanceDate } from "../../receipts/calculateBalanceDate";
 import { setUserAction } from "../../../global/actions/actionSlice";
 import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
@@ -34,6 +33,10 @@ import { setConfirm } from "../../../other/ConfirmSlice";
 import { SocketMessageModel } from "../../../webSockets/SocketMessageModel";
 import { webSocketService } from "../../../webSockets/socketService";
 import { UserModel } from "../../users/models/userModel";
+import {
+  deleteTenant,
+  getHistoryByTenantIdAndAccommodation,
+} from "./TenantsSlice";
 
 interface Props {
   tenant?: TenantModel;
@@ -66,12 +69,14 @@ const TenantDetails: React.FC<Props> = ({
   const { tenantRent, totalElements, totalPages, page, size, status } =
     tenantRentState;
 
-  const currentAccommodation = useSelector(
-    getAccommodationByIdAndTenant(
+  const history = useSelector(
+    getHistoryByTenantIdAndAccommodation(
       Number(tenant?.tenantId),
       Number(accommodationId)
     )
   );
+
+  const currentAccommodation = history?.accommodation;
 
   // set a list of currency names
   useEffect(() => {
@@ -199,6 +204,7 @@ const TenantDetails: React.FC<Props> = ({
         accommodation={currentAccommodation}
         setShowRentForm={setShowRentForm}
         tenantId={Number(tenant && tenant.tenantId)}
+        tenants={tenant ? [tenant] : []}
       />
     );
 
@@ -418,11 +424,14 @@ const TenantDetails: React.FC<Props> = ({
                             return;
                           }
 
-                          // setTenants(
-                          //   tenants.filter(
-                          //     (tenant) => tenant.tenantId !== tnt.tenantId
-                          //   )
-                          // );
+                          toggleShowTenantDetails();
+
+                          dispatch(
+                            deleteTenant([
+                              Number(tenant?.tenantId),
+                              Number(accommodationId),
+                            ])
+                          );
 
                           dispatch(
                             setAlert({
@@ -468,7 +477,7 @@ const TenantDetails: React.FC<Props> = ({
 
                       dispatch(
                         setConfirm({
-                          message: `Are you sure you want to check out tenant (TNT-${tenant?.tenantId}) from Unit (${tenantRent[0].accommodation?.accommodationNumber}) of facility (FAC-${tenantRent[0].accommodation?.facility.facilityId}) `,
+                          message: `Are you sure you want to check out tenant (TNT-${tenant?.tenantId}) from Unit (${history?.accommodation.accommodationNumber}) of facility (FAC-${history?.accommodation?.facility.facilityId}) `,
                           status: true,
                         })
                       );

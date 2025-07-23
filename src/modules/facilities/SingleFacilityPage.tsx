@@ -175,19 +175,13 @@ const SingleFacilityPage: React.FC = () => {
       </div>
       <div className="right lg:w-4/5 w-full z-0 mt-20 lg:mt-0 px-0">
         <div className="w-full px-3 flex py-0 flex-wrap justify-center items-start bg-white shadow-lg">
-          {/* <div className="w-full px-3 flex py-0 flex-wrap justify-center items-start bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 "> */}
-          <div className="w-full lg:w-full py-2 lg:pb-0 flex justify-between lg:px-10 ">
-            <button
-              className="bg-blue-900 hover:bg-blue-800 text-sm text-white lg:flex items-center p-1 px-3 hidden "
-              onClick={() => navigate("/facilities")}
-            >
-              <IoMdArrowRoundBack />
+          <div className="w-full py-2 lg:pb-0 lg:px-10 flex-col lg:flex-row lg:flex lg:items-center justify-between">
+            <button className="bg-blue-900 hover:bg-blue-800 text-sm text-white lg:flex items-center p-1 px-3 hidden ">
               Back
             </button>
-
             {facility.facilityName && (
-              <h2 className="text-xl font-bold">
-                {"FAC-" + facility.facilityId + ", " + facility.facilityName}
+              <h2 className="text-xl font-bold truncate mt-2 lg:mt-0">
+                {`FAC-${facility.facilityId} ${facility.facilityName}`}
               </h2>
             )}
           </div>
@@ -232,20 +226,20 @@ const SingleFacilityPage: React.FC = () => {
                 </li>
               )}
 
-            {facility.businessType === businessTypeEnum.saleCondominium ||
+            {(facility.businessType === businessTypeEnum.sale ||
               facility.businessType === businessTypeEnum.saleCondominium ||
-              (facility.businessType === businessTypeEnum.hospitality && (
-                <li
-                  id="Rent"
-                  className="p-2  px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
-                  onClick={(e: React.MouseEvent<HTMLLIElement>) =>
-                    selectSection(e.currentTarget)
-                  }
-                >
-                  <MdOutlinePayments className="text-xl" />
-                  <span className="w-full text-center">Payments</span>
-                </li>
-              ))}
+              facility.businessType === businessTypeEnum.hospitality) && (
+              <li
+                id="Rent"
+                className="p-2  px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                onClick={(e: React.MouseEvent<HTMLLIElement>) =>
+                  selectSection(e.currentTarget)
+                }
+              >
+                <MdOutlinePayments className="text-xl" />
+                <span className="w-full text-center">Payments</span>
+              </li>
+            )}
 
             {facility.businessType !== businessTypeEnum.sale && (
               <li
@@ -309,16 +303,19 @@ const SingleFacilityPage: React.FC = () => {
                 </li>
               )}
 
-            <li
-              id="Histories"
-              className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
-              onClick={(e: React.MouseEvent<HTMLLIElement>) =>
-                selectSection(e.currentTarget)
-              }
-            >
-              <FaHistory className="text-xl" />
-              <span className="w-full text-center">History</span>
-            </li>
+            {facility.businessType !== businessTypeEnum.sale &&
+              facility.businessType !== businessTypeEnum.rentWhole && (
+                <li
+                  id="Histories"
+                  className="p-2 px-1 lg:px-2 lg:py-3 mt-2  border-b-2 hover:border-b-2 hover:border-red-600 cursor-pointer flex flex-wrap justify-center items-center"
+                  onClick={(e: React.MouseEvent<HTMLLIElement>) =>
+                    selectSection(e.currentTarget)
+                  }
+                >
+                  <FaHistory className="text-xl" />
+                  <span className="w-full text-center">History</span>
+                </li>
+              )}
 
             <li
               id="Expenses"

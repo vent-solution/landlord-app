@@ -1,10 +1,8 @@
-import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 import { AppDispatch } from "../../app/store";
-import { fetchData } from "../../global/api";
 
 import { FacilitiesModel } from "./FacilityModel";
-import { getFacilities, resetFacilities } from "./FacilitiesSlice";
+import { fetchFacilities, getFacilities } from "./FacilitiesSlice";
 import { FaSearch } from "react-icons/fa";
 import FacilitiesTable from "./FacilitiesTable";
 import FacilityForm from "./FacilityForm";
@@ -32,8 +30,8 @@ const Facilities: React.FC<Props> = () => {
   const { facilities, page, size, totalElements, totalPages, status } =
     facilitiesState;
 
-  // toggel Is Add Facility
-  const toggelIsAddFacility = () => {
+  // toggle Is Add Facility
+  const toggleIsAddFacility = () => {
     return setIsAddFacility(!isAddFacility);
   };
 
@@ -94,19 +92,9 @@ const Facilities: React.FC<Props> = () => {
       userId = Number(currentUser.userId);
     }
 
-    try {
-      const result = await fetchData(
-        `/fetch-facilities-by-landlord/${userId}/${page + 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetFacilities(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH BIDS CANCELLED ", error.message);
-      }
-      console.error("Error fetching admins: ", error);
-    }
+    dispatch(
+      fetchFacilities({ userId: Number(userId), page: page + 1, size: size })
+    );
   }, [dispatch, page, size]);
 
   // handle fetch previous page
@@ -118,19 +106,9 @@ const Facilities: React.FC<Props> = () => {
     } else {
       userId = Number(currentUser.userId);
     }
-    try {
-      const result = await fetchData(
-        `/fetch-facilities-by-landlord/${userId}/${page - 1}/${size}`
-      );
-      if (result.data.status && result.data.status !== "OK") {
-      }
-      dispatch(resetFacilities(result.data));
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        console.log("FETCH ADMINS CANCELLED ", error.message);
-      }
-      console.error("Error fetching admins: ", error);
-    }
+    dispatch(
+      fetchFacilities({ userId: Number(userId), page: page - 1, size: size })
+    );
   }, [dispatch, page, size]);
 
   return (
@@ -143,7 +121,7 @@ const Facilities: React.FC<Props> = () => {
                 <div className="w-full lg:w-2/3 lx-3 lg:px-10 flex flex-wrap justify-between lg:justify-between items-center">
                   <h1
                     className="transition-all ease-in-out delay-100 text-lg py-1 px-2 lg:px-5 border-2 border-blue-600 text-blue-600 hover:text-white cursor-pointer lg:hover:bg-blue-600 rounded-lg active:scale-95 flex justify-around items-center  m-2 lg:m-0"
-                    onClick={toggelIsAddFacility}
+                    onClick={toggleIsAddFacility}
                   >
                     <span className="pr-2">
                       <FaPlus />
@@ -186,7 +164,7 @@ const Facilities: React.FC<Props> = () => {
               status={status}
             />
           ) : (
-            <FacilityForm toggelIsAddFacility={toggelIsAddFacility} />
+            <FacilityForm toggelIsAddFacility={toggleIsAddFacility} />
           )}
         </div>
       </div>

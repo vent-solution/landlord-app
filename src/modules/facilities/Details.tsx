@@ -406,7 +406,9 @@ let Details: React.FC<Props> = ({ facility }) => {
           </button> */}
           </div>
           <div className="w-full py-5">
-            <p className="text-sm">{facility.description}</p>
+            {facility.description && facility.description !== "null" && (
+              <p className="text-sm">{facility.description}</p>
+            )}
           </div>
           <div className="flex flex-wrap justify-between items-start">
             <div className="w-full lg:w-1/3">
@@ -661,7 +663,7 @@ let Details: React.FC<Props> = ({ facility }) => {
                 <p className="flex justify-between text-center text-sm bg-black px-5 border-b-2 border-gray-300 text-blue-200 sticky top-0">
                   <b className="w-fit"></b>
                   <span className="w-1/2 flex justify-between text-center text-sm text-cyan-100 py-5">
-                    <span className="text-center w-1/3">Availble</span>
+                    {/* <span className="text-center w-1/3">Availble</span> */}
                     <span className="text-center w-1/3">Free</span>
                     <span className="text-center w-1/3">Paid</span>
                   </span>

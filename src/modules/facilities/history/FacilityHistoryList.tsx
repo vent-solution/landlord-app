@@ -16,7 +16,7 @@ import axios from "axios";
 import { fetchData } from "../../../global/api";
 import { FaDownload } from "react-icons/fa6";
 import HistoryFilterForm from "./HistoryFilterForm";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 
 interface Props {
   facility: FacilitiesModel;

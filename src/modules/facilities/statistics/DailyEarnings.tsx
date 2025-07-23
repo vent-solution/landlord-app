@@ -38,14 +38,12 @@ let DailyEarnings: React.FC<Props> = ({ currency, facilityId }) => {
   const updateDailyEarnings = useCallback(
     ({ day, rentAmount }: { day: number; rentAmount: number }) => {
       setDailyData((prevData) =>
-        prevData.map((data) => {
-          return yearMonth && data.day === day
-            ? { ...data, rentAmount: rentAmount + data.rentAmount }
-            : data;
-        })
+        prevData.map((data) =>
+          data.day === day ? { ...data, rentAmount } : data
+        )
       );
     },
-    [yearMonth]
+    []
   );
 
   // fetch daily bid amount

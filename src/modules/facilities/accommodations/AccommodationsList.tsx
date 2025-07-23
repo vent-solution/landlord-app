@@ -22,7 +22,7 @@ import { setAlert } from "../../../other/alertSlice";
 import { UserModel } from "../../users/models/userModel";
 import { setUserAction } from "../../../global/actions/actionSlice";
 import { setConfirm } from "../../../other/ConfirmSlice";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 
 interface Props {
   facility: FacilitiesModel;
@@ -325,10 +325,10 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                     <th className="p-2 font-bold text-start">Number</th>
                     <th className="p-2 font-bold text-start">Floor</th>
                     <th className="p-2 font-bold text-start">Type</th>
+                    <th className="p-2 font-bold text-start">Category</th>
                     <th className="p-2 font-bold text-start">Capacity</th>
                     <th className="p-2 font-bold text-start">Price</th>
                     <th className="p-2 font-bold text-start">Status</th>
-                    {/* <th className="p-2 font-bold text-start">Tenants</th> */}
                     <th className="p-2 font-bold text-start">Created</th>
                     <th className="p-2 font-bold text-start">Updated</th>
                   </tr>
@@ -339,7 +339,6 @@ const Accommodations: React.FC<Props> = ({ facility }) => {
                       <Accommodation
                         key={index}
                         accommodation={accommodation}
-                        accommodationIndex={index}
                         facility={facility}
                         onClick={() => {
                           setCurrentAccommodation(accommodation);

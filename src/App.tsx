@@ -12,7 +12,6 @@ import SingleFacilityPage from "./modules/facilities/SingleFacilityPage";
 import SingleUserPage from "./modules/users/SingleUserPage";
 import TenantsPage from "./modules/tenants/TenantsPage";
 import { useEffect, useState } from "react";
-import { fetchUsers } from "./modules/users/usersSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./app/store";
 import { UserModel } from "./modules/users/models/userModel";
@@ -26,6 +25,7 @@ import { facilitiesTopicSubscription } from "./webSockets/subscriptionTopics/fac
 import { accommodationsTopicSubscription } from "./webSockets/subscriptionTopics/accommodationsTopicSubscription";
 import { getUserLocation } from "./global/api";
 import LandingPage from "./modules/LandingPage";
+import { fetchUsers } from "./modules/users/usersSlice";
 
 const currentUser: UserModel = JSON.parse(
   localStorage.getItem("dnap-user") as string
@@ -55,6 +55,31 @@ function App() {
   useEffect(() => {
     getUserLocation();
   }, []);
+
+  // fetch facilities that belong to the current landlord
+  useEffect(() => {
+    let userId: number;
+    const currentUser: UserModel = JSON.parse(
+      localStorage.getItem("dnap-user") as string
+    );
+
+    if (currentUser?.userRole !== UserRoleEnum.landlord) {
+      userId = Number(currentUser?.linkedTo);
+    } else {
+      userId = Number(currentUser.userId);
+    }
+
+    dispatch(
+      fetchFacilities({
+        userId: Number(userId),
+        page: 0,
+        size: 50,
+      })
+    );
+
+    // fetch all the landlord users
+    dispatch(fetchUsers({ userId: Number(userId), page: 0, size: 10 }));
+  }, [dispatch]);
 
   return (
     <Routes>

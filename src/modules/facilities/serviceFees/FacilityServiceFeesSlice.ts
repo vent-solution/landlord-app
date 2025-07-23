@@ -40,6 +40,7 @@ export const fetchFacilityServiceFees = createAsyncThunk(
       );
 
       if (
+        !result ||
         (result.data.status && result.data.status !== "OK") ||
         result.status !== 200
       ) {

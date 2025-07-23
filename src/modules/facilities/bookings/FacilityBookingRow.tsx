@@ -72,7 +72,12 @@ let FacilityBookingRow: React.FC<Props> = ({ booking }) => {
             ?.label
         }
       </td>
-      <td className="px-2">{booking.checkIn}</td>
+      <td className="px-2">
+        {parseISO(String(booking.checkIn)).toDateString()}
+      </td>
+      <td className="px-2">
+        {parseISO(String(booking.checkOut)).toDateString()}
+      </td>
       <td className="px-2">{created}</td>
     </tr>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { placeholderCSS } from "react-select/dist/declarations/src/components/Placeholder";
+import markRequiredFormField from "./validation/markRequiredFormField";
 
 interface Option {
   label: string;
@@ -9,11 +10,10 @@ interface Option {
 interface SearchableSelectProps {
   options: Option[];
   onChange: (selectedOption: Option) => void;
-
   id: string;
   name: string;
-
   placeholder: string;
+  label: string;
 }
 
 const SearchableSelect: React.FC<SearchableSelectProps> = ({
@@ -22,6 +22,7 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   id,
   name,
   placeholder,
+  label,
 }) => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -40,17 +41,24 @@ const SearchableSelect: React.FC<SearchableSelectProps> = ({
   };
 
   return (
-    <div className="relative">
+    <div className="form-group w-full py-5 relative">
+      <label htmlFor={id} className="font-bold">
+        {label} <span className="text-red-500">*</span>
+      </label>
       <input
         type="text"
         id={id}
         name={name}
         value={search}
-        onChange={handleSearchChange}
+        onChange={(e) => {
+          markRequiredFormField(e.target);
+          handleSearchChange(e);
+        }}
         onFocus={() => setIsOpen(!isOpen)}
         placeholder={placeholder}
-        className="w-full p-2 border"
+        className="p-2 w-full outline-none border-2 border-gray-300 rounded-lg focus:border-blue-200"
       />
+      <small className="w-full text-red-500">Payment method is required!</small>
       {isOpen && filteredOptions.length > 0 && (
         <ul className="absolute w-full border bg-white shadow-lg max-h-60 overflow-y-auto mt-1">
           {filteredOptions.map((option) => (

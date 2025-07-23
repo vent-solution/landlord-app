@@ -209,6 +209,7 @@ const TenantDetails: React.FC<Props> = ({
         accommodation={accommodation}
         setShowRentForm={setShowRentForm}
         tenantId={Number(tenant && tenant.tenantId)}
+        tenants={tenant ? [tenant] : []}
       />
     );
 

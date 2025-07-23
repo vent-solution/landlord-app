@@ -10,7 +10,7 @@ import { fetchData } from "../../global/api";
 import { AppDispatch } from "../../app/store";
 import { getFacilities } from "../facilities/FacilitiesSlice";
 import TenantsFilterForm from "./TenantsFilterForm";
-import EmptyList from "../../global/EnptyList";
+import EmptyList from "../../global/EmptyList";
 
 interface Props {
   // facility: FacilitiesModel;

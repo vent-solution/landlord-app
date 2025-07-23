@@ -18,7 +18,7 @@ import { ExpenseModel } from "./expenseModel";
 import Expense from "./Expense";
 import ExpensesFilterForm from "./ExpensesFilterForm";
 import ExpenseForm from "./ExpenseForm";
-import EmptyList from "../../../global/EnptyList";
+import EmptyList from "../../../global/EmptyList";
 import { FacilitiesModel } from "../FacilityModel";
 
 interface Props {

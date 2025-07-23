@@ -1,62 +1,48 @@
 import React from "react";
-import { TenantCreationModel, TenantModel } from "./TenantModel";
 import axios from "axios";
-import { postData } from "../../global/api";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { setAlert } from "../../other/alertSlice";
-import { AlertTypeEnum } from "../../global/enums/alertTypeEnum";
-import { NATIONAL_ID_TYPE } from "../../global/PreDefinedData/PreDefinedData";
-import { useLocation, useParams } from "react-router-dom";
-import checkRequiredFormFields from "../../global/validation/checkRequiredFormFields";
-import markRequiredFormField from "../../global/validation/markRequiredFormField";
+import { AppDispatch } from "../../../app/store";
+import { postData } from "../../../global/api";
+import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
+import { NATIONAL_ID_TYPE } from "../../../global/PreDefinedData/PreDefinedData";
+import { setAlert } from "../../../other/alertSlice";
+import { TenantCreationModel } from "../../tenants/TenantModel";
+import checkRequiredFormFields from "../../../global/validation/checkRequiredFormFields";
+import { BookingCreationModel } from "./BookingModel";
 
 interface Props {
   tenant: TenantCreationModel;
   setTenant: React.Dispatch<React.SetStateAction<TenantCreationModel>>;
+  setBookingData: React.Dispatch<React.SetStateAction<BookingCreationModel>>;
+  setIsNewTenant: React.Dispatch<React.SetStateAction<boolean>>;
   setIsShowTenantDetailsForm: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsCheckInNewTenant: React.Dispatch<React.SetStateAction<boolean>>;
-  setTenantData: React.Dispatch<
-    React.SetStateAction<{
-      facilityId: number;
-      accommodationId: number;
-      tenantId: number;
-      unitNumber: string;
-      expectedCheckIn: string | null;
-    }>
-  >;
 }
 
 const TenantDetailsForm: React.FC<Props> = ({
   tenant,
   setTenant,
-  setTenantData,
+  setBookingData,
+  setIsNewTenant,
   setIsShowTenantDetailsForm,
-  setIsCheckInNewTenant,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   // check if can save tenant details
   const canSaveTenant =
-    tenant.nationalId &&
     tenant.idType &&
-    tenant.nextOfKin?.nokTelephone &&
-    tenant.nextOfKin.nokName;
+    tenant.nationalId &&
+    tenant.nextOfKin?.nokName &&
+    tenant.nextOfKin.nokTelephone;
 
   // handle change text field values
   const handleChangeTextFieldValues = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { id, value } = e.target;
-    setTenant((prev) => ({ ...prev, [id]: value }));
-  };
+    const { id, value, type } = e.target;
 
-  // handle change select field values
-  const handleChangeSelectFieldValues = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { id, value } = e.target;
-    setTenant((prev) => ({ ...prev, [id]: value }));
+    type === "number"
+      ? setTenant((prev) => ({ ...prev, [id]: Number(value) }))
+      : setTenant((prev) => ({ ...prev, [id]: value }));
   };
 
   // save user details
@@ -90,7 +76,6 @@ const TenantDetailsForm: React.FC<Props> = ({
             message: "Internal server error!",
           })
         );
-        return;
       }
 
       if (result.data.status && result.data.status !== "OK") {
@@ -105,25 +90,28 @@ const TenantDetailsForm: React.FC<Props> = ({
         return;
       }
 
-      setTenantData((prev) => ({
+      setBookingData((prev) => ({
         ...prev,
-        tenantId: Number(result.data.tenantId),
+        tenant: { ...tenant, tenantId: result.data.tenantId },
       }));
 
+      setIsNewTenant(false);
       setIsShowTenantDetailsForm(false);
-      setIsCheckInNewTenant(false);
     } catch (error) {
       if (axios.isCancel(error)) {
-        console.log("SAVE USER CANCELLED: ", error.message);
+        console.log("SAVE USER CANCELLED: ");
       }
     }
   };
 
   return (
     <form
-      className="py-5 text-lg lg:text-sm lg:px-10 w-full lg:w-2/3 border shadow-lg"
+      className="py-5 text-lg lg:text-sm px-5 lg:px-10 w-full lg:w-2/3 shadow-lg bg-gray-100"
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
     >
+      {JSON.stringify(tenant)}
+      <h1 className="w-full text-xl font-bold py-5">Complete tenant profile</h1>
+
       <div className="flex flex-wrap justify-between w-full">
         {/* company name form input field */}
         <div className="form-group w-full p-5  ">
@@ -148,28 +136,22 @@ const TenantDetailsForm: React.FC<Props> = ({
           <input
             type="text"
             id="nationalId"
-            placeholder="Enter national ID number"
+            placeholder="Enter ID number"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
-            onChange={(e) => {
-              handleChangeTextFieldValues(e);
-              markRequiredFormField(e.target);
-            }}
+            onChange={handleChangeTextFieldValues}
           />
           <small className="w-full text-red-500">ID number is required!</small>
         </div>
 
         {/* national ID type form input field */}
         <div className="form-group w-full lg:w-1/2 p-5  ">
-          <label htmlFor="idType" className="w-full font-bold">
+          <label htmlFor="nationalId" className="w-full font-bold">
             ID type <span className="text-red-600">*</span>
           </label>
           <select
             id="idType"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
-            onChange={(e) => {
-              handleChangeSelectFieldValues(e);
-              markRequiredFormField(e.target);
-            }}
+            onChange={handleChangeTextFieldValues}
           >
             <option value={""}>SELECT ID TYPE</option>
             {NATIONAL_ID_TYPE.map((type, index) => (
@@ -194,13 +176,12 @@ const TenantDetailsForm: React.FC<Props> = ({
             id="fullName"
             placeholder="Enter next of kin full name"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
-            onChange={(e) => {
-              markRequiredFormField(e.target);
+            onChange={(e) =>
               setTenant((prev) => ({
                 ...prev,
                 nextOfKin: { ...prev.nextOfKin, nokName: e.target.value },
-              }));
-            }}
+              }))
+            }
           />
           <small className="w-full text-red-500">
             Next of kin full name is required!
@@ -210,7 +191,7 @@ const TenantDetailsForm: React.FC<Props> = ({
         {/* next of kin email form input field */}
         <div className="form-group w-full lg:w-1/2 p-5  ">
           <label htmlFor="nokEmail" className="w-full font-bold">
-            Email <span className="text-red-600">(optional)</span>
+            Email <span className="text-red-600">(Optional)</span>
           </label>
           <input
             type="text"
@@ -230,7 +211,7 @@ const TenantDetailsForm: React.FC<Props> = ({
         {/* next of kin telephone form input field */}
         <div className="form-group w-full lg:w-1/2 p-5  ">
           <label htmlFor="nokTelephone" className="w-full font-bold">
-            Telephone (include country code eg. +1...){" "}
+            Telephone (include country code eg. +34554){" "}
             <span className="text-red-600">*</span>
           </label>
           <input
@@ -238,16 +219,15 @@ const TenantDetailsForm: React.FC<Props> = ({
             id="nokTelephone"
             placeholder="Enter telephone (+158344)"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
-            onChange={(e) => {
-              markRequiredFormField(e.target);
+            onChange={(e) =>
               setTenant((prev) => ({
                 ...prev,
                 nextOfKin: { ...prev.nextOfKin, nokTelephone: e.target.value },
-              }));
-            }}
+              }))
+            }
           />
           <small className="w-full text-red-500">
-            Telephone number is required!
+            Next of kin telephone number is required!
           </small>
         </div>
 

@@ -1,38 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { TenantCreationModel } from "./TenantModel";
-import { UserRoleEnum } from "../../global/enums/userRoleEnum";
-import { UserModel } from "../users/models/userModel";
-import { GENDER_DATA } from "../../global/PreDefinedData/PreDefinedData";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
-import { postData } from "../../global/api";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../app/store";
-import { setAlert } from "../../other/alertSlice";
-import { AlertTypeEnum } from "../../global/enums/alertTypeEnum";
-import TenantDetailsForm from "./TenantDetailsForm";
-import checkRequiredFormFields from "../../global/validation/checkRequiredFormFields";
-import { RxCross2 } from "react-icons/rx";
-import markRequiredFormField from "../../global/validation/markRequiredFormField";
+import { AppDispatch } from "../../../app/store";
+import { postData } from "../../../global/api";
+import { AlertTypeEnum } from "../../../global/enums/alertTypeEnum";
+import { UserRoleEnum } from "../../../global/enums/userRoleEnum";
+import { GENDER_DATA } from "../../../global/PreDefinedData/PreDefinedData";
+import { setAlert } from "../../../other/alertSlice";
+import { TenantCreationModel } from "../../tenants/TenantModel";
+import { UserModel } from "../../users/models/userModel";
+import NewTenantDetailsForm from "./NewTenantDetailsForm";
+import { RxCross1 } from "react-icons/rx";
+import checkRequiredFormFields from "../../../global/validation/checkRequiredFormFields";
+import markRequiredFormField from "../../../global/validation/markRequiredFormField";
+import { BookingCreationModel } from "./BookingModel";
 
 interface Props {
-  setTenantData: React.Dispatch<
-    React.SetStateAction<{
-      facilityId: number;
-      accommodationId: number;
-      tenantId: number;
-      unitNumber: string;
-      expectedCheckIn: string | null;
-    }>
-  >;
-
-  setIsCheckInNewTenant: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNewTenant: React.Dispatch<React.SetStateAction<boolean>>;
+  setBookingData: React.Dispatch<React.SetStateAction<BookingCreationModel>>;
 }
 
-const TenantForm: React.FC<Props> = ({
-  setIsCheckInNewTenant,
-  setTenantData,
-}) => {
+let NewTenantForm: React.FC<Props> = ({ setIsNewTenant, setBookingData }) => {
   const [user, setUser] = useState<UserModel>({
     firstName: "",
     lastName: "",
@@ -93,20 +82,17 @@ const TenantForm: React.FC<Props> = ({
 
   // handle change text field values
   const handleChangeTextFieldValues = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { id, value } = e.target;
-    setUser((prev) => ({ ...prev, [id]: value }));
-    // setTenant((prev) => ({ ...prev, [id]: value }));
-  };
+    const { id, value, type } = e.target;
 
-  // handle change select field values
-  const handleChangeSelectFieldValues = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { id, value } = e.target;
-    setUser((prev) => ({ ...prev, [id]: value }));
-    // setTenant((prev) => ({ ...prev, [id]: value }));
+    type === "number"
+      ? setUser((prev) => ({ ...prev, [id]: Number(value) }))
+      : setUser((prev) => ({ ...prev, [id]: value }));
+
+    type === "number"
+      ? setTenant((prev) => ({ ...prev, [id]: Number(value) }))
+      : setTenant((prev) => ({ ...prev, [id]: value }));
   };
 
   // toggle show and hide password
@@ -116,15 +102,19 @@ const TenantForm: React.FC<Props> = ({
 
   // save user details
   const handleSaveUserDetails = async () => {
-    // check if all the required fiels are filled
+    // check if all the required fields are filled
     if (!canSaveUser) {
       checkRequiredFormFields([
         document.getElementById("firstName") as HTMLInputElement,
         document.getElementById("lastName") as HTMLInputElement,
-        document.getElementById("gender") as HTMLInputElement,
         document.getElementById("userTelephone") as HTMLInputElement,
         document.getElementById("userPassword") as HTMLInputElement,
       ]);
+
+      checkRequiredFormFields([
+        document.getElementById("gender") as HTMLSelectElement,
+      ]);
+
       dispatch(
         setAlert({
           status: true,
@@ -156,38 +146,37 @@ const TenantForm: React.FC<Props> = ({
       setIsShowTenantDetailsForm(true);
     } catch (error) {
       if (axios.isCancel(error)) {
-        console.log("SAVE USER CANCELLED: ");
+        console.log("SAVE USER CANCELLED: ", error.message);
       }
     }
   };
 
   if (isShowTenantDetailsForm)
     return (
-      <TenantDetailsForm
+      <NewTenantDetailsForm
         setTenant={setTenant}
         tenant={tenant}
+        setBookingData={setBookingData}
+        setIsNewTenant={setIsNewTenant}
         setIsShowTenantDetailsForm={setIsShowTenantDetailsForm}
-        setIsCheckInNewTenant={setIsCheckInNewTenant}
-        setTenantData={setTenantData}
       />
     );
 
   return (
     <form
-      className="py-5 text-lg lg:text-sm lg:px-10 w-full lg:w-2/3 border shadow-lg"
+      className="py-5 text-lg lg:text-sm px-5 lg:px-10 w-full lg:w-2/3 bg-gray-100"
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
     >
-      <div className="w-full flex justify-between items-center text-3xl p-2">
-        <p className="">Add new tenant</p>
+      <h1 className="w-full text-start flex justify-between py-5">
+        <span className="text-xl lg:text-3xl font-bold ">Add new tenant</span>
         <span
-          className="lg:hover:bg-red-600 lg:hover:text-white p-1 cursor-pointer"
-          onClick={() => {
-            setIsCheckInNewTenant(false);
-          }}
+          className="text-xl cursor-pointer p-2 lg:hover:bg-red-500 lg:hover:text-white"
+          onClick={() => setIsNewTenant(false)}
         >
-          <RxCross2 />
+          <RxCross1 />
         </span>
-      </div>
+      </h1>
+
       <div className="flex flex-wrap justify-between w-full">
         {/* first name form field */}
         <div className="form-group w-full lg:w-1/2 p-5">
@@ -200,8 +189,8 @@ const TenantForm: React.FC<Props> = ({
             placeholder="Enter first name"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
             onChange={(e) => {
-              handleChangeTextFieldValues(e);
               markRequiredFormField(e.target);
+              handleChangeTextFieldValues(e);
             }}
           />
           <small className="w-full text-red-500">First name is required!</small>
@@ -219,8 +208,8 @@ const TenantForm: React.FC<Props> = ({
             placeholder="Enter last name"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
             onChange={(e) => {
-              handleChangeTextFieldValues(e);
               markRequiredFormField(e.target);
+              handleChangeTextFieldValues(e);
             }}
           />
           <small className="w-full text-red-500">Last name is required!</small>
@@ -250,8 +239,8 @@ const TenantForm: React.FC<Props> = ({
             id="gender"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
             onChange={(e) => {
-              handleChangeSelectFieldValues(e);
               markRequiredFormField(e.target);
+              handleChangeTextFieldValues(e);
             }}
           >
             <option value="">SELECT GENDER</option>
@@ -276,8 +265,8 @@ const TenantForm: React.FC<Props> = ({
             placeholder="Enter telephone (+158344)"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
             onChange={(e) => {
-              handleChangeTextFieldValues(e);
               markRequiredFormField(e.target);
+              handleChangeTextFieldValues(e);
             }}
           />
           <small className="w-full text-red-500">Telephone is required!</small>
@@ -309,14 +298,14 @@ const TenantForm: React.FC<Props> = ({
             placeholder="Enter user password"
             className="w-full outline-none border border-gray-400 rounded-lg focus:border-blue-400"
             onChange={(e) => {
-              handleChangeTextFieldValues(e);
               markRequiredFormField(e.target);
+              handleChangeTextFieldValues(e);
             }}
           />
           <small className="w-full text-red-500">Password is required!</small>
 
           <div
-            className="password-show-hide text-2xl absolute top-14 lg:top-12 right-8  hover:text-blue-700 cursor-pointer"
+            className="password-show-hide text-2xl absolute top-1/2 right-8  hover:text-blue-700 cursor-pointer"
             onClick={toggleShowAndHidePassword}
           >
             {isShowPassword ? <FaEye /> : <FaEyeSlash />}
@@ -338,4 +327,5 @@ const TenantForm: React.FC<Props> = ({
   );
 };
 
-export default TenantForm;
+NewTenantForm = React.memo(NewTenantForm);
+export default NewTenantForm;

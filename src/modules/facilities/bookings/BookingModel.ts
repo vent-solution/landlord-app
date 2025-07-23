@@ -25,4 +25,5 @@ export interface BookingCreationModel {
   transactionDate: string;
   transactionStatus: string;
   accommodation: { accommodationId: number | null };
+  tenant: { tenantId: number | null };
 }

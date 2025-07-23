@@ -49,7 +49,6 @@ export const fetchUsers = createAsyncThunk(
       );
 
       if (!result) {
-        console.log("ERROR OCCURRED IN THE FETCH LANDLORD USERS SLICE.");
         return initialState;
       }
 
